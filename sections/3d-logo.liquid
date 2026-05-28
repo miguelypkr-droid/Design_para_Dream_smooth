@@ -172,6 +172,12 @@
 
       /* Ocultar barra de envíos al hacer scroll */
       var shippingBar = document.querySelector('.l3d-shipping-bar');
+      function reposMenu() {
+        var menu = document.querySelector('.l3d-mobile-menu');
+        if (menu && menu.classList.contains('l3d-mob-open')) {
+          menu.style.top = el.offsetHeight + 'px';
+        }
+      }
       window.addEventListener('scroll', function () {
         if (!shippingBar) return;
         if (window.scrollY > 40) {
@@ -180,7 +186,15 @@
           shippingBar.classList.remove('l3d-bar-hidden');
         }
         applyOffset();
+        reposMenu();
       }, { passive: true });
+      /* Recalcular al terminar la transición de la barra — esto elimina el espacio vacío */
+      if (shippingBar) {
+        shippingBar.addEventListener('transitionend', function () {
+          applyOffset();
+          reposMenu();
+        });
+      }
     }
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', removeTopSpace);
