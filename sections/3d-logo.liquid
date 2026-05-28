@@ -1,6 +1,7 @@
 ﻿<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 
-<div class="logo3d-box">
+<!-- Caja 1: Logo 3D -->
+<div style="width:100%; background:#000000; display:flex; justify-content:center; align-items:center; padding:1.5rem 0; box-sizing:border-box;">
   <model-viewer
     src="https://cdn.shopify.com/3d/models/o/d49653b2167972d2/Dreamsmoothlogo.glb"
     auto-rotate
@@ -8,56 +9,16 @@
     camera-controls
     disable-zoom
     interaction-prompt="none"
+    style="width:140px; height:140px; background:transparent; display:block;"
   ></model-viewer>
 </div>
 
-<nav class="logo3d-nav">
-  <a href="{{ section.settings.link_1_url }}">{{ section.settings.link_1_label }}</a>
-  <a href="{{ section.settings.link_2_url }}">{{ section.settings.link_2_label }}</a>
-  <a href="{{ section.settings.link_3_url }}">{{ section.settings.link_3_label }}</a>
-</nav>
-
-<style>
-  .logo3d-box {
-    width: 100%;
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 0;
-  }
-
-  .logo3d-box model-viewer {
-    width: 120px;
-    height: 120px;
-    background: transparent;
-    display: block;
-  }
-
-  .logo3d-nav {
-    width: 100%;
-    background: {{ section.settings.nav_bg }};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 3rem;
-    padding: 0.85rem 2rem;
-  }
-
-  .logo3d-nav a {
-    color: {{ section.settings.nav_color }};
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition: opacity 0.2s;
-  }
-
-  .logo3d-nav a:hover {
-    opacity: 0.55;
-  }
-</style>
+<!-- Caja 2: Barra de navegación -->
+<div style="width:100%; background:{{ section.settings.nav_bg }}; display:flex; justify-content:center; align-items:center; gap:3rem; padding:0.9rem 2rem; box-sizing:border-box;">
+  <a href="{{ section.settings.link_1_url }}" style="color:{{ section.settings.nav_color }}; text-decoration:none; font-size:0.85rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase;">{{ section.settings.link_1_label }}</a>
+  <a href="{{ section.settings.link_2_url }}" style="color:{{ section.settings.nav_color }}; text-decoration:none; font-size:0.85rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase;">{{ section.settings.link_2_label }}</a>
+  <a href="{{ section.settings.link_3_url }}" style="color:{{ section.settings.nav_color }}; text-decoration:none; font-size:0.85rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase;">{{ section.settings.link_3_label }}</a>
+</div>
 
 {% schema %}
 {
