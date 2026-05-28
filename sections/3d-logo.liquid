@@ -19,11 +19,39 @@
     interaction-prompt="none"
     style="width:180px; height:180px; background:transparent; display:block;"
   ></model-viewer>
-  <!-- Telarañas y arañas -->
-  <div class="l3d-web-left"></div>
-  <div class="l3d-web-bottom-right"></div>
-  <div class="l3d-spider" id="l3d-spider-1"></div>
-  <div class="l3d-spider" id="l3d-spider-2"></div>
+  <!-- Luna con bandera de Colombia -->
+  <div class="l3d-moon-scene">
+    <svg width="160" height="185" viewBox="0 0 160 185" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="moon-grad" cx="38%" cy="32%" r="62%">
+          <stop offset="0%" stop-color="#fffbe0"/>
+          <stop offset="60%" stop-color="#f5d84a"/>
+          <stop offset="100%" stop-color="#c8a020"/>
+        </radialGradient>
+      </defs>
+      <!-- Halo suave -->
+      <circle cx="78" cy="122" r="72" fill="rgba(255,220,60,0.10)"/>
+      <!-- Cuerpo de la luna -->
+      <circle cx="78" cy="122" r="64" fill="url(#moon-grad)" stroke="rgba(255,220,80,0.40)" stroke-width="1.5"/>
+      <!-- Cráteres -->
+      <circle cx="54"  cy="108" r="10" fill="rgba(160,120,10,0.22)"/>
+      <circle cx="96"  cy="128" r="7"  fill="rgba(160,120,10,0.18)"/>
+      <circle cx="68"  cy="138" r="6"  fill="rgba(160,120,10,0.20)"/>
+      <circle cx="90"  cy="104" r="8"  fill="rgba(160,120,10,0.17)"/>
+      <circle cx="58"  cy="128" r="4"  fill="rgba(160,120,10,0.15)"/>
+      <!-- Brillo lateral -->
+      <ellipse cx="55" cy="96" rx="18" ry="10" fill="rgba(255,255,220,0.18)" transform="rotate(-20,55,96)"/>
+      <!-- Asta de la bandera -->
+      <rect x="76.5" y="20" width="3" height="40" fill="#c0c0c0" rx="1"/>
+      <!-- Punta del asta -->
+      <circle cx="78" cy="19" r="3" fill="#d4af37"/>
+      <!-- Bandera Colombia: amarillo 50%, azul 25%, rojo 25% -->
+      <rect x="79.5" y="20"   width="48" height="20" fill="#FCD116"/>
+      <rect x="79.5" y="40"   width="48" height="10" fill="#003893"/>
+      <rect x="79.5" y="50"   width="48" height="10" fill="#CE1126"/>
+      <rect x="79.5" y="20"   width="48" height="40" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="0.5"/>
+    </svg>
+  </div>
   <!-- Asteroides -->
   <div class="l3d-asteroid" id="l3d-ast-1">
     <svg width="18" height="14" viewBox="0 0 18 14" xmlns="http://www.w3.org/2000/svg">
@@ -270,74 +298,6 @@
     }
   })();
 
-  /* ---- Telarañas y arañas ---- */
-  (function () {
-    /* Telaraña SVG — corner: 'tl'|'tr'|'br' */
-    function makeWeb(size, corner) {
-      var s = size;
-      var lines = '';
-      var cx, cy, angles;
-      if (corner === 'tr') {
-        cx = s; cy = 0;
-        angles = [90, 108, 126, 144, 162, 180];
-      } else if (corner === 'br') {
-        cx = s; cy = s;
-        angles = [180, 198, 216, 234, 252, 270];
-      } else {
-        cx = 0; cy = 0; /* 'tl' */
-        angles = [0, 18, 36, 54, 72, 90];
-      }
-      var radii = [s*0.28, s*0.50, s*0.72, s*0.96];
-      angles.forEach(function(deg) {
-        var rad = deg * Math.PI / 180;
-        var ex = cx + s * Math.cos(rad);
-        var ey = cy + s * Math.sin(rad);
-        lines += '<line x1="'+cx+'" y1="'+cy+'" x2="'+ex+'" y2="'+ey+'" stroke="rgba(255,255,255,0.65)" stroke-width="1.1"/>';
-      });
-      radii.forEach(function(r) {
-        var pts = angles.map(function(deg) {
-          var rad = deg * Math.PI / 180;
-          return (cx + r * Math.cos(rad)) + ',' + (cy + r * Math.sin(rad));
-        });
-        lines += '<polyline points="'+pts.join(' ')+'" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>';
-      });
-      return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 '+s+' '+s+'" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:visible">'+lines+'</svg>';
-    }
-
-    function makeSpider(sz) {
-      var r = sz / 2;
-      return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 '+sz+' '+sz+'" xmlns="http://www.w3.org/2000/svg" style="display:block">' +
-        '<ellipse cx="'+r+'" cy="'+(r*1.3)+'" rx="'+(r*0.55)+'" ry="'+(r*0.45)+'" fill="#111" stroke="rgba(255,255,255,0.6)" stroke-width="0.8"/>' +
-        '<circle cx="'+r+'" cy="'+(r*0.7)+'" r="'+(r*0.32)+'" fill="#111" stroke="rgba(255,255,255,0.6)" stroke-width="0.8"/>' +
-        '<circle cx="'+(r*0.82)+'" cy="'+(r*0.65)+'" r="'+(r*0.09)+'" fill="#ff2222"/>' +
-        '<circle cx="'+(r*1.18)+'" cy="'+(r*0.65)+'" r="'+(r*0.09)+'" fill="#ff2222"/>' +
-        '<line x1="'+(r*0.45)+'" y1="'+(r*1.1)+'" x2="'+(r*0.05)+'" y2="'+(r*0.72)+'" stroke="rgba(255,255,255,0.7)" stroke-width="0.9"/>' +
-        '<line x1="'+(r*0.45)+'" y1="'+(r*1.25)+'" x2="'+(r*0.0)+'" y2="'+(r*1.15)+'" stroke="rgba(255,255,255,0.7)" stroke-width="0.9"/>' +
-        '<line x1="'+(r*0.45)+'" y1="'+(r*1.4)+'" x2="'+(r*0.08)+'" y2="'+(r*1.58)+'" stroke="rgba(255,255,255,0.7)" stroke-width="0.9"/>' +
-        '<line x1="'+(r*1.55)+'" y1="'+(r*1.1)+'" x2="'+(r*1.95)+'" y2="'+(r*0.72)+'" stroke="rgba(255,255,255,0.7)" stroke-width="0.9"/>' +
-        '<line x1="'+(r*1.55)+'" y1="'+(r*1.25)+'" x2="'+(r*2.0)+'" y2="'+(r*1.15)+'" stroke="rgba(255,255,255,0.7)" stroke-width="0.9"/>' +
-        '<line x1="'+(r*1.55)+'" y1="'+(r*1.4)+'" x2="'+(r*1.92)+'" y2="'+(r*1.58)+'" stroke="rgba(255,255,255,0.7)" stroke-width="0.9"/>' +
-        '</svg>';
-    }
-
-    function initWebs() {
-      var leftEl     = document.querySelector('.l3d-web-left');
-      var botRightEl = document.querySelector('.l3d-web-bottom-right');
-      var sp1 = document.getElementById('l3d-spider-1');
-      var sp2 = document.getElementById('l3d-spider-2');
-      if (!leftEl || !sp1 || !sp2) return;
-      leftEl.innerHTML    = makeWeb(200, 'tl');
-      if (botRightEl) botRightEl.innerHTML = makeWeb(190, 'br');
-      sp1.innerHTML = makeSpider(36);
-      sp2.innerHTML = makeSpider(28);
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initWebs);
-    } else {
-      initWebs();
-    }
-  })();
-
   /* ---- Hamburger menu ---- */
   (function () {
     function initHamburger() {
@@ -455,42 +415,14 @@
     position: relative;
   }
 
-  /* ---- Telarañas ---- */
-  .l3d-web-left,
-  .l3d-web-bottom-right {
-    position: absolute;
-    pointer-events: none;
-  }
-  .l3d-web-left         { top: 0;    left:  0; }
-  .l3d-web-bottom-right { bottom: 0; right: 0; }
-
-  /* ---- Arañas colgantes ---- */
-  .l3d-spider {
+  /* ---- Luna con bandera ---- */
+  .l3d-moon-scene {
     position: absolute;
     top: 0;
+    left: 0;
     pointer-events: none;
-    animation: l3d-spider-swing 3s ease-in-out infinite alternate;
-    transform-origin: top center;
-  }
-  #l3d-spider-1 {
-    left: 22%;
-    animation-delay: 0s;
-  }
-  #l3d-spider-2 {
-    left: 34%;
-    animation-delay: -1.4s;
-  }
-  .l3d-spider::before {
-    content: '';
-    display: block;
-    width: 1px;
-    height: 38px;
-    background: rgba(255,255,255,0.55);
-    margin: 0 auto;
-  }
-  @keyframes l3d-spider-swing {
-    from { transform: rotate(-8deg); }
-    to   { transform: rotate(8deg); }
+    z-index: 1;
+    filter: drop-shadow(0 0 14px rgba(255,210,50,0.40));
   }
 
   /* ---- Asteroides ---- */
