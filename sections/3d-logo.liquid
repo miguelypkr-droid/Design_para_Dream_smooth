@@ -21,7 +21,6 @@
   ></model-viewer>
   <!-- Telarañas y arañas -->
   <div class="l3d-web-left"></div>
-  <div class="l3d-web-right"></div>
   <div class="l3d-web-bottom-right"></div>
   <div class="l3d-spider" id="l3d-spider-1"></div>
   <div class="l3d-spider" id="l3d-spider-2"></div>
@@ -319,14 +318,12 @@
 
     function initWebs() {
       var leftEl     = document.querySelector('.l3d-web-left');
-      var rightEl    = document.querySelector('.l3d-web-right');
       var botRightEl = document.querySelector('.l3d-web-bottom-right');
       var sp1    = document.getElementById('l3d-spider-1');
       var sp2    = document.getElementById('l3d-spider-2');
       var walker = document.getElementById('l3d-spider-walker');
-      if (!leftEl || !rightEl || !sp1 || !sp2) return;
+      if (!leftEl || !sp1 || !sp2) return;
       leftEl.innerHTML    = makeWeb(130, 'tl');
-      rightEl.innerHTML   = makeWeb(130, 'tr');
       if (botRightEl) botRightEl.innerHTML = makeWeb(120, 'br');
       sp1.innerHTML = makeSpider(36);
       sp2.innerHTML = makeSpider(28);
@@ -458,13 +455,11 @@
 
   /* ---- Telarañas ---- */
   .l3d-web-left,
-  .l3d-web-right,
   .l3d-web-bottom-right {
     position: absolute;
     pointer-events: none;
   }
   .l3d-web-left         { top: 0;    left:  0; }
-  .l3d-web-right        { top: 0;    right: 0; }
   .l3d-web-bottom-right { bottom: 0; right: 0; }
 
   /* ---- Arañas colgantes ---- */
