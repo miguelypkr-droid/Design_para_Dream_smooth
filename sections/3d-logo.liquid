@@ -23,15 +23,15 @@
     <div class="l3d-submenu">
       <div class="l3d-group">
         <span class="l3d-group-title">Marcas</span>
-        <a href="/collections/polo-ralph-lauren" class="l3d-sub-link">Polo Ralph Lauren</a>
-        <a href="/collections/dream-smooth" class="l3d-sub-link">Dream Smooth</a>
-        <a href="/collections/all" class="l3d-sub-link">Otros</a>
+        <a href="{{ section.settings.sub_marca_1_url }}" class="l3d-sub-link">Polo Ralph Lauren</a>
+        <a href="{{ section.settings.sub_marca_2_url }}" class="l3d-sub-link">Dream Smooth</a>
+        <a href="{{ section.settings.sub_marca_3_url }}" class="l3d-sub-link">Otros</a>
       </div>
       <div class="l3d-divider"></div>
       <div class="l3d-group">
         <span class="l3d-group-title">Estado</span>
-        <a href="/collections/nuevo" class="l3d-sub-link">Nuevo</a>
-        <a href="/collections/usado" class="l3d-sub-link">Usado</a>
+        <a href="{{ section.settings.sub_estado_1_url }}" class="l3d-sub-link">Nuevo</a>
+        <a href="{{ section.settings.sub_estado_2_url }}" class="l3d-sub-link">Usado</a>
       </div>
     </div>
   </div>
@@ -67,18 +67,20 @@
     opacity: 0.65;
   }
 
-  /* Contenedor del dropdown */
+  /* Contenedor del dropdown — padding-bottom crea un puente invisible sobre el gap */
   .l3d-dropdown {
     position: relative;
     display: flex;
     align-items: center;
+    padding-bottom: 1rem;
+    margin-bottom: -1rem;
   }
 
   /* Submenú oculto por defecto */
   .l3d-submenu {
     display: none;
     position: absolute;
-    top: calc(100% + 0.8rem);
+    top: calc(100% - 1rem + 0.8rem);
     left: 50%;
     transform: translateX(-50%);
     background: {{ section.settings.nav_bg }};
@@ -190,6 +192,39 @@
       "type": "url",
       "id": "link_3_url",
       "label": "Enlace 3 — URL"
+    },
+    {
+      "type": "header",
+      "content": "Submenú — Marcas"
+    },
+    {
+      "type": "url",
+      "id": "sub_marca_1_url",
+      "label": "Polo Ralph Lauren — URL"
+    },
+    {
+      "type": "url",
+      "id": "sub_marca_2_url",
+      "label": "Dream Smooth — URL"
+    },
+    {
+      "type": "url",
+      "id": "sub_marca_3_url",
+      "label": "Otros — URL"
+    },
+    {
+      "type": "header",
+      "content": "Submenú — Estado"
+    },
+    {
+      "type": "url",
+      "id": "sub_estado_1_url",
+      "label": "Nuevo — URL"
+    },
+    {
+      "type": "url",
+      "id": "sub_estado_2_url",
+      "label": "Usado — URL"
     },
     {
       "type": "header",
