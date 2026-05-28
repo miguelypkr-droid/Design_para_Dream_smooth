@@ -155,10 +155,13 @@
       if (!el) return;
       var section = el.closest('.shopify-section');
       if (section) {
-        section.style.setProperty('margin-top', '0', 'important');
-        section.style.setProperty('padding-top', '0', 'important');
-        section.style.setProperty('height', '0', 'important');
-        section.style.setProperty('min-height', '0', 'important');
+        section.style.setProperty('margin-top',    '0', 'important');
+        section.style.setProperty('margin-bottom', '0', 'important');
+        section.style.setProperty('padding-top',   '0', 'important');
+        section.style.setProperty('padding-bottom','0', 'important');
+        section.style.setProperty('height',        '0', 'important');
+        section.style.setProperty('min-height',    '0', 'important');
+        section.style.setProperty('overflow',      'visible', 'important');
       }
       /* Sobreescribir variables CSS del tema Dawn */
       document.documentElement.style.setProperty('--header-group-height', '0px', 'important');
@@ -175,6 +178,7 @@
       /* Ocultar barra de envíos al hacer scroll */
       var shippingBar = document.querySelector('.l3d-shipping-bar');
       var barTimer;
+      var barHidden = false;
       function reposMenu() {
         var menu = document.querySelector('.l3d-mobile-menu');
         if (menu && menu.classList.contains('l3d-mob-open')) {
@@ -183,14 +187,15 @@
       }
       window.addEventListener('scroll', function () {
         if (!shippingBar) return;
-        if (window.scrollY > 40) {
+        var shouldHide = window.scrollY > 40;
+        if (shouldHide === barHidden) return; /* sin cambio de estado → no hacer nada */
+        barHidden = shouldHide;
+        if (shouldHide) {
           shippingBar.classList.add('l3d-bar-hidden');
         } else {
           shippingBar.classList.remove('l3d-bar-hidden');
         }
-        applyOffset();
-        reposMenu();
-        /* Recalcular una vez que la transición CSS termina (~0.35s) */
+        /* Recalcular solo al finalizar la transición CSS (~0.35s) */
         clearTimeout(barTimer);
         barTimer = setTimeout(function () { applyOffset(); reposMenu(); }, 380);
       }, { passive: true });
@@ -277,15 +282,19 @@
   :root {
     --header-group-height: 0px !important;
     --header-height: 0px !important;
+    --header-sticky-top: 0px !important;
   }
   .shopify-section:has(.l3d-shipping-bar) {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
+    margin:  0 !important;
+    padding: 0 !important;
+    height:  0 !important;
+    min-height: 0 !important;
+    overflow: visible !important;
   }
   #MainContent,
   .content-for-layout {
     padding-top: 0 !important;
-    margin-top: 0 !important;
+    margin-top:  0 !important;
   }
 
   /* Header fijo + animación de entrada */
