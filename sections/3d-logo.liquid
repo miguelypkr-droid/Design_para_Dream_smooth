@@ -12,38 +12,11 @@
   .header-3d__inner {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 0 2rem;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    min-height: {{ section.settings.header_height }}px;
-  }
-
-  .header-3d__nav {
+    padding: 0.5rem 2rem 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 2rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .header-3d__nav--right {
-    justify-content: flex-end;
-  }
-
-  .header-3d__nav a {
-    color: {{ section.settings.link_color }};
-    text-decoration: none;
-    font-size: {{ section.settings.font_size }}px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    transition: opacity 0.2s;
-  }
-
-  .header-3d__nav a:hover {
-    opacity: 0.6;
+    gap: 0;
   }
 
   .header-3d__logo {
@@ -58,6 +31,30 @@
     background: transparent;
     display: block;
   }
+
+  .header-3d__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0.6rem 0 0.8rem;
+  }
+
+  .header-3d__nav--right { display: none; }
+
+  .header-3d__nav a {
+    color: {{ section.settings.link_color }};
+    text-decoration: none;
+    font-size: {{ section.settings.font_size }}px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+  }
+
+  .header-3d__nav a:hover { opacity: 0.6; }
 
   /* Mobile: hamburger */
   .header-3d__hamburger {
@@ -97,22 +94,13 @@
   @media (max-width: 749px) {
     .header-3d__nav { display: none; }
     .header-3d__hamburger { display: flex; align-items: center; }
-    .header-3d__inner {
-      grid-template-columns: auto 1fr auto;
-    }
   }
 </style>
 
 <header class="header-3d">
   <div class="header-3d__inner">
 
-    <!-- Nav izquierda (desktop) -->
-    <ul class="header-3d__nav header-3d__nav--left">
-      <li><a href="{{ section.settings.link_1_url }}">{{ section.settings.link_1_label }}</a></li>
-      <li><a href="{{ section.settings.link_2_url }}">{{ section.settings.link_2_label }}</a></li>
-    </ul>
-
-    <!-- Logo 3D centrado -->
+    <!-- Logo 3D arriba centrado -->
     <div class="header-3d__logo">
       <model-viewer
         src="{{ section.settings.model_url }}"
@@ -125,15 +113,17 @@
       ></model-viewer>
     </div>
 
-    <!-- Nav derecha (desktop) -->
-    <ul class="header-3d__nav header-3d__nav--right">
+    <!-- Nav centrado debajo del logo (desktop) -->
+    <ul class="header-3d__nav">
+      <li><a href="{{ section.settings.link_1_url }}">{{ section.settings.link_1_label }}</a></li>
+      <li><a href="{{ section.settings.link_2_url }}">{{ section.settings.link_2_label }}</a></li>
       <li><a href="{{ section.settings.link_3_url }}">{{ section.settings.link_3_label }}</a></li>
     </ul>
 
     <!-- Hamburger (mobile) -->
     <button
       class="header-3d__hamburger"
-      aria-label="Abrir menú"
+      aria-label="Abrir menu"
       onclick="this.closest('.header-3d').querySelector('.header-3d__mobile-nav').classList.toggle('is-open')"
     >
       <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -175,7 +165,7 @@
       "max": 200,
       "step": 10,
       "unit": "px",
-      "default": 100
+      "default": 80
     },
     {
       "type": "header",
