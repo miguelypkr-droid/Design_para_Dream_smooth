@@ -40,108 +40,97 @@
   import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.160/examples/jsm/controls/OrbitControls.js';
 
   const container = document.querySelector('.logo3d-section-{{ section.id }} .logo3d-wrap');
+  const loadingEl = container && container.querySelector('.logo3d-loading');
 
-  /* ── Scene ── */
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x000000); // negro sólido en el renderer
+  function init(w, h) {
+    if (loadingEl) loadingEl.style.display = 'none';
 
-  /* ── Camera ── */
-  const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.01, 1000);
-  camera.position.set(0, 0, 5);
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x000000);
 
-  /* ── Renderer ── */
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(container.clientWidth, container.clientHeight);
-  renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.4;
-  container.appendChild(renderer.domElement);
+    const camera = new THREE.PerspectiveCamera(40, w / h, 0.01, 1000);
+    camera.position.set(0, 0, 5);
 
-  /* ── Lights ── */
-  scene.add(new THREE.AmbientLight(0xffffff, 1.5));
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(w, h);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.4;
+    container.appendChild(renderer.domElement);
 
-  const key = new THREE.DirectionalLight(0xffffff, 3);
-  key.position.set(4, 6, 5);
-  scene.add(key);
+    scene.add(new THREE.AmbientLight(0xffffff, 1.5));
+    const key = new THREE.DirectionalLight(0xffffff, 3);
+    key.position.set(4, 6, 5); scene.add(key);
+    const fill = new THREE.DirectionalLight(0xddeeff, 1.2);
+    fill.position.set(-4, 2, -3); scene.add(fill);
+    const rim = new THREE.DirectionalLight(0xfff4cc, 1.0);
+    rim.position.set(0, -4, -5); scene.add(rim);
 
-  const fill = new THREE.DirectionalLight(0xddeeff, 1.2);
-  fill.position.set(-4, 2, -3);
-  scene.add(fill);
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping   = true;
+    controls.dampingFactor   = 0.07;
+    controls.enableZoom      = false;
+    controls.enablePan       = false;
+    controls.rotateSpeed     = 0.9;
+    controls.autoRotate      = true;
+    controls.autoRotateSpeed = 1.5;
+    controls.minPolarAngle   = 0;
+    controls.maxPolarAngle   = Math.PI;
 
-  const rim = new THREE.DirectionalLight(0xfff4cc, 1.0);
-  rim.position.set(0, -4, -5);
-  scene.add(rim);
+    let idleTimer = null;
+    controls.addEventListener('start', () => { controls.autoRotate = false; clearTimeout(idleTimer); });
+    controls.addEventListener('end',   () => { idleTimer = setTimeout(() => { controls.autoRotate = true; }, 2000); });
 
-  /* ── Controls ── */
-  const controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping   = true;
-  controls.dampingFactor   = 0.07;
-  controls.enableZoom      = false;
-  controls.enablePan       = false;
-  controls.rotateSpeed     = 0.9;
-  controls.autoRotate      = true;
-  controls.autoRotateSpeed = 1.5;
-  controls.minPolarAngle   = 0;
-  controls.maxPolarAngle   = Math.PI;
+    (function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    })();
 
-  /* Pausa la auto-rotación mientras el usuario arrastra */
-  let idleTimer = null;
-  controls.addEventListener('start', () => {
-    controls.autoRotate = false;
-    clearTimeout(idleTimer);
-  });
-  controls.addEventListener('end', () => {
-    idleTimer = setTimeout(() => { controls.autoRotate = true; }, 2000);
-  });
+    window.addEventListener('resize', () => {
+      const nw = container.clientWidth;
+      const nh = container.clientHeight;
+      camera.aspect = nw / nh;
+      camera.updateProjectionMatrix();
+      renderer.setSize(nw, nh);
+    });
 
-  /* ── Render loop – arranca de inmediato ── */
-  (function animate() {
-    requestAnimationFrame(animate);
-    controls.update();
-    renderer.render(scene, camera);
-  })();
+    new GLTFLoader().load(
+      'https://cdn.shopify.com/3d/models/o/d49653b2167972d2/Dreamsmoothlogo.glb',
+      (gltf) => {
+        const model = gltf.scene;
+        scene.add(model);
+        model.updateMatrixWorld(true);
 
-  /* ── Resize ── */
-  window.addEventListener('resize', () => {
+        const box    = new THREE.Box3().setFromObject(model);
+        const center = box.getCenter(new THREE.Vector3());
+        const size   = box.getSize(new THREE.Vector3());
+        model.position.sub(center);
+
+        const maxDim = Math.max(size.x, size.y, size.z);
+        model.scale.setScalar(2.5 / maxDim);
+
+        const fov  = camera.fov * (Math.PI / 180);
+        camera.position.set(0, 0, (2.5 / 2) / Math.tan(fov / 2) * 1.8);
+        controls.target.set(0, 0, 0);
+        controls.update();
+      },
+      undefined,
+      (err) => {
+        console.error('[3D Logo] Error:', err);
+        if (loadingEl) { loadingEl.style.display = 'flex'; loadingEl.textContent = '⚠ Error al cargar el modelo'; }
+      }
+    );
+  }
+
+  /* Espera a que el contenedor tenga dimensiones reales antes de inicializar */
+  (function tryInit() {
+    if (!container) return console.error('[3D Logo] Contenedor no encontrado');
     const w = container.clientWidth;
     const h = container.clientHeight;
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-    renderer.setSize(w, h);
-  });
-
-  /* ── Load model ── */
-  new GLTFLoader().load(
-    'https://cdn.shopify.com/3d/models/o/d49653b2167972d2/Dreamsmoothlogo.glb',
-    (gltf) => {
-      const model = gltf.scene;
-
-      /* 1. Añadir al scene antes de calcular bounding box */
-      scene.add(model);
-      model.updateMatrixWorld(true);
-
-      /* 2. Centrar en el origen */
-      const box    = new THREE.Box3().setFromObject(model);
-      const center = box.getCenter(new THREE.Vector3());
-      const size   = box.getSize(new THREE.Vector3());
-      model.position.sub(center);
-
-      /* 3. Escalar para que quepa en el campo de visión */
-      const maxDim = Math.max(size.x, size.y, size.z);
-      const scale  = 2.5 / maxDim;
-      model.scale.setScalar(scale);
-
-      /* 4. Ajustar distancia de cámara */
-      const fov  = camera.fov * (Math.PI / 180);
-      const dist = (2.5 / 2) / Math.tan(fov / 2) * 1.8;
-      camera.position.set(0, 0, dist);
-      controls.target.set(0, 0, 0);
-      controls.update();
-    },
-    undefined,
-    (err) => console.error('[3D Logo] Error al cargar el modelo:', err)
-  );
+    if (w > 0 && h > 0) { init(w, h); } else { requestAnimationFrame(tryInit); }
+  })();
 </script>
 
 {% schema %}
