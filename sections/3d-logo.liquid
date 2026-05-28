@@ -22,7 +22,6 @@
   <!-- Telarañas y arañas -->
   <div class="l3d-web-left"></div>
   <div class="l3d-web-right"></div>
-  <div class="l3d-web-bottom-left"></div>
   <div class="l3d-web-bottom-right"></div>
   <div class="l3d-spider" id="l3d-spider-1"></div>
   <div class="l3d-spider" id="l3d-spider-2"></div>
@@ -275,6 +274,29 @@
     }
 
     /* Ara\u00f1a SVG */
+    /* Araña de perfil (vista lateral) para la que camina */
+    function makeSpiderSide(sz) {
+      var s = sz;
+      return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 '+s+' '+s+'" xmlns="http://www.w3.org/2000/svg" style="display:block">' +
+        /* abdomen */
+        '<ellipse cx="'+(s*0.34)+'" cy="'+(s*0.55)+'" rx="'+(s*0.28)+'" ry="'+(s*0.20)+'" fill="#111" stroke="rgba(255,255,255,0.65)" stroke-width="0.9"/>' +
+        /* cefalotorax */
+        '<ellipse cx="'+(s*0.67)+'" cy="'+(s*0.50)+'" rx="'+(s*0.20)+'" ry="'+(s*0.16)+'" fill="#111" stroke="rgba(255,255,255,0.65)" stroke-width="0.9"/>' +
+        /* ojo */
+        '<circle cx="'+(s*0.80)+'" cy="'+(s*0.40)+'" r="'+(s*0.07)+'" fill="#ff2222"/>' +
+        /* patas arriba (levantadas – paso impar) */
+        '<line x1="'+(s*0.62)+'" y1="'+(s*0.43)+'" x2="'+(s*0.44)+'" y2="'+(s*0.12)+'" stroke="rgba(255,255,255,0.80)" stroke-width="1.1"/>' +
+        '<line x1="'+(s*0.50)+'" y1="'+(s*0.41)+'" x2="'+(s*0.30)+'" y2="'+(s*0.10)+'" stroke="rgba(255,255,255,0.80)" stroke-width="1.1"/>' +
+        '<line x1="'+(s*0.74)+'" y1="'+(s*0.43)+'" x2="'+(s*0.58)+'" y2="'+(s*0.14)+'" stroke="rgba(255,255,255,0.80)" stroke-width="1.1"/>' +
+        '<line x1="'+(s*0.38)+'" y1="'+(s*0.43)+'" x2="'+(s*0.16)+'" y2="'+(s*0.16)+'" stroke="rgba(255,255,255,0.80)" stroke-width="1.1"/>' +
+        /* patas abajo (apoyadas – paso par) */
+        '<line x1="'+(s*0.56)+'" y1="'+(s*0.62)+'" x2="'+(s*0.38)+'" y2="'+(s*0.88)+'" stroke="rgba(255,255,255,0.80)" stroke-width="1.1"/>' +
+        '<line x1="'+(s*0.44)+'" y1="'+(s*0.64)+'" x2="'+(s*0.24)+'" y2="'+(s*0.90)+'" stroke="rgba(255,255,255,0.80)" stroke-width="1.1"/>' +
+        '<line x1="'+(s*0.68)+'" y1="'+(s*0.60)+'" x2="'+(s*0.52)+'" y2="'+(s*0.86)+'" stroke="rgba(255,255,255,0.80)" stroke-width="1.1"/>' +
+        '<line x1="'+(s*0.32)+'" y1="'+(s*0.64)+'" x2="'+(s*0.10)+'" y2="'+(s*0.88)+'" stroke="rgba(255,255,255,0.80)" stroke-width="1.1"/>' +
+        '</svg>';
+    }
+
     function makeSpider(sz) {
       var r = sz / 2;
       return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 '+sz+' '+sz+'" xmlns="http://www.w3.org/2000/svg" style="display:block">' +
@@ -292,21 +314,19 @@
     }
 
     function initWebs() {
-      var leftEl    = document.querySelector('.l3d-web-left');
-      var rightEl   = document.querySelector('.l3d-web-right');
-      var botLeftEl = document.querySelector('.l3d-web-bottom-left');
-      var botRightEl= document.querySelector('.l3d-web-bottom-right');
+      var leftEl     = document.querySelector('.l3d-web-left');
+      var rightEl    = document.querySelector('.l3d-web-right');
+      var botRightEl = document.querySelector('.l3d-web-bottom-right');
       var sp1    = document.getElementById('l3d-spider-1');
       var sp2    = document.getElementById('l3d-spider-2');
       var walker = document.getElementById('l3d-spider-walker');
       if (!leftEl || !rightEl || !sp1 || !sp2) return;
-      leftEl.innerHTML    = makeWeb(130, false);
-      rightEl.innerHTML   = makeWeb(130, true);
-      if (botLeftEl)  botLeftEl.innerHTML  = makeWeb(110, false);
-      if (botRightEl) botRightEl.innerHTML = makeWeb(110, true);
+      leftEl.innerHTML    = makeWeb(130, 'tl');
+      rightEl.innerHTML   = makeWeb(130, 'tr');
+      if (botRightEl) botRightEl.innerHTML = makeWeb(120, 'br');
       sp1.innerHTML = makeSpider(36);
       sp2.innerHTML = makeSpider(28);
-      if (walker) walker.innerHTML = makeSpider(32);
+      if (walker) walker.innerHTML = makeSpiderSide(38);
     }
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initWebs);
@@ -435,23 +455,13 @@
   /* ---- Telarañas ---- */
   .l3d-web-left,
   .l3d-web-right,
-  .l3d-web-bottom-left,
   .l3d-web-bottom-right {
     position: absolute;
     pointer-events: none;
   }
   .l3d-web-left         { top: 0;    left:  0; }
   .l3d-web-right        { top: 0;    right: 0; }
-  .l3d-web-bottom-left  {
-    bottom: 0; left: 0;
-    transform: scaleY(-1);
-    transform-origin: left bottom;
-  }
-  .l3d-web-bottom-right {
-    bottom: 0; right: 0;
-    transform: scaleY(-1);
-    transform-origin: right bottom;
-  }
+  .l3d-web-bottom-right { bottom: 0; right: 0; }
 
   /* ---- Arañas colgantes ---- */
   .l3d-spider {
@@ -486,19 +496,24 @@
   #l3d-spider-walker {
     position: absolute;
     bottom: 5px;
-    left: -40px;
+    left: -42px;
     pointer-events: none;
     animation:
-      l3d-walk-move 10s ease-in-out infinite alternate,
-      l3d-walk-flip 20s step-start infinite;
+      l3d-walk-move  10s  ease-in-out infinite alternate,
+      l3d-walk-flip  20s  step-start  infinite,
+      l3d-walk-bob   0.32s ease-in-out infinite;
   }
   @keyframes l3d-walk-move {
-    from { left: -40px; }
-    to   { left: calc(100% + 10px); }
+    from { left: -42px; }
+    to   { left: calc(100% + 8px); }
   }
   @keyframes l3d-walk-flip {
     0%  { transform: scaleX(1);  }
     50% { transform: scaleX(-1); }
+  }
+  @keyframes l3d-walk-bob {
+    0%, 100% { bottom: 5px; }
+    50%      { bottom: 9px; }
   }
 
   /* ---- RESPONSIVE ---- */
