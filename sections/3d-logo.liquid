@@ -50,6 +50,31 @@
 
 </div><!-- fin l3d-sticky-header -->
 
+<script>
+  (function () {
+    function removeTopSpace() {
+      var el = document.querySelector('.l3d-sticky-header');
+      if (!el) return;
+      var section = el.closest('.shopify-section');
+      if (section) {
+        section.style.setProperty('margin-top', '0', 'important');
+        section.style.setProperty('padding-top', '0', 'important');
+      }
+      /* También elimina el padding-top del main/body si el tema lo agrega */
+      var main = document.getElementById('MainContent') || document.querySelector('main');
+      if (main) {
+        main.style.setProperty('padding-top', '0', 'important');
+        main.style.setProperty('margin-top', '0', 'important');
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', removeTopSpace);
+    } else {
+      removeTopSpace();
+    }
+  })();
+</script>
+
 <style>
   /* Eliminar espacio blanco superior del tema */
   .shopify-section:has(.l3d-shipping-bar) {
@@ -70,8 +95,8 @@
     background: {{ section.settings.nav_bg }};
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 0.45rem 2rem;
+    align-items: flex-end;
+    padding: 1rem 2rem 0.5rem;
     box-sizing: border-box;
     border-bottom: 1px solid rgba(255,255,255,0.08);
   }
