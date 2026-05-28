@@ -1,16 +1,37 @@
-<div id="logo3d-{{ section.id }}" class="logo3d-wrap"></div>
+<div class="logo3d-section-{{ section.id }}">
+  <div class="logo3d-wrap">
+    <p class="logo3d-loading">Cargando logo 3D…</p>
+  </div>
+</div>
 
 <style>
-  .logo3d-wrap {
+  .logo3d-section-{{ section.id }} .logo3d-wrap {
+    position: relative;
     width: 100%;
-    background: #000;
     height: clamp(320px, 55vw, 640px);
+    background: #000;
+    overflow: hidden;
     cursor: grab;
-    user-select: none;
-    -webkit-user-select: none;
   }
-  .logo3d-wrap:active { cursor: grabbing; }
-  .logo3d-wrap canvas { display: block; width: 100% !important; height: 100% !important; }
+  .logo3d-section-{{ section.id }} .logo3d-wrap:active { cursor: grabbing; }
+  .logo3d-section-{{ section.id }} .logo3d-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+  }
+  .logo3d-section-{{ section.id }} canvas {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+  }
 </style>
 
 <script type="module">
@@ -18,7 +39,7 @@
   import { GLTFLoader }    from 'https://cdn.jsdelivr.net/npm/three@0.160/examples/jsm/loaders/GLTFLoader.js';
   import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.160/examples/jsm/controls/OrbitControls.js';
 
-  const container = document.getElementById('logo3d-{{ section.id }}');
+  const container = document.querySelector('.logo3d-section-{{ section.id }} .logo3d-wrap');
 
   /* ── Scene ── */
   const scene = new THREE.Scene();
@@ -92,7 +113,7 @@
 
   /* ── Load model ── */
   new GLTFLoader().load(
-    'https://cdn.shopify.com/3d/models/o/253b3a20f29932b7/dreamsmoothlogo.glb',
+    'https://cdn.shopify.com/3d/models/o/d49653b2167972d2/Dreamsmoothlogo.glb',
     (gltf) => {
       const model = gltf.scene;
 
