@@ -19,9 +19,9 @@
     interaction-prompt="none"
     style="width:180px; height:180px; background:transparent; display:block;"
   ></model-viewer>
-  <!-- Árboles dentro del logo box -->
-  <div class="l3d-trees-left"></div>
-  <div class="l3d-trees-right"></div>
+  <!-- Edificios dentro del logo box -->
+  <div class="l3d-buildings-left"></div>
+  <div class="l3d-buildings-right"></div>
 </div>
 
 <!-- Caja 2: Barra de navegación -->
@@ -240,53 +240,55 @@
     }
   })();
 
-  /* ---- Árboles pixelart estacionales ---- */
+  /* ---- Edificios pixelart ---- */
   (function () {
-    function leafColor() {
-      var m = new Date().getMonth();
-      if (m >= 2 && m <= 4) return '#6dc06d'; // Primavera
-      if (m >= 5 && m <= 7) return '#2d8a2d'; // Verano
-      if (m >= 8 && m <= 10) return '#e07b2a'; // Otoño
-      return '#b8d4e8';                         // Invierno
-    }
-    function makeTree(px, large) {
-      var L = leafColor(), T = '#7a4a1e', p = px;
-      if (!large) {
-        var w = 6*p, h = 8*p;
-        return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated;display:block">'+
-          '<rect fill="'+L+'" x="'+(2*p)+'" y="0" width="'+(2*p)+'" height="'+p+'"/>'+
-          '<rect fill="'+L+'" x="'+p+'" y="'+p+'" width="'+(4*p)+'" height="'+p+'"/>'+
-          '<rect fill="'+L+'" x="0" y="'+(2*p)+'" width="'+(6*p)+'" height="'+p+'"/>'+
-          '<rect fill="'+L+'" x="'+p+'" y="'+(3*p)+'" width="'+(4*p)+'" height="'+p+'"/>'+
-          '<rect fill="'+L+'" x="'+(2*p)+'" y="'+(4*p)+'" width="'+(2*p)+'" height="'+p+'"/>'+
-          '<rect fill="'+T+'" x="'+(2*p)+'" y="'+(5*p)+'" width="'+(2*p)+'" height="'+(3*p)+'"/>'+
-          '</svg>';
-      } else {
-        var w = 8*p, h = 11*p;
-        return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated;display:block">'+
-          '<rect fill="'+L+'" x="'+(3*p)+'" y="0" width="'+(2*p)+'" height="'+p+'"/>'+
-          '<rect fill="'+L+'" x="'+(2*p)+'" y="'+p+'" width="'+(4*p)+'" height="'+p+'"/>'+
-          '<rect fill="'+L+'" x="'+p+'" y="'+(2*p)+'" width="'+(6*p)+'" height="'+p+'"/>'+
-          '<rect fill="'+L+'" x="0" y="'+(3*p)+'" width="'+(8*p)+'" height="'+p+'"/>'+
-          '<rect fill="'+L+'" x="'+p+'" y="'+(4*p)+'" width="'+(6*p)+'" height="'+p+'"/>'+
-          '<rect fill="'+L+'" x="'+(2*p)+'" y="'+(5*p)+'" width="'+(4*p)+'" height="'+p+'"/>'+
-          '<rect fill="'+L+'" x="'+(3*p)+'" y="'+(6*p)+'" width="'+(2*p)+'" height="'+p+'"/>'+
-          '<rect fill="'+T+'" x="'+(3*p)+'" y="'+(7*p)+'" width="'+(2*p)+'" height="'+(4*p)+'"/>'+
-          '</svg>';
+    var W = '#b0bec5', // paredes
+        D = '#78909c', // pared oscura
+        G = '#607d8b', // base
+        WIN = '#ffe082', // ventana iluminada
+        WIN2 = 'rgba(255,255,255,0.18)'; // ventana apagada
+
+    /* Construye un edificio SVG pixelart.
+       p  = tamaño de píxel base
+       cols = columnas de píxeles de ancho
+       rows = filas de píxeles de alto (sin antena)
+       winRows = filas con ventanas */
+    function makeBuilding(p, cols, rows) {
+      var bw = cols * p, bh = rows * p;
+      var rects = '';
+      // cuerpo del edificio
+      rects += '<rect fill="'+W+'" x="0" y="0" width="'+bw+'" height="'+bh+'"/>';
+      // franja más oscura lado derecho para efecto 3D
+      rects += '<rect fill="'+D+'" x="'+(bw - p)+'" y="0" width="'+p+'" height="'+bh+'"/>';
+      // base/zócalo
+      rects += '<rect fill="'+G+'" x="0" y="'+(bh - p)+'" width="'+bw+'" height="'+p+'"/>';
+      // antena
+      var ax = Math.floor(cols/2) * p;
+      rects += '<rect fill="'+D+'" x="'+ax+'" y="'+(-2*p)+'" width="'+p+'" height="'+(2*p)+'"/>';
+      // ventanas: cada 2 filas a partir de fila 1, cada 2 columnas a partir de col 1
+      for (var r = 1; r < rows - 1; r += 2) {
+        for (var c = 1; c < cols - 1; c += 2) {
+          var lit = (r + c) % 4 === 0;
+          rects += '<rect fill="'+(lit ? WIN : WIN2)+'" x="'+(c*p)+'" y="'+(r*p)+'" width="'+p+'" height="'+p+'"/>';
+        }
       }
+      var totalH = bh + 2*p;
+      return '<svg width="'+bw+'" height="'+totalH+'" viewBox="0 '+(-(2*p))+' '+bw+' '+totalH+'" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated;display:block;overflow:visible">'+rects+'</svg>';
     }
-    function initTrees() {
-      var leftEl  = document.querySelector('.l3d-trees-left');
-      var rightEl = document.querySelector('.l3d-trees-right');
+
+    function initBuildings() {
+      var leftEl  = document.querySelector('.l3d-buildings-left');
+      var rightEl = document.querySelector('.l3d-buildings-right');
       if (!leftEl || !rightEl) return;
-      var group = makeTree(4,false) + makeTree(6,true) + makeTree(4,false);
-      leftEl.innerHTML  = group;
-      rightEl.innerHTML = group;
+      // Izquierda: 2 edificios del mismo tamaño
+      leftEl.innerHTML  = makeBuilding(4, 6, 14) + makeBuilding(4, 6, 14);
+      // Derecha: edificio pequeño + edificio grande
+      rightEl.innerHTML = makeBuilding(4, 5, 11) + makeBuilding(4, 7, 17);
     }
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initTrees);
+      document.addEventListener('DOMContentLoaded', initBuildings);
     } else {
-      initTrees();
+      initBuildings();
     }
   })();
 
@@ -407,17 +409,17 @@
     position: relative;
   }
 
-  /* ---- Árboles pixelart ---- */
-  .l3d-trees-left,
-  .l3d-trees-right {
+  /* ---- Edificios pixelart ---- */
+  .l3d-buildings-left,
+  .l3d-buildings-right {
     position: absolute;
     bottom: 0;
     display: flex;
     align-items: flex-end;
-    gap: 6px;
+    gap: 4px;
   }
-  .l3d-trees-left  { left:  2rem; }
-  .l3d-trees-right { right: 2rem; }
+  .l3d-buildings-left  { left:  2rem; }
+  .l3d-buildings-right { right: 2rem; }
 
   /* ---- RESPONSIVE ---- */
   @media (max-width: 1400px) {
