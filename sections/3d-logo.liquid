@@ -66,10 +66,18 @@
     <a href="{{ section.settings.link_3_url }}" class="l3d-link">{{ section.settings.link_3_label }}</a>
   </div>
 
-  <!-- Espaciador derecho para centrar los links -->
-  <div class="l3d-social-icons" style="visibility:hidden" aria-hidden="true">
-    <span style="width:18px; height:18px; display:inline-block;"></span>
-    <span style="width:18px; height:18px; display:inline-block;"></span>
+  <!-- Carrito (derecha) -->
+  <div class="l3d-cart-wrapper">
+    <a href="/cart" class="l3d-cart-link" aria-label="Carrito">
+      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+      {%- if cart.item_count > 0 -%}
+        <span class="l3d-cart-count">{{ cart.item_count }}</span>
+      {%- endif -%}
+    </a>
   </div>
 
 </div>
@@ -177,6 +185,43 @@
 
   .l3d-social-link:hover {
     opacity: 0.6;
+  }
+
+  /* Carrito */
+  .l3d-cart-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .l3d-cart-link {
+    position: relative;
+    color: {{ section.settings.nav_color }};
+    display: flex;
+    align-items: center;
+    transition: opacity 0.2s;
+    text-decoration: none;
+  }
+
+  .l3d-cart-link:hover {
+    opacity: 0.6;
+  }
+
+  .l3d-cart-count {
+    position: absolute;
+    top: -7px;
+    right: -9px;
+    background: {{ section.settings.nav_color }};
+    color: {{ section.settings.nav_bg }};
+    font-size: 0.62rem;
+    font-weight: 700;
+    line-height: 1;
+    min-width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
   }
 
   .l3d-link {
