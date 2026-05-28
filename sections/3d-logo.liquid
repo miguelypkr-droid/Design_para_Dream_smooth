@@ -66,8 +66,42 @@
     <a href="{{ section.settings.link_3_url }}" class="l3d-link">{{ section.settings.link_3_label }}</a>
   </div>
 
-  <!-- Carrito (derecha) -->
-  <div class="l3d-cart-wrapper">
+  <!-- Selector de idioma + Carrito (derecha) -->
+  <div class="l3d-right-group">
+
+    {%- if localization.available_languages.size > 1 -%}
+    <form action="/localization" method="POST" class="l3d-lang-form">
+      <input type="hidden" name="_method" value="PUT">
+      <input type="hidden" name="return_to" value="{{ request.path }}">
+      <div class="l3d-lang-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <select name="locale_code" class="l3d-lang-select" onchange="this.form.submit()" aria-label="Idioma">
+          {%- for language in localization.available_languages -%}
+            <option value="{{ language.iso_code }}" {% if language.iso_code == localization.language.iso_code %}selected{% endif %}>
+              {{ language.endonym_name }}
+            </option>
+          {%- endfor -%}
+        </select>
+        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="l3d-lang-chevron">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </div>
+    </form>
+    {%- endif -%}
+
+    <!-- Lupa de búsqueda -->
+    <a href="/search" class="l3d-cart-link" aria-label="Buscar">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+    </a>
+
+    <!-- Carrito -->
     <a href="/cart" class="l3d-cart-link" aria-label="Carrito">
       <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
@@ -78,6 +112,7 @@
         <span class="l3d-cart-count">{{ cart.item_count }}</span>
       {%- endif -%}
     </a>
+
   </div>
 
 </div>
@@ -188,7 +223,50 @@
   }
 
   /* Carrito */
-  .l3d-cart-wrapper {
+  .l3d-cart-wrapper,
+  .l3d-right-group {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  /* Selector de idioma */
+  .l3d-lang-form {
+    margin: 0;
+    padding: 0;
+  }
+
+  .l3d-lang-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: {{ section.settings.nav_color }};
+    cursor: pointer;
+  }
+
+  .l3d-lang-select {
+    background: transparent;
+    border: none;
+    color: {{ section.settings.nav_color }};
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .l3d-lang-select option {
+    background: {{ section.settings.nav_bg }};
+    color: {{ section.settings.nav_color }};
+  }
+
+  .l3d-lang-chevron {
+    pointer-events: none;
+  }
     display: flex;
     align-items: center;
   }
