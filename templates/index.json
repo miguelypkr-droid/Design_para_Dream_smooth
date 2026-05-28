@@ -623,11 +623,6 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
-    },
-    "3d_logo_8cQtgk": {
-      "type": "3d-logo",
-      "name": "3D Logo",
-      "settings": {}
     }
   },
   "order": [
@@ -635,7 +630,6 @@
     "product_list_9QgXyk",
     "marquee_bf4Nf7",
     "product_list_9FTim7",
-    "media_with_content_Ccacfd",
-    "3d_logo_8cQtgk"
+    "media_with_content_Ccacfd"
   ]
 }
