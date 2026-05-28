@@ -21,6 +21,12 @@
   ></model-viewer>
 </div>
 
+<!-- Árboles pixelart estacionales -->
+<div class="l3d-trees-bar">
+  <div class="l3d-trees-left"></div>
+  <div class="l3d-trees-right"></div>
+</div>
+
 <!-- Caja 2: Barra de navegación -->
 <div class="l3d-nav-bar">
 
@@ -237,6 +243,56 @@
     }
   })();
 
+  /* ---- Árboles pixelart estacionales ---- */
+  (function () {
+    function leafColor() {
+      var m = new Date().getMonth();
+      if (m >= 2 && m <= 4) return '#6dc06d'; // Primavera
+      if (m >= 5 && m <= 7) return '#2d8a2d'; // Verano
+      if (m >= 8 && m <= 10) return '#e07b2a'; // Otoño
+      return '#b8d4e8';                         // Invierno
+    }
+    function makeTree(px, large) {
+      var L = leafColor(), T = '#7a4a1e', p = px;
+      if (!large) {
+        var w = 6*p, h = 8*p;
+        return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated;display:block">'+
+          '<rect fill="'+L+'" x="'+(2*p)+'" y="0" width="'+(2*p)+'" height="'+p+'"/>'+
+          '<rect fill="'+L+'" x="'+p+'" y="'+p+'" width="'+(4*p)+'" height="'+p+'"/>'+
+          '<rect fill="'+L+'" x="0" y="'+(2*p)+'" width="'+(6*p)+'" height="'+p+'"/>'+
+          '<rect fill="'+L+'" x="'+p+'" y="'+(3*p)+'" width="'+(4*p)+'" height="'+p+'"/>'+
+          '<rect fill="'+L+'" x="'+(2*p)+'" y="'+(4*p)+'" width="'+(2*p)+'" height="'+p+'"/>'+
+          '<rect fill="'+T+'" x="'+(2*p)+'" y="'+(5*p)+'" width="'+(2*p)+'" height="'+(3*p)+'"/>'+
+          '</svg>';
+      } else {
+        var w = 8*p, h = 11*p;
+        return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated;display:block">'+
+          '<rect fill="'+L+'" x="'+(3*p)+'" y="0" width="'+(2*p)+'" height="'+p+'"/>'+
+          '<rect fill="'+L+'" x="'+(2*p)+'" y="'+p+'" width="'+(4*p)+'" height="'+p+'"/>'+
+          '<rect fill="'+L+'" x="'+p+'" y="'+(2*p)+'" width="'+(6*p)+'" height="'+p+'"/>'+
+          '<rect fill="'+L+'" x="0" y="'+(3*p)+'" width="'+(8*p)+'" height="'+p+'"/>'+
+          '<rect fill="'+L+'" x="'+p+'" y="'+(4*p)+'" width="'+(6*p)+'" height="'+p+'"/>'+
+          '<rect fill="'+L+'" x="'+(2*p)+'" y="'+(5*p)+'" width="'+(4*p)+'" height="'+p+'"/>'+
+          '<rect fill="'+L+'" x="'+(3*p)+'" y="'+(6*p)+'" width="'+(2*p)+'" height="'+p+'"/>'+
+          '<rect fill="'+T+'" x="'+(3*p)+'" y="'+(7*p)+'" width="'+(2*p)+'" height="'+(4*p)+'"/>'+
+          '</svg>';
+      }
+    }
+    function initTrees() {
+      var leftEl  = document.querySelector('.l3d-trees-left');
+      var rightEl = document.querySelector('.l3d-trees-right');
+      if (!leftEl || !rightEl) return;
+      var group = makeTree(4,false) + makeTree(6,true) + makeTree(4,false);
+      leftEl.innerHTML  = group;
+      rightEl.innerHTML = group;
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTrees);
+    } else {
+      initTrees();
+    }
+  })();
+
   /* ---- Hamburger menu ---- */
   (function () {
     function initHamburger() {
@@ -352,6 +408,23 @@
     padding: 0.9rem 2rem;
     box-sizing: border-box;
     position: relative;
+  }
+
+  /* ---- Árboles pixelart ---- */
+  .l3d-trees-bar {
+    width: 100%;
+    background: {{ section.settings.nav_bg }};
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0.4rem 2.5rem 0;
+    box-sizing: border-box;
+  }
+  .l3d-trees-left,
+  .l3d-trees-right {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
   }
 
   /* ---- RESPONSIVE ---- */
@@ -503,7 +576,6 @@
   }
 
   /* Carrito */
-  .l3d-cart-wrapper,
   .l3d-right-group {
     display: flex;
     align-items: center;
@@ -546,9 +618,6 @@
 
   .l3d-lang-chevron {
     pointer-events: none;
-  }
-    display: flex;
-    align-items: center;
   }
 
   .l3d-cart-link {
