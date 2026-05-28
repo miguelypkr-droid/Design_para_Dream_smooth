@@ -9,7 +9,7 @@
 </div>
 
 <!-- Caja 1: Logo 3D -->
-<div class="l3d-logo-box" style="width:100%; background:#000000; display:flex; justify-content:center; align-items:center; padding:0.4rem 0; box-sizing:border-box; position:relative;">
+<div class="l3d-logo-box" style="width:100%; background:#000000; display:flex; justify-content:center; align-items:center; padding:0.4rem 0; box-sizing:border-box; position:relative; overflow:hidden;">
   <model-viewer
     src="https://cdn.shopify.com/3d/models/o/d49653b2167972d2/Dreamsmoothlogo.glb"
     auto-rotate
@@ -145,30 +145,27 @@
     }
   })();
 
-  /* ---- Efecto nieve en la caja del logo ---- */
+  /* ---- Efecto bolitas en la caja del logo ---- */
   (function () {
     function spawnSnow() {
-      var box = document.querySelector('.l3d-sticky-header');
+      var box = document.querySelector('.l3d-logo-box');
       if (!box) return;
-      var total = 28;
+      var total = 40;
       for (var i = 0; i < total; i++) {
-        (function (i) {
-          var dot = document.createElement('span');
-          dot.className = 'l3d-snow';
-          var size = 3 + Math.random() * 5;
-          dot.style.cssText = [
-            'position:absolute',
-            'border-radius:50%',
-            'background:rgba(255,255,255,' + (0.5 + Math.random() * 0.5) + ')',
-            'width:' + size + 'px',
-            'height:' + size + 'px',
-            'left:' + (Math.random() * 100) + '%',
-            'top:-10px',
-            'pointer-events:none',
-            'animation:l3d-snow-fall ' + (2.5 + Math.random() * 3.5) + 's linear ' + (Math.random() * 4) + 's infinite'
-          ].join(';');
-          box.appendChild(dot);
-        })(i);
+        var dot = document.createElement('span');
+        var size = 2 + Math.random() * 5;
+        dot.style.cssText = [
+          'position:absolute',
+          'border-radius:50%',
+          'background:rgba(255,255,255,' + (0.35 + Math.random() * 0.65) + ')',
+          'width:' + size + 'px',
+          'height:' + size + 'px',
+          'left:' + (Math.random() * 98) + '%',
+          'top:' + (Math.random() * 98) + '%',
+          'pointer-events:none',
+          'animation:l3d-snow-twinkle ' + (1.5 + Math.random() * 3.5) + 's ease-in-out ' + (Math.random() * 5) + 's infinite'
+        ].join(';');
+        box.appendChild(dot);
       }
     }
     if (document.readyState === 'loading') {
@@ -180,11 +177,11 @@
 </script>
 
 <style>
-  /* Nieve cayendo */
-  @keyframes l3d-snow-fall {
-    0%   { transform: translateY(0) translateX(0px);   opacity: 1; }
-    50%  { transform: translateY(50%) translateX(12px); }
-    100% { transform: translateY(110%) translateX(-8px); opacity: 0; }
+  /* Bolitas brillando por toda la caja */
+  @keyframes l3d-snow-twinkle {
+    0%,100% { opacity: 0.15; transform: scale(0.8); }
+    30%     { opacity: 1;    transform: scale(1.4); }
+    60%     { opacity: 0.5;  transform: scale(1);   }
   }
 
   /* Eliminar espacio blanco superior del tema */
@@ -314,11 +311,17 @@
 
   .l3d-cart-link {
     position: relative;
-    color: #ffffff;
+    color: #ffffff !important;
     display: flex;
     align-items: center;
     transition: opacity 0.2s;
     text-decoration: none;
+  }
+
+  .l3d-cart-link svg,
+  .l3d-cart-link svg * {
+    stroke: #ffffff !important;
+    fill: none !important;
   }
 
   .l3d-cart-link:hover {
