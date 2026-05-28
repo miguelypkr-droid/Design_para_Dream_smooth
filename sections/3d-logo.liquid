@@ -14,11 +14,141 @@
 </div>
 
 <!-- Caja 2: Barra de navegación -->
-<div style="width:100%; background:{{ section.settings.nav_bg }}; display:flex; justify-content:center; align-items:center; gap:3rem; padding:0.9rem 2rem; box-sizing:border-box;">
-  <a href="{{ section.settings.link_1_url }}" style="color:{{ section.settings.nav_color }}; text-decoration:none; font-size:0.85rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase;">{{ section.settings.link_1_label }}</a>
-  <a href="{{ section.settings.link_2_url }}" style="color:{{ section.settings.nav_color }}; text-decoration:none; font-size:0.85rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase;">{{ section.settings.link_2_label }}</a>
-  <a href="{{ section.settings.link_3_url }}" style="color:{{ section.settings.nav_color }}; text-decoration:none; font-size:0.85rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase;">{{ section.settings.link_3_label }}</a>
+<div class="l3d-nav-bar">
+  <a href="{{ section.settings.link_1_url }}" class="l3d-link">{{ section.settings.link_1_label }}</a>
+
+  <!-- Catálogo con submenú -->
+  <div class="l3d-dropdown">
+    <a href="{{ section.settings.link_2_url }}" class="l3d-link">{{ section.settings.link_2_label }}</a>
+    <div class="l3d-submenu">
+      <div class="l3d-group">
+        <span class="l3d-group-title">Marcas</span>
+        <a href="/collections/polo-ralph-lauren" class="l3d-sub-link">Polo Ralph Lauren</a>
+        <a href="/collections/dream-smooth" class="l3d-sub-link">Dream Smooth</a>
+        <a href="/collections/all" class="l3d-sub-link">Otros</a>
+      </div>
+      <div class="l3d-divider"></div>
+      <div class="l3d-group">
+        <span class="l3d-group-title">Estado</span>
+        <a href="/collections/nuevo" class="l3d-sub-link">Nuevo</a>
+        <a href="/collections/usado" class="l3d-sub-link">Usado</a>
+      </div>
+    </div>
+  </div>
+
+  <a href="{{ section.settings.link_3_url }}" class="l3d-link">{{ section.settings.link_3_label }}</a>
 </div>
+
+<style>
+  .l3d-nav-bar {
+    width: 100%;
+    background: {{ section.settings.nav_bg }};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    padding: 0.9rem 2rem;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .l3d-link {
+    color: {{ section.settings.nav_color }};
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+  }
+
+  .l3d-link:hover {
+    opacity: 0.65;
+  }
+
+  /* Contenedor del dropdown */
+  .l3d-dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Submenú oculto por defecto */
+  .l3d-submenu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.8rem);
+    left: 50%;
+    transform: translateX(-50%);
+    background: {{ section.settings.nav_bg }};
+    min-width: 280px;
+    padding: 1.1rem 1.4rem;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: flex-start;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    border-top: 2px solid rgba(255,255,255,0.12);
+    z-index: 9999;
+  }
+
+  /* Aparece al hacer hover con animación slide desde arriba */
+  .l3d-dropdown:hover .l3d-submenu {
+    display: flex;
+    animation: l3d-slide-down 0.22s ease forwards;
+  }
+
+  @keyframes l3d-slide-down {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+
+  /* Grupo dentro del submenú */
+  .l3d-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    flex: 1;
+  }
+
+  .l3d-group-title {
+    color: {{ section.settings.nav_color }};
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 0.25rem;
+  }
+
+  .l3d-sub-link {
+    color: {{ section.settings.nav_color }};
+    text-decoration: none;
+    font-size: 0.83rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+  }
+
+  .l3d-sub-link:hover {
+    opacity: 0.55;
+  }
+
+  /* Línea divisoria entre grupos */
+  .l3d-divider {
+    width: 1px;
+    background: rgba(255,255,255,0.15);
+    align-self: stretch;
+    margin: 0 0.25rem;
+  }
+</style>
 
 {% schema %}
 {
