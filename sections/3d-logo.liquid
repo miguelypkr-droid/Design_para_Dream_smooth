@@ -19,10 +19,7 @@
     interaction-prompt="none"
     style="width:180px; height:180px; background:transparent; display:block;"
   ></model-viewer>
-</div>
-
-<!-- Árboles pixelart estacionales -->
-<div class="l3d-trees-bar">
+  <!-- Árboles dentro del logo box -->
   <div class="l3d-trees-left"></div>
   <div class="l3d-trees-right"></div>
 </div>
@@ -411,21 +408,16 @@
   }
 
   /* ---- Árboles pixelart ---- */
-  .l3d-trees-bar {
-    width: 100%;
-    background: {{ section.settings.nav_bg }};
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding: 0.4rem 2.5rem 0;
-    box-sizing: border-box;
-  }
   .l3d-trees-left,
   .l3d-trees-right {
+    position: absolute;
+    bottom: 0;
     display: flex;
     align-items: flex-end;
     gap: 6px;
   }
+  .l3d-trees-left  { left:  2rem; }
+  .l3d-trees-right { right: 2rem; }
 
   /* ---- RESPONSIVE ---- */
   @media (max-width: 1400px) {
