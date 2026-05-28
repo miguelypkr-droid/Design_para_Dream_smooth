@@ -94,9 +94,9 @@
       "name": "3D Logo",
       "settings": {
         "link_1_label": "Inicio",
-        "link_1_url": "",
+        "link_1_url": "https://dreamsmoothh.com/",
         "link_2_label": "Catálogo",
-        "link_2_url": "",
+        "link_2_url": "shopify://collections/all",
         "link_3_label": "Acuerdos",
         "link_3_url": "",
         "nav_bg": "#111111",
