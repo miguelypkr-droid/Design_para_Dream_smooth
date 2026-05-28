@@ -19,120 +19,11 @@
     interaction-prompt="none"
     style="width:180px; height:180px; background:transparent; display:block;"
   ></model-viewer>
-  <!-- Luna con bandera de Colombia -->
-  <div class="l3d-moon-scene">
-    <svg width="160" height="185" viewBox="0 0 160 185" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="moon-grad" cx="38%" cy="32%" r="62%">
-          <stop offset="0%"   stop-color="#ffffff"/>
-          <stop offset="55%"  stop-color="#e4e4f0"/>
-          <stop offset="100%" stop-color="#b0b0c8"/>
-        </radialGradient>
-      </defs>
-      <!-- Halo suave -->
-      <circle cx="78" cy="122" r="72" fill="rgba(210,215,255,0.12)"/>
-      <!-- Asta enterrada en la luna (dibujada antes, la luna la tapa) -->
-      <rect x="76.5" y="12" width="3" height="70" fill="#c8c8c8" rx="1"/>
-      <!-- Cuerpo de la luna (tapa la parte enterrada del asta) -->
-      <circle cx="78" cy="122" r="64" fill="url(#moon-grad)" stroke="rgba(200,205,240,0.55)" stroke-width="1.5"/>
-      <!-- Cráteres -->
-      <circle cx="54"  cy="108" r="10" fill="rgba(140,140,165,0.32)"/>
-      <circle cx="96"  cy="128" r="7"  fill="rgba(140,140,165,0.26)"/>
-      <circle cx="68"  cy="138" r="6"  fill="rgba(140,140,165,0.28)"/>
-      <circle cx="90"  cy="104" r="8"  fill="rgba(140,140,165,0.24)"/>
-      <circle cx="58"  cy="128" r="4"  fill="rgba(140,140,165,0.22)"/>
-      <!-- Brillo lateral -->
-      <ellipse cx="55" cy="96" rx="18" ry="10" fill="rgba(255,255,255,0.38)" transform="rotate(-20,55,96)"/>
-      <!-- Anillo donde el asta entra en la luna -->
-      <circle cx="78" cy="59" r="4" fill="#b8b8cc" stroke="rgba(255,255,255,0.6)" stroke-width="0.8"/>
-      <!-- Punta dorada del asta -->
-      <circle cx="78" cy="11" r="3" fill="#d4af37"/>
-      <!-- Bandera Colombia: amarillo 50%, azul 25%, rojo 25% -->
-      <rect x="79.5" y="12" width="30" height="12" fill="#FCD116"/>
-      <rect x="79.5" y="24" width="30" height="6"  fill="#003893"/>
-      <rect x="79.5" y="30" width="30" height="6"  fill="#CE1126"/>
-      <rect x="79.5" y="12" width="30" height="24" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="0.5"/>
-    </svg>
-  </div>
-  <!-- Sol esquina derecha -->
-  <div class="l3d-sun-scene">
-    <svg width="130" height="130" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="sun-grad" cx="35%" cy="30%" r="70%">
-          <stop offset="0%"   stop-color="#ffffff"/>
-          <stop offset="40%"  stop-color="#fff9b0"/>
-          <stop offset="100%" stop-color="#FFD700"/>
-        </radialGradient>
-      </defs>
-      <!-- Halos exteriores -->
-      <circle cx="105" cy="25" r="75" fill="rgba(255,235,80,0.07)"/>
-      <circle cx="105" cy="25" r="58" fill="rgba(255,240,100,0.09)"/>
-      <!-- Cuerpo del sol -->
-      <circle cx="105" cy="25" r="42" fill="url(#sun-grad)" stroke="rgba(255,220,60,0.40)" stroke-width="1.5"/>
-      <!-- Rayos hacia abajo-izquierda (visibles dentro del box) -->
-      <g stroke="rgba(255,230,65,0.82)" stroke-width="3" stroke-linecap="round">
-        <line x1="105" y1="69" x2="105" y2="96"/>
-        <line x1="94"  y1="68" x2="87"  y2="94"/>
-        <line x1="83"  y1="63" x2="70"  y2="87"/>
-        <line x1="74"  y1="56" x2="56"  y2="76"/>
-        <line x1="67"  y1="47" x2="44"  y2="61"/>
-        <line x1="62"  y1="37" x2="37"  y2="44"/>
-        <line x1="61"  y1="25" x2="34"  y2="25"/>
-      </g>
-      <!-- Brillo central -->
-      <ellipse cx="96" cy="15" rx="14" ry="8" fill="rgba(255,255,255,0.38)" transform="rotate(-20,96,15)"/>
-    </svg>
-  </div>
-  <!-- Asteroides -->
-  <div class="l3d-asteroid" id="l3d-ast-1">
-    <svg width="18" height="14" viewBox="0 0 18 14" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="4,0 10,0 15,3 17,8 13,13 7,14 1,11 0,5 2,1" fill="#dde0ec" stroke="rgba(200,205,230,0.80)" stroke-width="0.7"/>
-      <polygon points="4,0 10,0 10,4 5,3" fill="rgba(255,255,255,0.55)"/>
-    </svg>
-  </div>
-  <div class="l3d-asteroid" id="l3d-ast-2">
-    <svg width="26" height="20" viewBox="0 0 26 20" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="7,0 15,1 22,5 25,11 20,17 12,19 5,17 0,11 2,4" fill="#dde0ec" stroke="rgba(200,205,230,0.75)" stroke-width="0.8"/>
-      <polygon points="7,0 15,1 15,6 8,4" fill="rgba(255,255,255,0.55)"/>
-      <ellipse cx="17" cy="13" rx="3.5" ry="2.5" fill="rgba(160,165,190,0.38)"/>
-    </svg>
-  </div>
-  <div class="l3d-asteroid" id="l3d-ast-3">
-    <svg width="14" height="11" viewBox="0 0 14 11" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="3,0 8,0 12,3 13,7 10,10 5,11 1,8 0,4 1,1" fill="#dde0ec" stroke="rgba(200,205,230,0.80)" stroke-width="0.6"/>
-      <polygon points="3,0 8,0 7,3 3,2" fill="rgba(255,255,255,0.55)"/>
-    </svg>
-  </div>
-  <div class="l3d-asteroid" id="l3d-ast-4">
-    <svg width="32" height="25" viewBox="0 0 32 25" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="9,0 19,1 27,6 31,14 27,21 17,24 8,23 2,16 0,8 4,2" fill="#dde0ec" stroke="rgba(200,205,230,0.72)" stroke-width="0.9"/>
-      <polygon points="9,0 19,1 19,7 10,5" fill="rgba(255,255,255,0.55)"/>
-      <ellipse cx="21" cy="17" rx="4" ry="3" fill="rgba(160,165,190,0.38)"/>
-      <circle cx="9" cy="14" r="2.5" fill="rgba(160,165,190,0.32)"/>
-    </svg>
-  </div>
-  <!-- Satélite -->
-  <div class="l3d-satellite" id="l3d-sat">
-    <svg width="44" height="16" viewBox="0 0 44 16" xmlns="http://www.w3.org/2000/svg">
-      <!-- Panel solar izquierdo -->
-      <rect x="0" y="5" width="13" height="6" fill="#2244aa" stroke="rgba(150,180,255,0.75)" stroke-width="0.6" rx="0.5"/>
-      <line x1="4.3"  y1="5" x2="4.3"  y2="11" stroke="rgba(150,180,255,0.50)" stroke-width="0.5"/>
-      <line x1="8.7"  y1="5" x2="8.7"  y2="11" stroke="rgba(150,180,255,0.50)" stroke-width="0.5"/>
-      <!-- Conector izquierdo -->
-      <rect x="13" y="7.5" width="3" height="1" fill="#a0a0b0"/>
-      <!-- Cuerpo central -->
-      <rect x="16" y="1" width="12" height="14" fill="#caccd0" stroke="rgba(200,205,225,0.85)" stroke-width="0.7" rx="1.5"/>
-      <!-- Ventana -->
-      <circle cx="22" cy="8" r="3.2" fill="#88ccff" stroke="rgba(160,210,255,0.70)" stroke-width="0.5"/>
-      <circle cx="21" cy="7" r="1.1" fill="rgba(255,255,255,0.65)"/>
-      <!-- Conector derecho -->
-      <rect x="28" y="7.5" width="3" height="1" fill="#a0a0b0"/>
-      <!-- Panel solar derecho -->
-      <rect x="31" y="5" width="13" height="6" fill="#2244aa" stroke="rgba(150,180,255,0.75)" stroke-width="0.6" rx="0.5"/>
-      <line x1="35.3" y1="5" x2="35.3" y2="11" stroke="rgba(150,180,255,0.50)" stroke-width="0.5"/>
-      <line x1="39.7" y1="5" x2="39.7" y2="11" stroke="rgba(150,180,255,0.50)" stroke-width="0.5"/>
-    </svg>
-  </div>
+  <!-- Telarañas y arañas -->
+  <div class="l3d-web-left"></div>
+  <div class="l3d-web-br"></div>
+  <div class="l3d-spider" id="l3d-spider-1"></div>
+  <div class="l3d-spider" id="l3d-spider-2"></div>
 </div>
 
 <!-- Caja 2: Barra de navegación -->
@@ -351,6 +242,72 @@
     }
   })();
 
+  /* ---- Telarañas y arañas ---- */
+  (function () {
+    function makeWeb(size, corner) {
+      var s = size;
+      var cx, cy, angles;
+      if (corner === 'tl') {
+        cx = 0; cy = 0;
+        angles = [0, 15, 30, 45, 60, 75, 90];
+      } else {
+        cx = s; cy = s;
+        angles = [180, 195, 210, 225, 240, 255, 270];
+      }
+      var radii = [s*0.20, s*0.36, s*0.53, s*0.70, s*0.88];
+      var out = '';
+      angles.forEach(function(deg) {
+        var rad = deg * Math.PI / 180;
+        out += '<line x1="'+cx+'" y1="'+cy+'" x2="'+(cx+s*Math.cos(rad)).toFixed(1)+'" y2="'+(cy+s*Math.sin(rad)).toFixed(1)+'" stroke="rgba(255,255,255,0.62)" stroke-width="1.2"/>';
+      });
+      radii.forEach(function(r) {
+        var pts = angles.map(function(deg) {
+          var rad = deg * Math.PI / 180;
+          return (cx+r*Math.cos(rad)).toFixed(1)+','+(cy+r*Math.sin(rad)).toFixed(1);
+        });
+        out += '<polyline points="'+pts.join(' ')+'" fill="none" stroke="rgba(255,255,255,0.44)" stroke-width="1"/>';
+      });
+      return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 '+s+' '+s+'" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:visible">'+out+'</svg>';
+    }
+
+    function makeSpider(sz) {
+      var w = (sz*2.2).toFixed(0), h = (sz*1.8).toFixed(0);
+      var cx = sz*1.1, hy = sz*0.40, ay = sz*1.05;
+      var s = '';
+      s += '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" xmlns="http://www.w3.org/2000/svg">';
+      s += '<circle cx="'+cx.toFixed(1)+'" cy="'+hy.toFixed(1)+'" r="'+(sz*0.30).toFixed(1)+'" fill="#111" stroke="rgba(255,255,255,0.55)" stroke-width="0.9"/>';
+      s += '<circle cx="'+(cx-sz*0.11).toFixed(1)+'" cy="'+(hy-sz*0.06).toFixed(1)+'" r="'+(sz*0.08).toFixed(1)+'" fill="#f22"/>';
+      s += '<circle cx="'+(cx+sz*0.11).toFixed(1)+'" cy="'+(hy-sz*0.06).toFixed(1)+'" r="'+(sz*0.08).toFixed(1)+'" fill="#f22"/>';
+      s += '<ellipse cx="'+cx.toFixed(1)+'" cy="'+ay.toFixed(1)+'" rx="'+(sz*0.46).toFixed(1)+'" ry="'+(sz*0.56).toFixed(1)+'" fill="#111" stroke="rgba(255,255,255,0.55)" stroke-width="0.9"/>';
+      var legs = [[0.29,0.10, 0.76,-0.10, 1.02,0.18],[0.29,0.22, 0.80,0.26, 1.05,0.55],[0.27,0.36, 0.75,0.60, 0.98,0.95],[0.24,0.50, 0.60,0.88, 0.72,1.25]];
+      legs.forEach(function(l) {
+        var lx1=(cx-sz*l[0]).toFixed(1), ly1=(hy+sz*l[1]).toFixed(1), lx2=(cx-sz*l[2]).toFixed(1), ly2=(hy+sz*l[3]).toFixed(1), lx3=(cx-sz*l[4]).toFixed(1), ly3=(hy+sz*l[5]).toFixed(1);
+        s += '<polyline points="'+lx1+','+ly1+' '+lx2+','+ly2+' '+lx3+','+ly3+'" fill="none" stroke="rgba(255,255,255,0.72)" stroke-width="0.9"/>';
+        lx1=(cx+sz*l[0]).toFixed(1); lx2=(cx+sz*l[2]).toFixed(1); lx3=(cx+sz*l[4]).toFixed(1);
+        s += '<polyline points="'+lx1+','+ly1+' '+lx2+','+ly2+' '+lx3+','+ly3+'" fill="none" stroke="rgba(255,255,255,0.72)" stroke-width="0.9"/>';
+      });
+      s += '</svg>';
+      return s;
+    }
+
+    function initWebs() {
+      var leftEl = document.querySelector('.l3d-web-left');
+      var brEl   = document.querySelector('.l3d-web-br');
+      var sp1    = document.getElementById('l3d-spider-1');
+      var sp2    = document.getElementById('l3d-spider-2');
+      if (!leftEl) return;
+      leftEl.innerHTML = makeWeb(220, 'tl');
+      if (brEl) brEl.innerHTML = makeWeb(200, 'br');
+      if (sp1)  sp1.innerHTML  = makeSpider(22);
+      if (sp2)  sp2.innerHTML  = makeSpider(17);
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initWebs);
+    } else {
+      initWebs();
+    }
+  })();
+
   /* ---- Hamburger menu ---- */
   (function () {
     function initHamburger() {
@@ -468,77 +425,37 @@
     position: relative;
   }
 
-  /* ---- Luna con bandera ---- */
-  .l3d-moon-scene {
+  /* ---- Telarañas ---- */
+  .l3d-web-left,
+  .l3d-web-br {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .l3d-web-left { top: 0;    left:  0; }
+  .l3d-web-br   { bottom: 0; right: 0; }
+
+  /* ---- Arañas colgantes ---- */
+  .l3d-spider {
     position: absolute;
     top: 0;
-    left: 0;
     pointer-events: none;
-    z-index: 1;
-    filter: drop-shadow(0 0 16px rgba(210,215,255,0.55));
+    animation: l3d-spider-swing 3s ease-in-out infinite alternate;
+    transform-origin: top center;
   }
-
-  /* ---- Sol ---- */
-  .l3d-sun-scene {
-    position: absolute;
-    top: 0;
-    right: 0;
-    pointer-events: none;
-    z-index: 1;
-    filter: drop-shadow(0 0 22px rgba(255,220,60,0.55));
+  #l3d-spider-1 { left: 18%; animation-delay:  0s; }
+  #l3d-spider-2 { left: 30%; animation-delay: -1.5s; }
+  .l3d-spider::before {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 48px;
+    background: rgba(255,255,255,0.55);
+    margin: 0 auto;
   }
-
-  /* ---- Asteroides ---- */
-  .l3d-asteroid {
-    position: absolute;
-    pointer-events: none;
-    z-index: 1;
-    filter: drop-shadow(0 0 4px rgba(210,215,255,0.55));
-  }
-  #l3d-ast-1 { animation: l3d-ast-fly-1  6s linear infinite; animation-delay:  0s; }
-  #l3d-ast-2 { animation: l3d-ast-fly-2  9s linear infinite; animation-delay: -3.6s; }
-  #l3d-ast-3 { animation: l3d-ast-fly-3  4.5s linear infinite; animation-delay: -1.8s; }
-  #l3d-ast-4 { animation: l3d-ast-fly-4 12s linear infinite; animation-delay: -7s; }
-
-  @keyframes l3d-ast-fly-1 {
-    0%   { left: 103%; top:  8%; transform: rotate(0deg);    opacity: 0; }
-    6%   {                                                   opacity: 1; }
-    94%  {                                                   opacity: 1; }
-    100% { left:  -4%; top: 72%; transform: rotate(-220deg); opacity: 0; }
-  }
-  @keyframes l3d-ast-fly-2 {
-    0%   { left:  -3%; top: 20%; transform: rotate(0deg);   opacity: 0; }
-    6%   {                                                  opacity: 1; }
-    94%  {                                                  opacity: 1; }
-    100% { left: 104%; top: 60%; transform: rotate(190deg); opacity: 0; }
-  }
-  @keyframes l3d-ast-fly-3 {
-    0%   { left: 70%;  top: -5%; transform: rotate(0deg);   opacity: 0; }
-    8%   {                                                  opacity: 1; }
-    92%  {                                                  opacity: 1; }
-    100% { left: 88%;  top: 110%; transform: rotate(310deg); opacity: 0; }
-  }
-  @keyframes l3d-ast-fly-4 {
-    0%   { left: 103%; top: 35%; transform: rotate(0deg);   opacity: 0; }
-    5%   {                                                  opacity: 1; }
-    95%  {                                                  opacity: 1; }
-    100% { left:  -4%; top: 15%; transform: rotate(160deg); opacity: 0; }
-  }
-
-  /* ---- Satélite ---- */
-  .l3d-satellite {
-    position: absolute;
-    pointer-events: none;
-    z-index: 2;
-    filter: drop-shadow(0 0 4px rgba(150,190,255,0.55));
-    animation: l3d-sat-orbit 22s linear infinite;
-    animation-delay: -8s;
-  }
-  @keyframes l3d-sat-orbit {
-    0%   { left: -8%;  top: 28%; opacity: 0; }
-    5%   {             top: 28%; opacity: 1; }
-    95%  {             top: 52%; opacity: 1; }
-    100% { left: 106%; top: 52%; opacity: 0; }
+  @keyframes l3d-spider-swing {
+    from { transform: rotate(-10deg); }
+    to   { transform: rotate( 10deg); }
   }
 
   /* ---- RESPONSIVE ---- */
