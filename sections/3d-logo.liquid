@@ -129,15 +129,20 @@
       if (section) {
         section.style.setProperty('margin-top', '0', 'important');
         section.style.setProperty('padding-top', '0', 'important');
+        section.style.setProperty('height', '0', 'important');
+        section.style.setProperty('min-height', '0', 'important');
       }
       /* Sobreescribir variables CSS del tema Dawn */
       document.documentElement.style.setProperty('--header-group-height', '0px', 'important');
       document.documentElement.style.setProperty('--header-height', '0px', 'important');
-      var main = document.getElementById('MainContent') || document.querySelector('main');
-      if (main) {
-        main.style.setProperty('padding-top', '0', 'important');
-        main.style.setProperty('margin-top', '0', 'important');
+      /* Compensar el espacio que ocupa el header fijo en el contenido */
+      function applyOffset() {
+        var h = el.offsetHeight;
+        var main = document.getElementById('MainContent') || document.querySelector('main');
+        if (main) main.style.setProperty('padding-top', h + 'px', 'important');
       }
+      applyOffset();
+      window.addEventListener('resize', applyOffset);
     }
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', removeTopSpace);
@@ -200,12 +205,20 @@
     margin-top: 0 !important;
   }
 
-  /* Sticky header */
+  /* Header fijo + animación de entrada */
+  @keyframes l3d-header-in {
+    from { transform: translateY(-100%); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+  }
+
   .l3d-sticky-header {
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 200;
+    left: 0;
+    right: 0;
+    z-index: 1000;
     width: 100%;
+    animation: l3d-header-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 
 
