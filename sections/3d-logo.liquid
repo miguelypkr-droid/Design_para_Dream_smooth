@@ -1,263 +1,38 @@
 ﻿<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 
+<div class="logo3d-box">
+  <model-viewer
+    src="https://cdn.shopify.com/3d/models/o/d49653b2167972d2/Dreamsmoothlogo.glb"
+    auto-rotate
+    rotation-per-second="-30deg"
+    camera-controls
+    disable-zoom
+    interaction-prompt="none"
+  ></model-viewer>
+</div>
+
 <style>
-  .header-3d {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: {{ section.settings.bg_color }};
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .header-3d__inner {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    min-height: {{ section.settings.header_height }}px;
-  }
-
-  .header-3d__nav {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .header-3d__nav--right {
-    justify-content: flex-end;
-  }
-
-  .header-3d__nav a {
-    color: {{ section.settings.link_color }};
-    text-decoration: none;
-    font-size: {{ section.settings.font_size }}px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    transition: opacity 0.2s;
-  }
-
-  .header-3d__nav a:hover {
-    opacity: 0.6;
-  }
-
-  .header-3d__logo {
+  .logo3d-box {
+    width: 100%;
+    background: #000;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 1rem 0;
   }
 
-  .header-3d__logo model-viewer {
-    width: {{ section.settings.logo_size }}px;
-    height: {{ section.settings.logo_size }}px;
+  .logo3d-box model-viewer {
+    width: 120px;
+    height: 120px;
     background: transparent;
     display: block;
   }
-
-  /* Mobile: hamburger */
-  .header-3d__hamburger {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-    color: {{ section.settings.link_color }};
-  }
-
-  .header-3d__mobile-nav {
-    display: none;
-    flex-direction: column;
-    gap: 0;
-    background: {{ section.settings.bg_color }};
-    border-top: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .header-3d__mobile-nav a {
-    display: block;
-    padding: 1rem 2rem;
-    color: {{ section.settings.link_color }};
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    transition: opacity 0.2s;
-  }
-
-  .header-3d__mobile-nav a:hover { opacity: 0.6; }
-
-  .header-3d__mobile-nav.is-open { display: flex; }
-
-  @media (max-width: 749px) {
-    .header-3d__nav { display: none; }
-    .header-3d__hamburger { display: flex; align-items: center; }
-    .header-3d__inner {
-      grid-template-columns: auto 1fr auto;
-    }
-  }
 </style>
-
-<header class="header-3d">
-  <div class="header-3d__inner">
-
-    <!-- Nav izquierda (desktop) -->
-    <ul class="header-3d__nav header-3d__nav--left">
-      <li><a href="{{ section.settings.link_1_url }}">{{ section.settings.link_1_label }}</a></li>
-      <li><a href="{{ section.settings.link_2_url }}">{{ section.settings.link_2_label }}</a></li>
-    </ul>
-
-    <!-- Logo 3D centrado -->
-    <div class="header-3d__logo">
-      <model-viewer
-        src="{{ section.settings.model_url }}"
-        auto-rotate
-        rotation-per-second="-30deg"
-        camera-controls
-        disable-zoom
-        camera-orbit="0deg 75deg 105%"
-        interaction-prompt="none"
-      ></model-viewer>
-    </div>
-
-    <!-- Nav derecha (desktop) -->
-    <ul class="header-3d__nav header-3d__nav--right">
-      <li><a href="{{ section.settings.link_3_url }}">{{ section.settings.link_3_label }}</a></li>
-    </ul>
-
-    <!-- Hamburger (mobile) -->
-    <button
-      class="header-3d__hamburger"
-      aria-label="Abrir menú"
-      onclick="this.closest('.header-3d').querySelector('.header-3d__mobile-nav').classList.toggle('is-open')"
-    >
-      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <line x1="3" y1="6"  x2="21" y2="6"/>
-        <line x1="3" y1="12" x2="21" y2="12"/>
-        <line x1="3" y1="18" x2="21" y2="18"/>
-      </svg>
-    </button>
-
-  </div>
-
-  <!-- Nav mobile -->
-  <nav class="header-3d__mobile-nav">
-    <a href="{{ section.settings.link_1_url }}">{{ section.settings.link_1_label }}</a>
-    <a href="{{ section.settings.link_2_url }}">{{ section.settings.link_2_label }}</a>
-    <a href="{{ section.settings.link_3_url }}">{{ section.settings.link_3_label }}</a>
-  </nav>
-</header>
 
 {% schema %}
 {
-  "name": "Header 3D Logo",
-  "settings": [
-    {
-      "type": "header",
-      "content": "Logo 3D"
-    },
-    {
-      "type": "text",
-      "id": "model_url",
-      "label": "URL del modelo .glb",
-      "default": "https://cdn.shopify.com/3d/models/o/d49653b2167972d2/Dreamsmoothlogo.glb"
-    },
-    {
-      "type": "range",
-      "id": "logo_size",
-      "label": "Tamaño del logo",
-      "min": 60,
-      "max": 200,
-      "step": 10,
-      "unit": "px",
-      "default": 100
-    },
-    {
-      "type": "header",
-      "content": "Menú"
-    },
-    {
-      "type": "text",
-      "id": "link_1_label",
-      "label": "Enlace 1 — texto",
-      "default": "Inicio"
-    },
-    {
-      "type": "url",
-      "id": "link_1_url",
-      "label": "Enlace 1 — URL",
-      "default": "/"
-    },
-    {
-      "type": "text",
-      "id": "link_2_label",
-      "label": "Enlace 2 — texto",
-      "default": "Catálogo"
-    },
-    {
-      "type": "url",
-      "id": "link_2_url",
-      "label": "Enlace 2 — URL",
-      "default": "/collections/all"
-    },
-    {
-      "type": "text",
-      "id": "link_3_label",
-      "label": "Enlace 3 — texto",
-      "default": "Acuerdos"
-    },
-    {
-      "type": "url",
-      "id": "link_3_url",
-      "label": "Enlace 3 — URL",
-      "default": "/pages/acuerdos"
-    },
-    {
-      "type": "header",
-      "content": "Estilo"
-    },
-    {
-      "type": "color",
-      "id": "bg_color",
-      "label": "Color de fondo",
-      "default": "#000000"
-    },
-    {
-      "type": "color",
-      "id": "link_color",
-      "label": "Color de los enlaces",
-      "default": "#ffffff"
-    },
-    {
-      "type": "range",
-      "id": "font_size",
-      "label": "Tamaño de fuente",
-      "min": 10,
-      "max": 18,
-      "step": 1,
-      "unit": "px",
-      "default": 13
-    },
-    {
-      "type": "range",
-      "id": "header_height",
-      "label": "Altura del header",
-      "min": 60,
-      "max": 160,
-      "step": 4,
-      "unit": "px",
-      "default": 80
-    }
-  ],
-  "presets": [
-    {
-      "name": "Header 3D Logo"
-    }
-  ]
+  "name": "3D Logo",
+  "settings": [],
+  "presets": [{ "name": "3D Logo" }]
 }
 {% endschema %}
