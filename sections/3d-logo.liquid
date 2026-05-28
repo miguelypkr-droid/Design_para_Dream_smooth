@@ -22,8 +22,11 @@
   <!-- Telarañas y arañas -->
   <div class="l3d-web-left"></div>
   <div class="l3d-web-right"></div>
+  <div class="l3d-web-bottom-left"></div>
+  <div class="l3d-web-bottom-right"></div>
   <div class="l3d-spider" id="l3d-spider-1"></div>
   <div class="l3d-spider" id="l3d-spider-2"></div>
+  <div id="l3d-spider-walker"></div>
 </div>
 
 <!-- Caja 2: Barra de navegación -->
@@ -289,15 +292,21 @@
     }
 
     function initWebs() {
-      var leftEl  = document.querySelector('.l3d-web-left');
-      var rightEl = document.querySelector('.l3d-web-right');
-      var sp1 = document.getElementById('l3d-spider-1');
-      var sp2 = document.getElementById('l3d-spider-2');
+      var leftEl    = document.querySelector('.l3d-web-left');
+      var rightEl   = document.querySelector('.l3d-web-right');
+      var botLeftEl = document.querySelector('.l3d-web-bottom-left');
+      var botRightEl= document.querySelector('.l3d-web-bottom-right');
+      var sp1    = document.getElementById('l3d-spider-1');
+      var sp2    = document.getElementById('l3d-spider-2');
+      var walker = document.getElementById('l3d-spider-walker');
       if (!leftEl || !rightEl || !sp1 || !sp2) return;
-      leftEl.innerHTML  = makeWeb(130, false);
-      rightEl.innerHTML = makeWeb(130, true);
+      leftEl.innerHTML    = makeWeb(130, false);
+      rightEl.innerHTML   = makeWeb(130, true);
+      if (botLeftEl)  botLeftEl.innerHTML  = makeWeb(110, false);
+      if (botRightEl) botRightEl.innerHTML = makeWeb(110, true);
       sp1.innerHTML = makeSpider(36);
       sp2.innerHTML = makeSpider(28);
+      if (walker) walker.innerHTML = makeSpider(32);
     }
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initWebs);
@@ -425,13 +434,24 @@
 
   /* ---- Telarañas ---- */
   .l3d-web-left,
-  .l3d-web-right {
+  .l3d-web-right,
+  .l3d-web-bottom-left,
+  .l3d-web-bottom-right {
     position: absolute;
-    top: 0;
     pointer-events: none;
   }
-  .l3d-web-left  { left:  0; }
-  .l3d-web-right { right: 0; }
+  .l3d-web-left         { top: 0;    left:  0; }
+  .l3d-web-right        { top: 0;    right: 0; }
+  .l3d-web-bottom-left  {
+    bottom: 0; left: 0;
+    transform: scaleY(-1);
+    transform-origin: left bottom;
+  }
+  .l3d-web-bottom-right {
+    bottom: 0; right: 0;
+    transform: scaleY(-1);
+    transform-origin: right bottom;
+  }
 
   /* ---- Arañas colgantes ---- */
   .l3d-spider {
@@ -460,6 +480,25 @@
   @keyframes l3d-spider-swing {
     from { transform: rotate(-8deg); }
     to   { transform: rotate(8deg); }
+  }
+
+  /* ---- Araña caminante ---- */
+  #l3d-spider-walker {
+    position: absolute;
+    bottom: 5px;
+    left: -40px;
+    pointer-events: none;
+    animation:
+      l3d-walk-move 10s ease-in-out infinite alternate,
+      l3d-walk-flip 20s step-start infinite;
+  }
+  @keyframes l3d-walk-move {
+    from { left: -40px; }
+    to   { left: calc(100% + 10px); }
+  }
+  @keyframes l3d-walk-flip {
+    0%  { transform: scaleX(1);  }
+    50% { transform: scaleX(-1); }
   }
 
   /* ---- RESPONSIVE ---- */
