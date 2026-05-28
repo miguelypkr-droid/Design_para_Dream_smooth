@@ -1,153 +1,17 @@
-﻿{%- assign wrap_id = 'logo3d-' | append: section.id -%}
+﻿<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 
-<div
-  id="{{ wrap_id }}"
-  style="
-    position: relative;
-    width: 100%;
-    height: clamp(320px, 55vw, 640px);
-    background: #000;
-    cursor: grab;
-    overflow: hidden;
-    user-select: none;
-    -webkit-user-select: none;
-  "
->
-  <p
-    class="logo3d-loading-msg"
-    style="
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0;
-      color: #666;
-      font-size: 0.9rem;
-      letter-spacing: 0.04em;
-      pointer-events: none;
-    "
-  >Cargando logo 3D…</p>
-</div>
-
-<!-- Three.js r148 UMD: sin ES modules, compatible con CSP de Shopify -->
-<script src="https://cdn.jsdelivr.net/npm/three@0.148.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.148.0/examples/js/loaders/GLTFLoader.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.148.0/examples/js/controls/OrbitControls.js"></script>
-
-<script>
-(function () {
-  var container = document.getElementById('{{ wrap_id }}');
-  var loadingEl = container && container.querySelector('.logo3d-loading-msg');
-
-  if (!container) {
-    console.error('[3D Logo] Contenedor no encontrado: {{ wrap_id }}');
-    return;
-  }
-
-  function init() {
-    var w = container.offsetWidth  || 800;
-    var h = container.offsetHeight || 600;
-
-    if (loadingEl) loadingEl.remove();
-
-    var scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000);
-
-    var camera = new THREE.PerspectiveCamera(40, w / h, 0.01, 1000);
-    camera.position.set(0, 0, 5);
-
-    var renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(w, h);
-    renderer.outputEncoding    = THREE.sRGBEncoding;
-    renderer.toneMapping       = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.4;
-    renderer.domElement.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;';
-    container.appendChild(renderer.domElement);
-
-    scene.add(new THREE.AmbientLight(0xffffff, 1.5));
-    var key = new THREE.DirectionalLight(0xffffff, 3);
-    key.position.set(4, 6, 5); scene.add(key);
-    var fill = new THREE.DirectionalLight(0xddeeff, 1.2);
-    fill.position.set(-4, 2, -3); scene.add(fill);
-    var rim = new THREE.DirectionalLight(0xfff4cc, 1.0);
-    rim.position.set(0, -4, -5); scene.add(rim);
-
-    var controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping   = true;
-    controls.dampingFactor   = 0.07;
-    controls.enableZoom      = false;
-    controls.enablePan       = false;
-    controls.rotateSpeed     = 0.9;
-    controls.autoRotate      = true;
-    controls.autoRotateSpeed = 1.5;
-    controls.minPolarAngle   = 0;
-    controls.maxPolarAngle   = Math.PI;
-
-    var idleTimer = null;
-    controls.addEventListener('start', function () {
-      controls.autoRotate = false;
-      clearTimeout(idleTimer);
-    });
-    controls.addEventListener('end', function () {
-      idleTimer = setTimeout(function () { controls.autoRotate = true; }, 2000);
-    });
-
-    (function animate() {
-      requestAnimationFrame(animate);
-      controls.update();
-      renderer.render(scene, camera);
-    })();
-
-    new ResizeObserver(function () {
-      var nw = container.offsetWidth;
-      var nh = container.offsetHeight;
-      if (nw && nh) {
-        camera.aspect = nw / nh;
-        camera.updateProjectionMatrix();
-        renderer.setSize(nw, nh);
-      }
-    }).observe(container);
-
-    var loader = new THREE.GLTFLoader();
-    loader.load(
-      'https://cdn.shopify.com/3d/models/o/d49653b2167972d2/Dreamsmoothlogo.glb',
-      function (gltf) {
-        var model = gltf.scene;
-        scene.add(model);
-        model.updateMatrixWorld(true);
-
-        var box    = new THREE.Box3().setFromObject(model);
-        var center = box.getCenter(new THREE.Vector3());
-        var size   = box.getSize(new THREE.Vector3());
-        model.position.sub(center);
-
-        var maxDim = Math.max(size.x, size.y, size.z);
-        model.scale.setScalar(2.5 / maxDim);
-
-        var fov  = camera.fov * (Math.PI / 180);
-        camera.position.set(0, 0, (2.5 / 2) / Math.tan(fov / 2) * 1.8);
-        controls.target.set(0, 0, 0);
-        controls.update();
-      },
-      undefined,
-      function (err) { console.error('[3D Logo] Error al cargar .glb:', err); }
-    );
-  }
-
-  requestAnimationFrame(function () { requestAnimationFrame(init); });
-})();
-</script>
+<model-viewer
+  src="https://cdn.shopify.com/3d/models/o/d49653b2167972d2/Dreamsmoothlogo.glb"
+  auto-rotate
+  camera-controls
+  disable-zoom
+  style="width:100%;height:clamp(320px,55vw,640px);background-color:#000000;"
+></model-viewer>
 
 {% schema %}
 {
   "name": "3D Logo",
   "settings": [],
-  "presets": [
-    {
-      "name": "3D Logo"
-    }
-  ]
+  "presets": [{ "name": "3D Logo" }]
 }
 {% endschema %}
