@@ -11,6 +11,12 @@
   ></model-viewer>
 </div>
 
+<nav class="logo3d-nav">
+  <a href="{{ section.settings.link_1_url }}">{{ section.settings.link_1_label }}</a>
+  <a href="{{ section.settings.link_2_url }}">{{ section.settings.link_2_label }}</a>
+  <a href="{{ section.settings.link_3_url }}">{{ section.settings.link_3_label }}</a>
+</nav>
+
 <style>
   .logo3d-box {
     width: 100%;
@@ -27,12 +33,93 @@
     background: transparent;
     display: block;
   }
+
+  .logo3d-nav {
+    width: 100%;
+    background: {{ section.settings.nav_bg }};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    padding: 0.85rem 2rem;
+  }
+
+  .logo3d-nav a {
+    color: {{ section.settings.nav_color }};
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+  }
+
+  .logo3d-nav a:hover {
+    opacity: 0.55;
+  }
 </style>
 
 {% schema %}
 {
   "name": "3D Logo",
-  "settings": [],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Menú de navegación"
+    },
+    {
+      "type": "text",
+      "id": "link_1_label",
+      "label": "Enlace 1 — texto",
+      "default": "Inicio"
+    },
+    {
+      "type": "url",
+      "id": "link_1_url",
+      "label": "Enlace 1 — URL",
+      "default": "/"
+    },
+    {
+      "type": "text",
+      "id": "link_2_label",
+      "label": "Enlace 2 — texto",
+      "default": "Catálogo"
+    },
+    {
+      "type": "url",
+      "id": "link_2_url",
+      "label": "Enlace 2 — URL",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "link_3_label",
+      "label": "Enlace 3 — texto",
+      "default": "Acuerdos"
+    },
+    {
+      "type": "url",
+      "id": "link_3_url",
+      "label": "Enlace 3 — URL",
+      "default": "/pages/acuerdos"
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "nav_bg",
+      "label": "Fondo del menú",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "nav_color",
+      "label": "Color del texto",
+      "default": "#ffffff"
+    }
+  ],
   "presets": [{ "name": "3D Logo" }]
 }
 {% endschema %}
