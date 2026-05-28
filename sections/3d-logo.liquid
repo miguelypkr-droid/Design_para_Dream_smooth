@@ -281,9 +281,9 @@
       var rightEl = document.querySelector('.l3d-buildings-right');
       if (!leftEl || !rightEl) return;
       // Izquierda: 2 edificios del mismo tamaño
-      leftEl.innerHTML  = makeBuilding(4, 6, 14) + makeBuilding(4, 6, 14);
+      leftEl.innerHTML  = makeBuilding(6, 6, 14) + makeBuilding(6, 6, 14);
       // Derecha: edificio pequeño + edificio grande
-      rightEl.innerHTML = makeBuilding(4, 5, 11) + makeBuilding(4, 7, 17);
+      rightEl.innerHTML = makeBuilding(6, 5, 11) + makeBuilding(6, 7, 17);
     }
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initBuildings);
@@ -418,8 +418,8 @@
     align-items: flex-end;
     gap: 4px;
   }
-  .l3d-buildings-left  { left:  2rem; }
-  .l3d-buildings-right { right: 2rem; }
+  .l3d-buildings-left  { left:  18%; }
+  .l3d-buildings-right { right: 18%; }
 
   /* ---- RESPONSIVE ---- */
   @media (max-width: 1400px) {
