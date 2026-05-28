@@ -277,27 +277,31 @@
       return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 '+s+' '+s+'" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:visible">'+lines+'</svg>';
     }
 
-    /* Araña de perfil (vista lateral) para la que camina */
+    /* Araña de perfil lateral para la que camina */
     function makeSpiderSide(sz) {
       var s = sz;
-      return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 '+s+' '+s+'" xmlns="http://www.w3.org/2000/svg" style="display:block">' +
-        /* abdomen */
-        '<ellipse cx="'+(s*0.34)+'" cy="'+(s*0.55)+'" rx="'+(s*0.28)+'" ry="'+(s*0.20)+'" fill="#111" stroke="rgba(255,255,255,0.65)" stroke-width="0.9"/>' +
-        /* cefalotorax */
-        '<ellipse cx="'+(s*0.67)+'" cy="'+(s*0.50)+'" rx="'+(s*0.20)+'" ry="'+(s*0.16)+'" fill="#111" stroke="rgba(255,255,255,0.65)" stroke-width="0.9"/>' +
-        /* ojo */
-        '<circle cx="'+(s*0.80)+'" cy="'+(s*0.40)+'" r="'+(s*0.07)+'" fill="#ff2222"/>' +
-        /* patas arriba (levantadas – paso impar) */
-        '<line x1="'+(s*0.62)+'" y1="'+(s*0.43)+'" x2="'+(s*0.44)+'" y2="'+(s*0.12)+'" stroke="rgba(255,255,255,0.80)" stroke-width="1.1"/>' +
-        '<line x1="'+(s*0.50)+'" y1="'+(s*0.41)+'" x2="'+(s*0.30)+'" y2="'+(s*0.10)+'" stroke="rgba(255,255,255,0.80)" stroke-width="1.1"/>' +
-        '<line x1="'+(s*0.74)+'" y1="'+(s*0.43)+'" x2="'+(s*0.58)+'" y2="'+(s*0.14)+'" stroke="rgba(255,255,255,0.80)" stroke-width="1.1"/>' +
-        '<line x1="'+(s*0.38)+'" y1="'+(s*0.43)+'" x2="'+(s*0.16)+'" y2="'+(s*0.16)+'" stroke="rgba(255,255,255,0.80)" stroke-width="1.1"/>' +
-        /* patas abajo (apoyadas – paso par) */
-        '<line x1="'+(s*0.56)+'" y1="'+(s*0.62)+'" x2="'+(s*0.38)+'" y2="'+(s*0.88)+'" stroke="rgba(255,255,255,0.80)" stroke-width="1.1"/>' +
-        '<line x1="'+(s*0.44)+'" y1="'+(s*0.64)+'" x2="'+(s*0.24)+'" y2="'+(s*0.90)+'" stroke="rgba(255,255,255,0.80)" stroke-width="1.1"/>' +
-        '<line x1="'+(s*0.68)+'" y1="'+(s*0.60)+'" x2="'+(s*0.52)+'" y2="'+(s*0.86)+'" stroke="rgba(255,255,255,0.80)" stroke-width="1.1"/>' +
-        '<line x1="'+(s*0.32)+'" y1="'+(s*0.64)+'" x2="'+(s*0.10)+'" y2="'+(s*0.88)+'" stroke="rgba(255,255,255,0.80)" stroke-width="1.1"/>' +
-        '</svg>';
+      var g = '';
+      /* abdomen (trasero) */
+      g += '<ellipse cx="'+(s*0.28)+'" cy="'+(s*0.48)+'" rx="'+(s*0.22)+'" ry="'+(s*0.18)+'" fill="#111" stroke="rgba(255,255,255,0.70)" stroke-width="1"/>';
+      /* cefalotórax (delantero) */
+      g += '<circle cx="'+(s*0.56)+'" cy="'+(s*0.44)+'" r="'+(s*0.17)+'" fill="#111" stroke="rgba(255,255,255,0.70)" stroke-width="1"/>';
+      /* cabeza */
+      g += '<ellipse cx="'+(s*0.74)+'" cy="'+(s*0.41)+'" rx="'+(s*0.11)+'" ry="'+(s*0.09)+'" fill="#111" stroke="rgba(255,255,255,0.60)" stroke-width="0.9"/>';
+      /* ojo rojo */
+      g += '<circle cx="'+(s*0.81)+'" cy="'+(s*0.35)+'" r="'+(s*0.06)+'" fill="#ff2222"/>';
+      /* pata delantera levantada (rodilla arriba) */
+      g += '<line x1="'+(s*0.64)+'" y1="'+(s*0.37)+'" x2="'+(s*0.82)+'" y2="'+(s*0.16)+'" stroke="rgba(255,255,255,0.82)" stroke-width="1.2"/>';
+      g += '<line x1="'+(s*0.82)+'" y1="'+(s*0.16)+'" x2="'+(s*0.96)+'" y2="'+(s*0.33)+'" stroke="rgba(255,255,255,0.82)" stroke-width="1.2"/>';
+      /* pata delantera apoyada (toca el suelo) */
+      g += '<line x1="'+(s*0.60)+'" y1="'+(s*0.55)+'" x2="'+(s*0.76)+'" y2="'+(s*0.74)+'" stroke="rgba(255,255,255,0.82)" stroke-width="1.2"/>';
+      g += '<line x1="'+(s*0.76)+'" y1="'+(s*0.74)+'" x2="'+(s*0.88)+'" y2="'+(s*0.95)+'" stroke="rgba(255,255,255,0.82)" stroke-width="1.2"/>';
+      /* pata trasera levantada (rodilla arriba) */
+      g += '<line x1="'+(s*0.44)+'" y1="'+(s*0.35)+'" x2="'+(s*0.24)+'" y2="'+(s*0.14)+'" stroke="rgba(255,255,255,0.82)" stroke-width="1.2"/>';
+      g += '<line x1="'+(s*0.24)+'" y1="'+(s*0.14)+'" x2="'+(s*0.08)+'" y2="'+(s*0.28)+'" stroke="rgba(255,255,255,0.82)" stroke-width="1.2"/>';
+      /* pata trasera apoyada (toca el suelo) */
+      g += '<line x1="'+(s*0.42)+'" y1="'+(s*0.54)+'" x2="'+(s*0.22)+'" y2="'+(s*0.74)+'" stroke="rgba(255,255,255,0.82)" stroke-width="1.2"/>';
+      g += '<line x1="'+(s*0.22)+'" y1="'+(s*0.74)+'" x2="'+(s*0.06)+'" y2="'+(s*0.95)+'" stroke="rgba(255,255,255,0.82)" stroke-width="1.2"/>';
+      return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 '+s+' '+s+'" xmlns="http://www.w3.org/2000/svg" style="display:block">'+g+'</svg>';
     }
 
     function makeSpider(sz) {
