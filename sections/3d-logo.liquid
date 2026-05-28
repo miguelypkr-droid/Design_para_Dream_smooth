@@ -1,5 +1,13 @@
 ﻿<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 
+<!-- Contenedor sticky -->
+<div class="l3d-sticky-header">
+
+<!-- Barra de envíos -->
+<div class="l3d-shipping-bar">
+  <span>✈ Envíos a todo el mundo por: DHL y EMS</span>
+</div>
+
 <!-- Caja 1: Logo 3D -->
 <div style="width:100%; background:#000000; display:flex; justify-content:center; align-items:center; padding:1.5rem 0; box-sizing:border-box;">
   <model-viewer
@@ -40,7 +48,41 @@
   <a href="{{ section.settings.link_3_url }}" class="l3d-link">{{ section.settings.link_3_label }}</a>
 </div>
 
+</div><!-- fin l3d-sticky-header -->
+
 <style>
+  /* Eliminar espacio blanco superior del tema */
+  .shopify-section:has(.l3d-shipping-bar) {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* Sticky header */
+  .l3d-sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    width: 100%;
+  }
+
+  .l3d-shipping-bar {
+    width: 100%;
+    background: {{ section.settings.nav_bg }};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.45rem 2rem;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .l3d-shipping-bar span {
+    color: {{ section.settings.nav_color }};
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+  }
+
   .l3d-nav-bar {
     width: 100%;
     background: {{ section.settings.nav_bg }};
