@@ -103,14 +103,16 @@
 
     <!-- Carrito -->
     <a href="/cart" class="l3d-cart-link" aria-label="Carrito">
-      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-        <line x1="3" y1="6" x2="21" y2="6"/>
-        <path d="M16 10a4 4 0 0 1-8 0"/>
-      </svg>
-      {%- if cart.item_count > 0 -%}
-        <span class="l3d-cart-count">{{ cart.item_count }}</span>
-      {%- endif -%}
+      <span class="l3d-cart-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        {%- if cart.item_count > 0 -%}
+          <span class="l3d-cart-count">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </span>
     </a>
 
   </div>
@@ -172,6 +174,7 @@
 
       /* Ocultar barra de envíos al hacer scroll */
       var shippingBar = document.querySelector('.l3d-shipping-bar');
+      var barTimer;
       function reposMenu() {
         var menu = document.querySelector('.l3d-mobile-menu');
         if (menu && menu.classList.contains('l3d-mob-open')) {
@@ -187,14 +190,10 @@
         }
         applyOffset();
         reposMenu();
+        /* Recalcular una vez que la transición CSS termina (~0.35s) */
+        clearTimeout(barTimer);
+        barTimer = setTimeout(function () { applyOffset(); reposMenu(); }, 380);
       }, { passive: true });
-      /* Recalcular al terminar la transición de la barra — esto elimina el espacio vacío */
-      if (shippingBar) {
-        shippingBar.addEventListener('transitionend', function () {
-          applyOffset();
-          reposMenu();
-        });
-      }
     }
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', removeTopSpace);
@@ -348,9 +347,10 @@
 
   /* ---- RESPONSIVE ---- */
   @media (max-width: 900px) {
+    /* Mostrar hamburger, ocultar links en tablet y celular */
+    .l3d-nav-links  { display: none !important; }
+    .l3d-hamburger  { display: flex !important; }
     .l3d-nav-bar { padding: 0.6rem 1rem; }
-    .l3d-nav-links { gap: 1.5rem; }
-    .l3d-link { font-size: 0.9rem; letter-spacing: 0.05em; }
     .l3d-right-group { gap: 0.8rem; }
     .l3d-logo-box { padding: 1.5rem 0 2.5rem !important; min-height: 160px !important; }
     .l3d-logo-box model-viewer { width: 130px !important; height: 130px !important; }
@@ -460,9 +460,7 @@
   }
   .l3d-mob-sub-link:hover { opacity: 0.6; }
 
-  @media (max-width: 700px) {
-    .l3d-nav-links  { display: none !important; }
-    .l3d-hamburger  { display: flex !important; }
+  @media (max-width: 600px) {
     .l3d-shipping-bar span { font-size: 0.66rem; }
     .l3d-nav-bar { padding: 0.45rem 0.75rem; }
     .l3d-social-link svg { width: 18px !important; height: 18px !important; }
@@ -553,6 +551,13 @@
     text-decoration: none;
   }
 
+  .l3d-cart-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .l3d-cart-link svg,
   .l3d-cart-link svg * {
     stroke: #ffffff !important;
@@ -565,11 +570,11 @@
 
   .l3d-cart-count {
     position: absolute;
-    top: -7px;
-    right: -9px;
+    top: -6px;
+    right: -8px;
     background: {{ section.settings.nav_color }};
     color: {{ section.settings.nav_bg }};
-    font-size: 0.62rem;
+    font-size: 0.6rem;
     font-weight: 700;
     line-height: 1;
     min-width: 16px;
@@ -579,6 +584,7 @@
     align-items: center;
     justify-content: center;
     padding: 0 3px;
+    pointer-events: none;
   }
 
   .l3d-link {
