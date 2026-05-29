@@ -66,10 +66,8 @@
     </div>
 
   </div>
-  <div class="tyv-corner-box">
-    <img src="https://dreamsmoothh.com/cdn/shop/files/ryukpolomonster.png?v=1780036414&width=400"
-         alt="" class="tyv-corner-img" loading="lazy" aria-hidden="true">
-  </div>
+  <img src="https://dreamsmoothh.com/cdn/shop/files/ryukpolomonster.png?v=1780036414&width=200"
+       alt="" class="tyv-corner-img" loading="lazy" aria-hidden="true">
 </div>
 
 <style>
@@ -268,26 +266,20 @@
   }
 
   /* ---- Imagen esquina inferior izquierda ---- */
-  .tyv-corner-box {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100px;
-    height: 100px;
-    overflow: hidden;
-    pointer-events: none;
-    user-select: none;
-    z-index: 2;
-  }
   .tyv-corner-img {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
+    width: 90px;
     height: auto;
+    max-width: 90px;
+    pointer-events: none;
+    user-select: none;
+    z-index: 2;
+    display: block;
   }
   @media (max-width: 768px) {
-    .tyv-corner-box { width: 70px; height: 70px; }
+    .tyv-corner-img { width: 60px; max-width: 60px; }
   }
 
   /* ---- Responsive ---- */
