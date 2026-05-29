@@ -11,7 +11,9 @@
   </div>
 
   {%- comment -%} Carrusel de 4 colecciones {%- endcomment -%}
-  <div class="tres-colecciones__grid">
+  <div class="tres-colecciones__carousel-wrapper">
+    <button class="tres-colecciones__arrow tres-colecciones__arrow--prev" aria-label="Anterior">&#8592;</button>
+    <div class="tres-colecciones__grid">
     {%- for i in (1..4) -%}
       {%- liquid
         case i
@@ -33,11 +35,9 @@
         >
           <div class="tres-colecciones__image-wrap{% if i == 2 or i == 3 or i == 4 %} tres-colecciones__image-wrap--slideshow{% endif %}">
             {%- if i == 1 -%}
-              {%- if col != blank and col.image != blank -%}
-                {{- col.image | image_url: width: 800 | image_tag: class: 'tres-colecciones__img', loading: 'lazy' -}}
-              {%- else -%}
-                {{ 'collection-1' | placeholder_svg_tag: 'tres-colecciones__placeholder' }}
-              {%- endif -%}
+              <div class="tres-colecciones__qmark-wrap">
+                <span class="tres-colecciones__qmark">?</span>
+              </div>
             {%- elsif i == 2 -%}
               <img src="https://dreamsmoothh.com/cdn/shop/files/Adidas-Jeremy-Scott-Wings-de-lado.jpg?v=1780076103&width=800" alt="Slide 1" class="tres-colecciones__slide tres-colecciones__slide--1" loading="lazy">
               <img src="https://dreamsmoothh.com/cdn/shop/files/Francia_Polo_Small_Pony_Futbol_Azul.jpg?v=1780077561&width=800" alt="Slide 2" class="tres-colecciones__slide tres-colecciones__slide--2" loading="lazy">
@@ -75,7 +75,9 @@
                 {{ 'onboarding.collection_title' | t }}
               {%- endif -%}
             </span>
-            {%- if i == 2 -%}
+            {%- if i == 1 -%}
+              <span class="tres-colecciones__badge tres-colecciones__badge--soon">Pr&#243;ximamente</span>
+            {%- elsif i == 2 -%}
               <span class="tres-colecciones__badge tres-colecciones__badge--available">Disponible</span>
             {%- else -%}
               <span class="tres-colecciones__badge tres-colecciones__badge--unavailable">No Disponible</span>
@@ -84,6 +86,8 @@
         </a>
       </div>
     {%- endfor -%}
+  </div>
+    <button class="tres-colecciones__arrow tres-colecciones__arrow--next" aria-label="Siguiente">&#8594;</button>
   </div>
 </div>
 
@@ -99,9 +103,47 @@
   }
 
   .tres-colecciones__bar,
+  .tres-colecciones__carousel-wrapper,
   .tres-colecciones__grid {
     position: relative;
     z-index: 1;
+  }
+
+  .tres-colecciones__carousel-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .tres-colecciones__arrow {
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #ffffff;
+    font-size: 1.4rem;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 2;
+    line-height: 1;
+  }
+
+  .tres-colecciones__arrow:hover {
+    background: rgba(255,255,255,0.25);
+  }
+
+  .tres-colecciones__arrow--prev { margin-right: 10px; }
+  .tres-colecciones__arrow--next { margin-left: 10px; }
+
+  @media screen and (max-width: 749px) {
+    .tres-colecciones__arrow {
+      display: none;
+    }
   }
 
   .tres-colecciones__bar {
@@ -173,6 +215,23 @@
     border-radius: var(--media-radius, 0px);
   }
 
+  .tres-colecciones__qmark-wrap {
+    position: absolute;
+    inset: 0;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tres-colecciones__qmark {
+    font-size: clamp(5rem, 14vw, 9rem);
+    font-weight: 900;
+    color: #111111;
+    line-height: 1;
+    user-select: none;
+  }
+
   .tres-colecciones__img,
   .tres-colecciones__placeholder {
     width: 100%;
@@ -239,6 +298,12 @@
   .tres-colecciones__badge--available {
     background-color: #1a7a3a;
     color: #ffffff;
+  }
+
+  .tres-colecciones__badge--soon {
+    background-color: #c47800;
+    color: #ffe066;
+    border-color: #ffe066;
   }
 
   .tres-colecciones__badge--unavailable {
@@ -318,6 +383,24 @@
 
   var sections = document.querySelectorAll('.tres-colecciones__starfield');
   sections.forEach(function (canvas) { initStarfield(canvas.closest('.section')); });
+
+  // Arrow navigation
+  document.querySelectorAll('.tres-colecciones__carousel-wrapper').forEach(function (wrapper) {
+    var grid = wrapper.querySelector('.tres-colecciones__grid');
+    var prev = wrapper.querySelector('.tres-colecciones__arrow--prev');
+    var next = wrapper.querySelector('.tres-colecciones__arrow--next');
+    if (!grid || !prev || !next) return;
+
+    function scrollBy(dir) {
+      var item = grid.querySelector('.tres-colecciones__item');
+      if (!item) return;
+      var amount = item.offsetWidth + 20; // card width + gap
+      grid.scrollBy({ left: dir * amount, behavior: 'smooth' });
+    }
+
+    prev.addEventListener('click', function () { scrollBy(-1); });
+    next.addEventListener('click', function () { scrollBy(1); });
+  });
 })();
 </script>
 
