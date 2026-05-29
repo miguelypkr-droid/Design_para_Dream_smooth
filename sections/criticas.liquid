@@ -1,0 +1,555 @@
+<div
+  class="section section--{{ section.settings.section_width }} spacing-style"
+  style="background: {{ section.settings.bg_color }}; position: relative; overflow: hidden; {% render 'spacing-style', settings: section.settings %}"
+>
+  <canvas class="criticas__starfield" aria-hidden="true"></canvas>
+
+  {%- comment -%} Barra superior {%- endcomment -%}
+  <div class="criticas__bar">
+    <span class="criticas__bar-text">{{ section.settings.bar_text }}</span>
+  </div>
+
+  {%- comment -%} Grid de 6 reseñas {%- endcomment -%}
+  <div class="criticas__grid">
+    {%- for i in (1..6) -%}
+      {%- liquid
+        case i
+          when 1
+            assign reviewer_photo = section.settings.reviewer_photo_1
+            assign reviewer_name  = section.settings.reviewer_name_1
+            assign review_text    = section.settings.review_text_1
+            assign review_image   = section.settings.review_image_1
+          when 2
+            assign reviewer_photo = section.settings.reviewer_photo_2
+            assign reviewer_name  = section.settings.reviewer_name_2
+            assign review_text    = section.settings.review_text_2
+            assign review_image   = section.settings.review_image_2
+          when 3
+            assign reviewer_photo = section.settings.reviewer_photo_3
+            assign reviewer_name  = section.settings.reviewer_name_3
+            assign review_text    = section.settings.review_text_3
+            assign review_image   = section.settings.review_image_3
+          when 4
+            assign reviewer_photo = section.settings.reviewer_photo_4
+            assign reviewer_name  = section.settings.reviewer_name_4
+            assign review_text    = section.settings.review_text_4
+            assign review_image   = section.settings.review_image_4
+          when 5
+            assign reviewer_photo = section.settings.reviewer_photo_5
+            assign reviewer_name  = section.settings.reviewer_name_5
+            assign review_text    = section.settings.review_text_5
+            assign review_image   = section.settings.review_image_5
+          when 6
+            assign reviewer_photo = section.settings.reviewer_photo_6
+            assign reviewer_name  = section.settings.reviewer_name_6
+            assign review_text    = section.settings.review_text_6
+            assign review_image   = section.settings.review_image_6
+        endcase
+      -%}
+
+      <div class="criticas__item">
+
+        {%- comment -%} Foto circular encima de la tarjeta {%- endcomment -%}
+        <div class="criticas__avatar-wrap">
+          {%- if reviewer_photo != blank -%}
+            {{
+              reviewer_photo
+              | image_url: width: 180
+              | image_tag:
+                class: 'criticas__avatar',
+                alt: reviewer_name | default: '',
+                width: reviewer_photo.width,
+                height: reviewer_photo.height
+            }}
+          {%- else -%}
+            <div class="criticas__avatar-placeholder">
+              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="20" cy="14" r="8" fill="rgba(255,255,255,0.3)"/>
+                <ellipse cx="20" cy="33" rx="13" ry="8" fill="rgba(255,255,255,0.15)"/>
+              </svg>
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} Tarjeta con nombre, texto e imagen inferior {%- endcomment -%}
+        <div class="criticas__card">
+          <span class="criticas__name" style="color: {{ section.settings.text_color }};">
+            {%- if reviewer_name != blank -%}{{ reviewer_name }}{%- else -%}Cliente{%- endif -%}
+          </span>
+
+          <p class="criticas__text" style="color: {{ section.settings.text_color }};">
+            {%- if review_text != blank -%}
+              {{ review_text }}
+            {%- else -%}
+              Una experiencia increíble. Totalmente recomendado.
+            {%- endif -%}
+          </p>
+
+          {%- if review_image != blank -%}
+            <div class="criticas__bottom-image-wrap">
+              {{
+                review_image
+                | image_url: width: 600
+                | image_tag:
+                  class: 'criticas__bottom-image',
+                  alt: reviewer_name | default: '',
+                  width: review_image.width,
+                  height: review_image.height,
+                  loading: 'lazy'
+              }}
+            </div>
+          {%- endif -%}
+        </div>
+
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+<style>
+  .criticas__starfield {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    display: block;
+  }
+
+  .criticas__bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    margin-bottom: 36px;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background-color: #111111;
+    color: #ffffff;
+    z-index: 1;
+  }
+
+  .criticas__bar-text {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: inherit;
+  }
+
+  .criticas__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 20px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .criticas__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px 16px;
+    }
+  }
+
+  @media screen and (max-width: 549px) {
+    .criticas__grid {
+      grid-template-columns: 1fr;
+      gap: 28px 0;
+    }
+  }
+
+  .criticas__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Circular avatar — overlaps the card top */
+  .criticas__avatar-wrap {
+    position: relative;
+    z-index: 1;
+    margin-bottom: -44px;
+    width: 88px;
+    height: 88px;
+    flex-shrink: 0;
+  }
+
+  .criticas__avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    border: 3px solid #1a1a1a;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.12);
+  }
+
+  .criticas__avatar-placeholder {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: #222222;
+    border: 3px solid #1a1a1a;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .criticas__avatar-placeholder svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* Card */
+  .criticas__card {
+    width: 100%;
+    background: #111111;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 56px 22px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .criticas__name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #ffffff;
+    line-height: 1.2;
+  }
+
+  .criticas__text {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.75);
+    margin: 0;
+  }
+
+  .criticas__bottom-image-wrap {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+
+  .criticas__bottom-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+  }
+</style>
+
+<script>
+(function () {
+  function initStarfield(section) {
+    var canvas = section.querySelector('.criticas__starfield');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var stars = [];
+    var raf;
+
+    function buildStars() {
+      canvas.width  = section.offsetWidth  || 1200;
+      canvas.height = section.offsetHeight || 600;
+      stars = [];
+      for (var i = 0; i < 120; i++) {
+        stars.push({
+          x:     Math.random() * canvas.width,
+          y:     Math.random() * canvas.height,
+          r:     Math.random() * 1.4 + 0.3,
+          phase: Math.random() * Math.PI * 2,
+          speed: Math.random() * 0.012 + 0.004
+        });
+      }
+      for (var j = 0; j < 60; j++) {
+        stars.push({
+          x:     Math.random() * canvas.width * 0.35,
+          y:     Math.random() * canvas.height,
+          r:     Math.random() * 1.2 + 0.2,
+          phase: Math.random() * Math.PI * 2,
+          speed: Math.random() * 0.012 + 0.004
+        });
+      }
+    }
+
+    function draw(t) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      var time = t * 0.001;
+      for (var i = 0; i < stars.length; i++) {
+        var s = stars[i];
+        var opacity = 0.15 + 0.75 * (0.5 + 0.5 * Math.sin(time * s.speed * 60 + s.phase));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, 6.2832);
+        ctx.fillStyle = 'rgba(255,255,255,' + opacity.toFixed(3) + ')';
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(draw);
+    }
+
+    buildStars();
+    raf = requestAnimationFrame(draw);
+
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        cancelAnimationFrame(raf);
+        buildStars();
+        raf = requestAnimationFrame(draw);
+      }, 150);
+    });
+  }
+
+  document.querySelectorAll('.criticas__starfield').forEach(function (canvas) {
+    initStarfield(canvas.closest('.section'));
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Críticas",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Barra superior"
+    },
+    {
+      "type": "text",
+      "id": "bar_text",
+      "label": "Texto de la barra",
+      "default": "Reseñas"
+    },
+    {
+      "type": "header",
+      "content": "Reseña 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "reviewer_photo_1",
+      "label": "Foto del cliente 1"
+    },
+    {
+      "type": "text",
+      "id": "reviewer_name_1",
+      "label": "Nombre 1",
+      "default": "María G."
+    },
+    {
+      "type": "textarea",
+      "id": "review_text_1",
+      "label": "Texto de la reseña 1",
+      "default": "Increíble calidad y atención al detalle. Definitivamente volveré a comprar."
+    },
+    {
+      "type": "image_picker",
+      "id": "review_image_1",
+      "label": "Imagen inferior 1"
+    },
+    {
+      "type": "header",
+      "content": "Reseña 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "reviewer_photo_2",
+      "label": "Foto del cliente 2"
+    },
+    {
+      "type": "text",
+      "id": "reviewer_name_2",
+      "label": "Nombre 2",
+      "default": "Carlos R."
+    },
+    {
+      "type": "textarea",
+      "id": "review_text_2",
+      "label": "Texto de la reseña 2",
+      "default": "El producto superó todas mis expectativas. Muy recomendado."
+    },
+    {
+      "type": "image_picker",
+      "id": "review_image_2",
+      "label": "Imagen inferior 2"
+    },
+    {
+      "type": "header",
+      "content": "Reseña 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "reviewer_photo_3",
+      "label": "Foto del cliente 3"
+    },
+    {
+      "type": "text",
+      "id": "reviewer_name_3",
+      "label": "Nombre 3",
+      "default": "Ana M."
+    },
+    {
+      "type": "textarea",
+      "id": "review_text_3",
+      "label": "Texto de la reseña 3",
+      "default": "Diseño único y envío rápido. Totalmente satisfecha con mi compra."
+    },
+    {
+      "type": "image_picker",
+      "id": "review_image_3",
+      "label": "Imagen inferior 3"
+    },
+    {
+      "type": "header",
+      "content": "Reseña 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "reviewer_photo_4",
+      "label": "Foto del cliente 4"
+    },
+    {
+      "type": "text",
+      "id": "reviewer_name_4",
+      "label": "Nombre 4",
+      "default": "Luis P."
+    },
+    {
+      "type": "textarea",
+      "id": "review_text_4",
+      "label": "Texto de la reseña 4",
+      "default": "La mejor tienda para prendas de edición limitada. Calidad premium."
+    },
+    {
+      "type": "image_picker",
+      "id": "review_image_4",
+      "label": "Imagen inferior 4"
+    },
+    {
+      "type": "header",
+      "content": "Reseña 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "reviewer_photo_5",
+      "label": "Foto del cliente 5"
+    },
+    {
+      "type": "text",
+      "id": "reviewer_name_5",
+      "label": "Nombre 5",
+      "default": "Sofía T."
+    },
+    {
+      "type": "textarea",
+      "id": "review_text_5",
+      "label": "Texto de la reseña 5",
+      "default": "Me encantó el packaging y la atención personalizada. 100% recomendable."
+    },
+    {
+      "type": "image_picker",
+      "id": "review_image_5",
+      "label": "Imagen inferior 5"
+    },
+    {
+      "type": "header",
+      "content": "Reseña 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "reviewer_photo_6",
+      "label": "Foto del cliente 6"
+    },
+    {
+      "type": "text",
+      "id": "reviewer_name_6",
+      "label": "Nombre 6",
+      "default": "Diego F."
+    },
+    {
+      "type": "textarea",
+      "id": "review_text_6",
+      "label": "Texto de la reseña 6",
+      "default": "Producto auténtico, llegó perfectamente embalado y antes de lo esperado."
+    },
+    {
+      "type": "image_picker",
+      "id": "review_image_6",
+      "label": "Imagen inferior 6"
+    },
+    {
+      "type": "header",
+      "content": "Diseño de sección"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Ancho de la sección",
+      "options": [
+        { "value": "full-width", "label": "Completo" },
+        { "value": "page-width", "label": "Página" },
+        { "value": "narrow",     "label": "Angosto"  }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Color de fondo",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color del texto",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espacio superior",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espacio inferior",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Críticas",
+      "category": "Contenido"
+    }
+  ]
+}
+{% endschema %}
