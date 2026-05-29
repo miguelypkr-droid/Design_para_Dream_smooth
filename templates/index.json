@@ -76,7 +76,7 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h3>Disponible</h3>",
+                "text": "<h3>Drop 26/05/2026</h3>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "center",
