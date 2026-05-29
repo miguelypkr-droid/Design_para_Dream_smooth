@@ -119,12 +119,16 @@
     height: 42px;
     border-radius: 50%;
     cursor: pointer;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     transition: background 0.2s;
     z-index: 2;
     line-height: 1;
+  }
+
+  .tres-colecciones__arrow--visible {
+    display: flex;
   }
 
   .tres-colecciones__arrow:hover {
@@ -133,12 +137,6 @@
 
   .tres-colecciones__arrow--prev { margin-right: 10px; }
   .tres-colecciones__arrow--next { margin-left: 10px; }
-
-  @media screen and (max-width: 749px) {
-    .tres-colecciones__arrow {
-      display: none;
-    }
-  }
 
   .tres-colecciones__bar {
     display: flex;
@@ -181,7 +179,7 @@
   }
 
   .tres-colecciones__item {
-    flex: 0 0 calc(33.333% - 14px);
+    flex: 0 0 calc(25% - 15px);
     scroll-snap-align: start;
   }
 
@@ -385,15 +383,24 @@
     var next = wrapper.querySelector('.tres-colecciones__arrow--next');
     if (!grid || !prev || !next) return;
 
+    function updateArrowVisibility() {
+      var scrollable = grid.scrollWidth > grid.clientWidth + 2;
+      prev.classList.toggle('tres-colecciones__arrow--visible', scrollable);
+      next.classList.toggle('tres-colecciones__arrow--visible', scrollable);
+    }
+
     function scrollBy(dir) {
       var item = grid.querySelector('.tres-colecciones__item');
       if (!item) return;
-      var amount = item.offsetWidth + 20; // card width + gap
+      var amount = item.offsetWidth + 20;
       grid.scrollBy({ left: dir * amount, behavior: 'smooth' });
     }
 
     prev.addEventListener('click', function () { scrollBy(-1); });
     next.addEventListener('click', function () { scrollBy(1); });
+
+    updateArrowVisibility();
+    window.addEventListener('resize', updateArrowVisibility);
   });
 })();
 </script>
