@@ -1,4 +1,19 @@
 <div class="tyv-section" style="background: {{ section.settings.bg_color }};">
+  <div class="tyv-cave-top" aria-hidden="true">
+    <svg class="tyv-stalactites" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
+      <path d="M 0,0 H 1000 L 1000,22 L 960,22 L 945,75 L 928,22 L 888,18 L 865,18 L 843,80 L 820,18 L 780,22 L 758,22 L 735,70 L 712,22 L 672,18 L 648,18 L 625,78 L 600,18 L 560,22 L 538,22 L 515,72 L 492,22 L 452,18 L 428,18 L 405,80 L 380,18 L 342,22 L 320,22 L 297,72 L 274,22 L 235,18 L 212,18 L 188,78 L 163,18 L 125,22 L 103,22 L 78,74 L 53,22 L 15,20 L 0,20 Z" fill="#18100a"/>
+      <path d="M 0,0 H 1000 L 1000,22 L 960,22 L 945,75 L 928,22 L 888,18 L 865,18 L 843,80 L 820,18 L 780,22 L 758,22 L 735,70 L 712,22 L 672,18 L 648,18 L 625,78 L 600,18 L 560,22 L 538,22 L 515,72 L 492,22 L 452,18 L 428,18 L 405,80 L 380,18 L 342,22 L 320,22 L 297,72 L 274,22 L 235,18 L 212,18 L 188,78 L 163,18 L 125,22 L 103,22 L 78,74 L 53,22 L 15,20 L 0,20 Z" fill="#6b3515" opacity="0.35"/>
+      <ellipse cx="78"  cy="74" rx="5" ry="3.5" fill="#ff4400" opacity="0.85"/>
+      <ellipse cx="188" cy="78" rx="5" ry="3.5" fill="#ff5500" opacity="0.85"/>
+      <ellipse cx="297" cy="72" rx="5" ry="3.5" fill="#ff4400" opacity="0.85"/>
+      <ellipse cx="405" cy="80" rx="5" ry="3.5" fill="#ff5500" opacity="0.85"/>
+      <ellipse cx="515" cy="72" rx="5" ry="3.5" fill="#ff4400" opacity="0.85"/>
+      <ellipse cx="625" cy="78" rx="5" ry="3.5" fill="#ff5500" opacity="0.85"/>
+      <ellipse cx="735" cy="70" rx="5" ry="3.5" fill="#ff4400" opacity="0.85"/>
+      <ellipse cx="843" cy="80" rx="5" ry="3.5" fill="#ff5500" opacity="0.85"/>
+      <ellipse cx="945" cy="75" rx="5" ry="3.5" fill="#ff4400" opacity="0.85"/>
+    </svg>
+  </div>
   <div class="tyv-dots-layer"></div>
   <div class="tyv-inner">
 
@@ -242,6 +257,46 @@
     pointer-events: all;
   }
 
+  /* ---- Cueva: estalactitas + lava ---- */
+  .tyv-cave-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    pointer-events: none;
+    z-index: 2;
+    overflow: visible;
+  }
+
+  .tyv-stalactites {
+    width: 100%;
+    height: 100px;
+    display: block;
+    filter: drop-shadow(0 5px 14px rgba(0,0,0,0.65));
+  }
+
+  @keyframes tyv-lava-drip {
+    0%   { transform: scaleY(0.05) translateY(0);  opacity: 0;   }
+    18%  { transform: scaleY(0.9)  translateY(0);  opacity: 1;   }
+    50%  { transform: scaleY(1.4)  translateY(0);  opacity: 1;   }
+    100% { transform: scaleY(1)    translateY(54px); opacity: 0; }
+  }
+
+  .tyv-lava-drop {
+    position: absolute;
+    width: 9px;
+    height: 18px;
+    background: linear-gradient(to bottom, #ff6200, #ff1500);
+    border-radius: 40% 40% 55% 55% / 8% 8% 92% 92%;
+    transform-origin: top center;
+    margin-left: -4.5px;
+    z-index: 3;
+    pointer-events: none;
+    box-shadow: 0 0 10px 3px rgba(255, 70, 0, 0.75), 0 0 3px rgba(255, 200, 0, 0.5);
+    animation: tyv-lava-drip 2.3s ease-in infinite;
+  }
+
   /* ---- Responsive ---- */
   @media (max-width: 768px) {
     .tyv-inner {
@@ -287,7 +342,33 @@
       });
     }
 
-    function init() { initAnimations(); ensureLoop(); }
+    /* ---- Lava cayendo de las estalactitas ---- */
+    function spawnLava() {
+      var cave = document.querySelector('.tyv-cave-top');
+      if (!cave) return;
+      var tips = [
+        [7.8,  74, 0.0, 2.2],
+        [18.8, 78, 1.1, 2.6],
+        [29.7, 72, 0.4, 2.0],
+        [40.5, 80, 1.8, 2.5],
+        [51.5, 72, 0.7, 2.8],
+        [62.5, 78, 1.4, 2.1],
+        [73.5, 70, 0.2, 2.4],
+        [84.3, 80, 1.0, 2.0],
+        [94.5, 75, 0.5, 2.3]
+      ];
+      tips.forEach(function (t) {
+        var drop = document.createElement('div');
+        drop.className = 'tyv-lava-drop';
+        drop.style.left             = t[0] + '%';
+        drop.style.top              = t[1] + 'px';
+        drop.style.animationDelay    = t[2] + 's';
+        drop.style.animationDuration = t[3] + 's';
+        cave.appendChild(drop);
+      });
+    }
+
+    function init() { initAnimations(); ensureLoop(); spawnLava(); }
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', init);
     } else {
