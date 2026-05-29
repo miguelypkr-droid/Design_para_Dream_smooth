@@ -9,20 +9,6 @@
  */
 {
   "sections": {
-    "tres_colecciones_nmwxR8": {
-      "type": "tres-colecciones",
-      "name": "Tres colecciones",
-      "settings": {
-        "bar_text": "Colecciones",
-        "collection_1": "drop-29-de-abril-2026",
-        "collection_2": "",
-        "collection_3": "",
-        "section_width": "page-width",
-        "color_scheme": "",
-        "padding_top": 12,
-        "padding_bottom": 8
-      }
-    },
     "texto_y_video_xceEpM": {
       "type": "texto-y-video",
       "name": "Texto y Video",
@@ -48,10 +34,24 @@
         "video_max_width": 560,
         "video_radius": 8
       }
+    },
+    "tres_colecciones_nmwxR8": {
+      "type": "tres-colecciones",
+      "name": "Tres colecciones",
+      "settings": {
+        "bar_text": "Colecciones",
+        "collection_1": "drop-29-de-abril-2026",
+        "collection_2": "",
+        "collection_3": "",
+        "section_width": "page-width",
+        "color_scheme": "",
+        "padding_top": 12,
+        "padding_bottom": 8
+      }
     }
   },
   "order": [
-    "tres_colecciones_nmwxR8",
-    "texto_y_video_xceEpM"
+    "texto_y_video_xceEpM",
+    "tres_colecciones_nmwxR8"
   ]
 }
