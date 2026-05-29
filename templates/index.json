@@ -80,7 +80,7 @@
         "gap": 0,
         "section_width": "full-width",
         "section_height": "custom",
-        "section_height_custom": 10,
+        "section_height_custom": 6,
         "color_scheme": "scheme-5",
         "background_media": "none",
         "video_position": "cover",
@@ -95,22 +95,6 @@
         "gradient_direction": "to top",
         "padding-block-start": 0,
         "padding-block-end": 0
-      }
-    },
-    "tres_colecciones_nmwxR8": {
-      "type": "tres-colecciones",
-      "name": "Tres colecciones",
-      "settings": {
-        "bar_text": "Colecciones",
-        "collection_0": "drop-1-de-junio-2026",
-        "collection_1": "drop-29-de-abril-2026",
-        "collection_2": "drop-20-de-abril-2026",
-        "collection_3": "drop-19-de-marzo-2026",
-        "section_width": "page-width",
-        "bg_color": "#000000",
-        "text_color": "#ffffff",
-        "padding_top": 12,
-        "padding_bottom": 8
       }
     },
     "product_list_UaiDUe": {
@@ -278,6 +262,22 @@
         "color_scheme": "scheme-f80cb8ef-ef9f-484c-a03c-c823a5a40588",
         "padding-block-start": 4,
         "padding-block-end": 23
+      }
+    },
+    "tres_colecciones_nmwxR8": {
+      "type": "tres-colecciones",
+      "name": "Tres colecciones",
+      "settings": {
+        "bar_text": "Colecciones",
+        "collection_0": "drop-1-de-junio-2026",
+        "collection_1": "drop-29-de-abril-2026",
+        "collection_2": "drop-20-de-abril-2026",
+        "collection_3": "drop-19-de-marzo-2026",
+        "section_width": "page-width",
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
+        "padding_top": 12,
+        "padding_bottom": 8
       }
     }
   },
