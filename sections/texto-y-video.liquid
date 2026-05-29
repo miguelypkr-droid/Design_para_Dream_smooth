@@ -242,6 +242,14 @@
     pointer-events: all;
   }
 
+  /* ---- Asteroides ---- */
+  @keyframes tyv-asteroid {
+    0%   { transform: translate(-180px, 0);                       opacity: 0; }
+    5%   { opacity: 1; }
+    90%  { opacity: 0.85; }
+    100% { transform: translate(calc(100vw + 200px), 60px);      opacity: 0; }
+  }
+
   /* ---- Responsive ---- */
   @media (max-width: 768px) {
     .tyv-inner {
@@ -321,6 +329,44 @@
       document.addEventListener('DOMContentLoaded', spawnDots);
     } else {
       spawnDots();
+    }
+  })();
+
+  (function () {
+    function spawnAsteroids() {
+      var section = document.querySelector('.tyv-section');
+      if (!section) return;
+      var cfgs = [
+        { w: 80,  h: 10, top: '9%',  dur: 10, delay: 0   },
+        { w: 55,  h:  7, top: '22%', dur: 13, delay: 3.2 },
+        { w: 100, h: 13, top: '41%', dur:  9, delay: 6.1 },
+        { w: 45,  h:  6, top: '58%', dur: 11, delay: 1.7 },
+        { w: 70,  h:  9, top: '73%', dur: 15, delay: 4.5 },
+        { w: 60,  h:  8, top: '15%', dur:  8, delay: 7.8 },
+        { w: 90,  h: 11, top: '85%', dur: 12, delay: 2.4 }
+      ];
+      cfgs.forEach(function (c) {
+        var el = document.createElement('div');
+        el.style.cssText = [
+          'position:absolute',
+          'top:' + c.top,
+          'left:0',
+          'width:' + c.w + 'px',
+          'height:' + c.h + 'px',
+          'border-radius:' + c.h + 'px',
+          'background:radial-gradient(ellipse 30% 100% at 90% 50%,rgba(255,255,255,0.95) 0%,rgba(255,255,255,0.55) 35%,transparent 100%)',
+          'pointer-events:none',
+          'z-index:0',
+          'will-change:transform,opacity',
+          'animation:tyv-asteroid ' + c.dur + 's linear ' + c.delay + 's infinite'
+        ].join(';');
+        section.appendChild(el);
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', spawnAsteroids);
+    } else {
+      spawnAsteroids();
     }
   })();
 </script>
