@@ -107,6 +107,12 @@
         "sub_marca_4_url": "shopify://collections/adidas",
         "sub_estado_1_url": "shopify://collections/nuevas-sin-usar",
         "sub_estado_2_url": "shopify://collections/usado",
+        "link_4_label": "Acuerdos",
+        "link_4_url": "",
+        "acuerdo_1_label": "Sistema de calidad",
+        "acuerdo_1_url": "shopify://pages/calidades",
+        "acuerdo_2_label": "Acuerdos de Reembolsos",
+        "acuerdo_2_url": "shopify://policies/refund-policy",
         "nav_bg": "#111111",
         "nav_color": "#ffffff"
       }
