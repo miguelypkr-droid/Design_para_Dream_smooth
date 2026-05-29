@@ -1,0 +1,350 @@
+<div class="tyv-section" style="background: {{ section.settings.bg_color }};">
+  <div class="tyv-inner">
+
+    <!-- Columna izquierda: texto -->
+    <div class="tyv-text-col">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="tyv-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="tyv-heading" style="color: {{ section.settings.heading_color }};">
+          {{ section.settings.heading }}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <div class="tyv-body" style="color: {{ section.settings.text_color }};">
+          {{ section.settings.body }}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.btn_label != blank and section.settings.btn_url != blank -%}
+        <a href="{{ section.settings.btn_url }}" class="tyv-btn"
+           style="background: {{ section.settings.btn_bg }}; color: {{ section.settings.btn_color }};">
+          {{ section.settings.btn_label }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <!-- Columna derecha: video -->
+    <div class="tyv-video-col">
+      {%- if section.settings.video_url != blank -%}
+        <div class="tyv-video-wrap" style="border-radius: {{ section.settings.video_radius }}px;">
+          <video
+            src="{{ section.settings.video_url }}"
+            autoplay
+            loop
+            muted
+            playsinline
+            disablePictureInPicture
+            controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
+            style="pointer-events: none;"
+          ></video>
+        </div>
+      {%- elsif section.settings.video_shopify != blank -%}
+        <div class="tyv-video-wrap" style="border-radius: {{ section.settings.video_radius }}px;">
+          <video
+            src="{{ section.settings.video_shopify }}"
+            autoplay
+            loop
+            muted
+            playsinline
+            disablePictureInPicture
+            controlsList="nodownload nofullscreen noremoteplayback noplaybackrate"
+            style="pointer-events: none;"
+          ></video>
+        </div>
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .tyv-section {
+    width: 100%;
+    padding: {{ section.settings.section_padding }}px 0;
+    box-sizing: border-box;
+  }
+
+  .tyv-inner {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: {{ section.settings.gap }}px;
+    flex-wrap: wrap;
+  }
+
+  /* ---- Columna texto ---- */
+  .tyv-text-col {
+    flex: 1 1 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    {%- if section.settings.text_align == 'center' -%}
+    align-items: center;
+    text-align: center;
+    {%- elsif section.settings.text_align == 'right' -%}
+    align-items: flex-end;
+    text-align: right;
+    {%- else -%}
+    align-items: flex-start;
+    text-align: left;
+    {%- endif -%}
+  }
+
+  .tyv-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: {{ section.settings.eyebrow_color }};
+    margin: 0;
+  }
+
+  .tyv-heading {
+    font-size: clamp(1.6rem, 3.5vw, {{ section.settings.heading_size }}px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  .tyv-body {
+    font-size: {{ section.settings.body_size }}px;
+    line-height: 1.7;
+    margin: 0;
+    max-width: 520px;
+  }
+
+  .tyv-btn {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    border-radius: 4px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: opacity 0.2s;
+    margin-top: 0.4rem;
+  }
+
+  .tyv-btn:hover { opacity: 0.78; }
+
+  /* ---- Columna video ---- */
+  .tyv-video-col {
+    flex: 1 1 320px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .tyv-video-wrap {
+    width: 100%;
+    max-width: {{ section.settings.video_max_width }}px;
+    overflow: hidden;
+    line-height: 0;
+    position: relative;
+  }
+
+  .tyv-video-wrap video {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  /* Capa invisible que bloquea clicks sobre el video (impide menú contextual) */
+  .tyv-video-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: all;
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 768px) {
+    .tyv-inner {
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .tyv-video-col { width: 100%; }
+    .tyv-text-col  { width: 100%; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Texto y Video",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Diseño general"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Color de fondo",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Relleno vertical (px)",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Ancho máximo del contenido (px)",
+      "min": 600,
+      "max": 1600,
+      "step": 40,
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Espacio entre columnas (px)",
+      "min": 0,
+      "max": 120,
+      "step": 8,
+      "default": 64
+    },
+    {
+      "type": "header",
+      "content": "Texto"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Alineación del texto",
+      "options": [
+        { "value": "left",   "label": "Izquierda" },
+        { "value": "center", "label": "Centro" },
+        { "value": "right",  "label": "Derecha" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Texto pequeño superior (eyebrow)",
+      "default": "Sobre nosotros"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Color eyebrow",
+      "default": "#888888"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Quiénes somos"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Color del título",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño máximo del título (px)",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "default": 48
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Cuerpo del texto",
+      "default": "<p>Escribe aquí una descripción de tu sitio o marca. Puedes contar tu historia, tus valores o lo que te diferencia del resto.</p>"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color del cuerpo",
+      "default": "#444444"
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Tamaño del cuerpo (px)",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Botón (opcional)"
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Texto del botón"
+    },
+    {
+      "type": "url",
+      "id": "btn_url",
+      "label": "URL del botón"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Fondo del botón",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "btn_color",
+      "label": "Color del texto del botón",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "URL del video (mp4, webm…)",
+      "info": "Pega el enlace directo al archivo de video. Si usas Shopify Files, sube el video y copia la URL."
+    },
+    {
+      "type": "range",
+      "id": "video_max_width",
+      "label": "Ancho máximo del video (px)",
+      "min": 160,
+      "max": 900,
+      "step": 20,
+      "default": 560
+    },
+    {
+      "type": "range",
+      "id": "video_radius",
+      "label": "Radio de bordes del video (px)",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Texto y Video"
+    }
+  ]
+}
+{% endschema %}

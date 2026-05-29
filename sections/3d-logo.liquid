@@ -311,12 +311,10 @@
       var leftEl = document.querySelector('.l3d-web-left');
       var brEl   = document.querySelector('.l3d-web-br');
       var sp1    = document.getElementById('l3d-spider-1');
-      var sp2    = document.getElementById('l3d-spider-2');
       if (!leftEl) return;
       leftEl.innerHTML = makeWeb(220, 'tl');
       if (brEl) brEl.innerHTML = makeWeb(200, 'br');
       if (sp1)  sp1.innerHTML  = makeSpider(22);
-      if (sp2)  sp2.innerHTML  = makeSpider(17);
     }
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initWebs);
@@ -860,17 +858,6 @@
       "label": "Enlace 2 — URL"
     },
     {
-      "type": "text",
-      "id": "link_3_label",
-      "label": "Enlace 3 — texto",
-      "default": "Acuerdos"
-    },
-    {
-      "type": "url",
-      "id": "link_3_url",
-      "label": "Enlace 3 — URL"
-    },
-    {
       "type": "header",
       "content": "Submenú — Marcas"
     },
@@ -966,4 +953,4 @@
   ],
   "presets": [{ "name": "3D Logo" }]
 }
-{% endschema %}
+{% endschema %} 
