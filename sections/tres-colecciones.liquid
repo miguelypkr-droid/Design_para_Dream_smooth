@@ -27,8 +27,12 @@
           class="tres-colecciones__link"
           {% unless col == blank %}href="{{ col.url }}"{% endunless %}
         >
-          <div class="tres-colecciones__image-wrap">
-            {%- if col != blank and col.image != blank -%}
+          <div class="tres-colecciones__image-wrap{% if i == 1 %} tres-colecciones__image-wrap--slideshow{% endif %}">
+            {%- if i == 1 -%}
+              <img src="https://dreamsmoothh.com/cdn/shop/files/Adidas-Jeremy-Scott-Wings-de-lado.jpg?v=1780076103&width=800" alt="Slide 1" class="tres-colecciones__slide tres-colecciones__slide--1" loading="lazy">
+              <img src="https://dreamsmoothh.com/cdn/shop/files/Francia_Polo_Small_Pony_Futbol_Azul.jpg?v=1780077561&width=800" alt="Slide 2" class="tres-colecciones__slide tres-colecciones__slide--2" loading="lazy">
+              <img src="https://dreamsmoothh.com/cdn/shop/files/Adidas_Jeremy_Scott_Negros_de_lado_reflectivos.jpg?v=1780076629&width=400" alt="Slide 3" class="tres-colecciones__slide tres-colecciones__slide--3" loading="lazy">
+            {%- elsif col != blank and col.image != blank -%}
               {{
                 col.image
                 | image_url: width: 800
@@ -128,6 +132,33 @@
   .tres-colecciones__link:hover .tres-colecciones__img,
   .tres-colecciones__link:hover .tres-colecciones__placeholder {
     transform: scale(1.04);
+  }
+
+  /* Slideshow card 1 */
+  .tres-colecciones__image-wrap--slideshow {
+    position: relative;
+  }
+
+  .tres-colecciones__slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: tcSlide 9s infinite;
+  }
+
+  .tres-colecciones__slide--1 { animation-delay: 0s; }
+  .tres-colecciones__slide--2 { animation-delay: 3s; }
+  .tres-colecciones__slide--3 { animation-delay: 6s; }
+
+  @keyframes tcSlide {
+    0%        { opacity: 0; }
+    5%        { opacity: 1; }
+    30%       { opacity: 1; }
+    35%       { opacity: 0; }
+    100%      { opacity: 0; }
   }
 
   .tres-colecciones__info {
