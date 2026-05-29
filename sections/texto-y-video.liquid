@@ -302,8 +302,13 @@
 
   /* ---- Regalo flotante ---- */
   @keyframes tyv-gift-float {
-    0%,100% { transform: translateY(0)    rotate(-4deg); }
-    50%     { transform: translateY(-14px) rotate(4deg); }
+    0%   { transform: translate(0px,   0px)   rotate(-6deg) scale(1);    }
+    15%  { transform: translate(-14px,-20px)  rotate( 4deg) scale(1.05); }
+    30%  { transform: translate( 10px,-34px)  rotate(-2deg) scale(0.97); }
+    50%  { transform: translate( 18px,-16px)  rotate( 9deg) scale(1.03); }
+    70%  { transform: translate(  4px,-28px)  rotate(-5deg) scale(1.06); }
+    85%  { transform: translate(-10px, -8px)  rotate( 3deg) scale(0.98); }
+    100% { transform: translate(0px,   0px)   rotate(-6deg) scale(1);    }
   }
   @keyframes tyv-sparkle-spin {
     0%   { transform: rotate(0deg)   scale(1);   }
