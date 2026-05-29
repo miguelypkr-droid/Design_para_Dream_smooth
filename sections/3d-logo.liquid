@@ -68,6 +68,16 @@
   </div>
 
     <a href="{{ section.settings.link_3_url }}" class="l3d-link">{{ section.settings.link_3_label }}</a>
+  <div class="l3d-dropdown">
+    <a href="{{ section.settings.link_4_url }}" class="l3d-link">{{ section.settings.link_4_label }}</a>
+    <div class="l3d-submenu">
+      <div class="l3d-group">
+        <a href="{{ section.settings.acuerdo_1_url }}" class="l3d-sub-link">{{ section.settings.acuerdo_1_label }}</a>
+        <a href="{{ section.settings.acuerdo_2_url }}" class="l3d-sub-link">{{ section.settings.acuerdo_2_label }}</a>
+      </div>
+    </div>
+  </div>
+    
   </div>
 
   <!-- Selector de idioma + Carrito (derecha) -->
@@ -150,6 +160,17 @@
   </div>
 
   <a href="{{ section.settings.link_3_url }}" class="l3d-mob-link">{{ section.settings.link_3_label }}</a>
+
+  <div class="l3d-mob-accordion">
+    <button class="l3d-mob-accordion-btn">
+      {{ section.settings.link_4_label }}
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="l3d-mob-sub">
+      <a href="{{ section.settings.acuerdo_1_url }}" class="l3d-mob-sub-link">{{ section.settings.acuerdo_1_label }}</a>
+      <a href="{{ section.settings.acuerdo_2_url }}" class="l3d-mob-sub-link">{{ section.settings.acuerdo_2_label }}</a>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -892,8 +913,47 @@
       "label": "Usado — URL"
     },
     {
+      "type": "header",      "content": "Enlace 4 \u2014 Acuerdos"
+    },
+    {
+      "type": "text",
+      "id": "link_4_label",
+      "label": "Enlace 4 \u2014 texto",
+      "default": "Acuerdos"
+    },
+    {
+      "type": "url",
+      "id": "link_4_url",
+      "label": "Enlace 4 \u2014 URL"
+    },
+    {
       "type": "header",
-      "content": "Colores"
+      "content": "Submenú \u2014 Acuerdos"
+    },
+    {
+      "type": "text",
+      "id": "acuerdo_1_label",
+      "label": "Acuerdo 1 \u2014 texto",
+      "default": "Sistema de calidad"
+    },
+    {
+      "type": "url",
+      "id": "acuerdo_1_url",
+      "label": "Acuerdo 1 \u2014 URL"
+    },
+    {
+      "type": "text",
+      "id": "acuerdo_2_label",
+      "label": "Acuerdo 2 \u2014 texto",
+      "default": "Acuerdos de Reembolsos"
+    },
+    {
+      "type": "url",
+      "id": "acuerdo_2_url",
+      "label": "Acuerdo 2 \u2014 URL"
+    },
+    {
+      "type": "header",      "content": "Colores"
     },
     {
       "type": "color",
