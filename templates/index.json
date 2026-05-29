@@ -35,22 +35,6 @@
         "video_radius": 8
       }
     },
-    "tres_colecciones_nmwxR8": {
-      "type": "tres-colecciones",
-      "name": "Tres colecciones",
-      "settings": {
-        "bar_text": "Colecciones",
-        "collection_0": "drop-1-de-junio-2026",
-        "collection_1": "drop-29-de-abril-2026",
-        "collection_2": "drop-20-de-abril-2026",
-        "collection_3": "drop-19-de-marzo-2026",
-        "section_width": "page-width",
-        "bg_color": "#000000",
-        "text_color": "#ffffff",
-        "padding_top": 12,
-        "padding_bottom": 8
-      }
-    },
     "section_A7HQXF": {
       "type": "section",
       "blocks": {
@@ -111,6 +95,22 @@
         "gradient_direction": "to top",
         "padding-block-start": 0,
         "padding-block-end": 0
+      }
+    },
+    "tres_colecciones_nmwxR8": {
+      "type": "tres-colecciones",
+      "name": "Tres colecciones",
+      "settings": {
+        "bar_text": "Colecciones",
+        "collection_0": "drop-1-de-junio-2026",
+        "collection_1": "drop-29-de-abril-2026",
+        "collection_2": "drop-20-de-abril-2026",
+        "collection_3": "drop-19-de-marzo-2026",
+        "section_width": "page-width",
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
+        "padding_top": 12,
+        "padding_bottom": 8
       }
     },
     "product_list_UaiDUe": {
@@ -283,8 +283,8 @@
   },
   "order": [
     "texto_y_video_xceEpM",
-    "tres_colecciones_nmwxR8",
     "section_A7HQXF",
-    "product_list_UaiDUe"
+    "product_list_UaiDUe",
+    "tres_colecciones_nmwxR8"
   ]
 }
