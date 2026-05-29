@@ -96,12 +96,23 @@
     flex-wrap: wrap;
   }
 
-  /* ---- Columna texto ---- */
+  /* ---- Animaciones de entrada ---- */
+  @keyframes tyv-fade-left {
+    from { opacity: 0; transform: translateX(-48px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes tyv-fade-right {
+    from { opacity: 0; transform: translateX(48px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  /* Columna texto ---- */
   .tyv-text-col {
     flex: 1 1 320px;
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
+    opacity: 0;
     {%- if section.settings.text_align == 'center' -%}
     align-items: center;
     text-align: center;
@@ -112,6 +123,22 @@
     align-items: flex-start;
     text-align: left;
     {%- endif -%}
+  }
+
+  .tyv-inner.tyv-visible .tyv-text-col {
+    animation: tyv-fade-left 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+  }
+
+  /* Columna video ---- */
+  .tyv-video-col {
+    flex: 1 1 320px;
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+  }
+
+  .tyv-inner.tyv-visible .tyv-video-col {
+    animation: tyv-fade-right 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
   }
 
   .tyv-eyebrow {
@@ -154,10 +181,6 @@
 
   /* ---- Columna video ---- */
   .tyv-video-col {
-    flex: 1 1 320px;
-    display: flex;
-    justify-content: center;
-  }
 
   .tyv-video-wrap {
     width: 100%;
@@ -195,6 +218,41 @@
 </style>
 
 <script>
+  (function () {
+    /* ---- Animaciones de entrada con IntersectionObserver ---- */
+    function initAnimations() {
+      var inner = document.querySelector('.tyv-inner');
+      if (!inner) return;
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            inner.classList.add('tyv-visible');
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.12 });
+      observer.observe(inner);
+    }
+
+    /* ---- Bucle de video reforzado por JS ---- */
+    function ensureLoop() {
+      document.querySelectorAll('.tyv-video-wrap video').forEach(function (v) {
+        v.loop = true;
+        v.addEventListener('ended', function () {
+          v.currentTime = 0;
+          v.play();
+        });
+      });
+    }
+
+    function init() { initAnimations(); ensureLoop(); }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+
   (function () {
     function spawnDots() {
       var layer = document.querySelector('.tyv-dots-layer');
