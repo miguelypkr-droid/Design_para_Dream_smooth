@@ -1,9 +1,7 @@
 
-<div class="section-background color-{{ section.settings.color_scheme }}"></div>
-
 <div
-  class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} spacing-style"
-  style="{% render 'spacing-style', settings: section.settings %}"
+  class="section section--{{ section.settings.section_width }} spacing-style"
+  style="background: {{ section.settings.bg_color }}; {% render 'spacing-style', settings: section.settings %}"
 >
   {%- comment -%} Barra superior "Colecciones" {%- endcomment -%}
   <div class="tres-colecciones__bar color-{{ sections['header_section'].settings.color_scheme_top }}">
@@ -48,7 +46,7 @@
           </div>
 
           <div class="tres-colecciones__info">
-            <span class="tres-colecciones__title">
+            <span class="tres-colecciones__title" style="color: {{ section.settings.text_color }};">
               {%- if col != blank -%}
                 {{ col.title }}
               {%- else -%}
@@ -69,8 +67,8 @@
     justify-content: center;
     padding: 12px 20px;
     margin-bottom: 24px;
-    background-color: rgb(var(--color-background));
-    color: rgb(var(--color-foreground));
+    background-color: var(--color-background);
+    color: var(--color-foreground);
   }
 
   .tres-colecciones__bar-text {
@@ -189,10 +187,16 @@
       "default": "page-width"
     },
     {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "Color de la sección",
-      "default": "scheme-1"
+      "type": "color",
+      "id": "bg_color",
+      "label": "Color de fondo de la sección",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color del texto (títulos)",
+      "default": "#ffffff"
     },
     {
       "type": "header",
