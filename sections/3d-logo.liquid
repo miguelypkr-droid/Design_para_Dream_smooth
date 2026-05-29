@@ -330,8 +330,6 @@
     function initHamburger() {
       var btn  = document.querySelector('.l3d-hamburger');
       var menu = document.querySelector('.l3d-mobile-menu');
-      var acc  = document.querySelector('.l3d-mob-accordion-btn');
-      var sub  = document.querySelector('.l3d-mob-sub');
       if (!btn || !menu) return;
 
       btn.addEventListener('click', function () {
@@ -343,12 +341,13 @@
         if (header) menu.style.top = header.offsetHeight + 'px';
       });
 
-      if (acc && sub) {
+      document.querySelectorAll('.l3d-mob-accordion-btn').forEach(function (acc) {
         acc.addEventListener('click', function () {
+          var sub = acc.nextElementSibling;
           var open = sub.classList.toggle('l3d-mob-sub-open');
           acc.classList.toggle('l3d-acc-open', open);
         });
-      }
+      });
     }
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initHamburger);
