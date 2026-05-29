@@ -242,14 +242,6 @@
     pointer-events: all;
   }
 
-  /* ---- Asteroides ---- */
-  @keyframes tyv-asteroid {
-    0%   { transform: translate(-180px, 0);                       opacity: 0; }
-    5%   { opacity: 1; }
-    90%  { opacity: 0.85; }
-    100% { transform: translate(calc(100vw + 200px), 60px);      opacity: 0; }
-  }
-
   /* ---- Responsive ---- */
   @media (max-width: 768px) {
     .tyv-inner {
@@ -336,29 +328,78 @@
     function spawnAsteroids() {
       var section = document.querySelector('.tyv-section');
       if (!section) return;
-      var cfgs = [
-        { w: 80,  h: 10, top: '9%',  dur: 10, delay: 0   },
-        { w: 55,  h:  7, top: '22%', dur: 13, delay: 3.2 },
-        { w: 100, h: 13, top: '41%', dur:  9, delay: 6.1 },
-        { w: 45,  h:  6, top: '58%', dur: 11, delay: 1.7 },
-        { w: 70,  h:  9, top: '73%', dur: 15, delay: 4.5 },
-        { w: 60,  h:  8, top: '15%', dur:  8, delay: 7.8 },
-        { w: 90,  h: 11, top: '85%', dur: 12, delay: 2.4 }
+
+      var rocks = [
+        {
+          id: 'r1', size: 26,
+          clip: 'polygon(28% 0%,72% 4%,96% 28%,100% 68%,78% 96%,38% 100%,8% 82%,0% 42%)',
+          from: 'translate(-90px,15vh)',  to: 'translate(calc(100vw + 100px),58vh)',
+          spin: 420,  dur: 9,  delay: 0
+        },
+        {
+          id: 'r2', size: 18,
+          clip: 'polygon(50% 0%,88% 14%,100% 52%,82% 90%,48% 100%,12% 88%,0% 50%,18% 12%)',
+          from: 'translate(38vw,-90px)',  to: 'translate(72vw,calc(100vh + 100px))',
+          spin: -360, dur: 11, delay: 2.5
+        },
+        {
+          id: 'r3', size: 32,
+          clip: 'polygon(22% 5%,62% 0%,94% 24%,100% 62%,80% 96%,44% 100%,10% 86%,0% 52%,6% 22%)',
+          from: 'translate(calc(100vw + 90px),28vh)', to: 'translate(-110px,72vh)',
+          spin: -520, dur: 13, delay: 5
+        },
+        {
+          id: 'r4', size: 20,
+          clip: 'polygon(42% 0%,80% 8%,100% 42%,90% 80%,60% 100%,20% 98%,0% 68%,6% 28%)',
+          from: 'translate(-90px,68vh)',  to: 'translate(calc(100vw + 100px),18vh)',
+          spin: 300,  dur: 8,  delay: 1.5
+        },
+        {
+          id: 'r5', size: 22,
+          clip: 'polygon(55% 0%,92% 18%,100% 58%,76% 94%,38% 100%,6% 76%,0% 36%,26% 4%)',
+          from: 'translate(82vw,-90px)',  to: 'translate(-90px,calc(100vh + 90px))',
+          spin: 480,  dur: 10, delay: 7
+        },
+        {
+          id: 'r6', size: 15,
+          clip: 'polygon(34% 0%,72% 2%,100% 36%,96% 72%,66% 100%,24% 100%,0% 64%,4% 26%)',
+          from: 'translate(-80px,44vh)',  to: 'translate(calc(100vw + 80px),8vh)',
+          spin: -280, dur: 12, delay: 3.8
+        },
+        {
+          id: 'r7', size: 28,
+          clip: 'polygon(46% 2%,84% 10%,100% 48%,88% 86%,52% 100%,14% 92%,0% 54%,10% 16%)',
+          from: 'translate(54vw,calc(100vh + 90px))', to: 'translate(8vw,-110px)',
+          spin: 400,  dur: 14, delay: 4.5
+        }
       ];
-      cfgs.forEach(function (c) {
+
+      /* inyectar keyframes dinámicos */
+      var styleEl = document.createElement('style');
+      styleEl.textContent = rocks.map(function (r) {
+        return '@keyframes tyv-rock-' + r.id + '{' +
+          '0%{transform:' + r.from + ' rotate(0deg);opacity:0}' +
+          '7%{opacity:0.88}' +
+          '90%{opacity:0.82}' +
+          '100%{transform:' + r.to + ' rotate(' + r.spin + 'deg);opacity:0}}';
+      }).join('');
+      document.head.appendChild(styleEl);
+
+      rocks.forEach(function (r) {
         var el = document.createElement('div');
         el.style.cssText = [
           'position:absolute',
-          'top:' + c.top,
+          'top:0',
           'left:0',
-          'width:' + c.w + 'px',
-          'height:' + c.h + 'px',
-          'border-radius:' + c.h + 'px',
-          'background:radial-gradient(ellipse 30% 100% at 90% 50%,rgba(255,255,255,0.95) 0%,rgba(255,255,255,0.55) 35%,transparent 100%)',
+          'width:' + r.size + 'px',
+          'height:' + r.size + 'px',
+          'background:rgba(225,225,232,0.86)',
+          'clip-path:' + r.clip,
+          'box-shadow:0 0 6px 2px rgba(255,255,255,0.35)',
           'pointer-events:none',
           'z-index:0',
           'will-change:transform,opacity',
-          'animation:tyv-asteroid ' + c.dur + 's linear ' + c.delay + 's infinite'
+          'animation:tyv-rock-' + r.id + ' ' + r.dur + 's linear ' + r.delay + 's infinite'
         ].join(';');
         section.appendChild(el);
       });
