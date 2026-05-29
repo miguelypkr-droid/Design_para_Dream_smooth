@@ -27,7 +27,7 @@
           class="tres-colecciones__link"
           {% unless col == blank %}href="{{ col.url }}"{% endunless %}
         >
-          <div class="tres-colecciones__image-wrap{% if i == 1 or i == 2 %} tres-colecciones__image-wrap--slideshow{% endif %}">
+          <div class="tres-colecciones__image-wrap{% if i == 1 or i == 2 or i == 3 %} tres-colecciones__image-wrap--slideshow{% endif %}">
             {%- if i == 1 -%}
               <img src="https://dreamsmoothh.com/cdn/shop/files/Adidas-Jeremy-Scott-Wings-de-lado.jpg?v=1780076103&width=800" alt="Slide 1" class="tres-colecciones__slide tres-colecciones__slide--1" loading="lazy">
               <img src="https://dreamsmoothh.com/cdn/shop/files/Francia_Polo_Small_Pony_Futbol_Azul.jpg?v=1780077561&width=800" alt="Slide 2" class="tres-colecciones__slide tres-colecciones__slide--2" loading="lazy">
@@ -36,6 +36,10 @@
               <img src="https://dreamsmoothh.com/cdn/shop/files/Polo_Ralph_Lauren_Big_Pony_Tokyo_Delantera.jpg?v=1780080129&width=400" alt="Slide 1" class="tres-colecciones__slide tres-colecciones__slide--1" loading="lazy">
               <img src="https://dreamsmoothh.com/cdn/shop/files/3E1DFD93-27DA-450D-A007-B9840B42C60E.jpg?v=1757499606&width=800" alt="Slide 2" class="tres-colecciones__slide tres-colecciones__slide--2" loading="lazy">
               <img src="https://dreamsmoothh.com/cdn/shop/files/Polo_Ralph_Lauren_Japon_Big_pony.jpg?v=1780079024&width=800" alt="Slide 3" class="tres-colecciones__slide tres-colecciones__slide--3" loading="lazy">
+            {%- elsif i == 3 -%}
+              <img src="https://dreamsmoothh.com/cdn/shop/files/Polo_Ralph_Lauren_Custom_Sakura_delantera.jpg?v=1780079927&width=800" alt="Slide 1" class="tres-colecciones__slide tres-colecciones__slide--1" loading="lazy">
+              <img src="https://dreamsmoothh.com/cdn/shop/files/Polo_Ralph_Lauren_Big_Pony_Custom_Nostalgic_Delantera.jpg?v=1780080760&width=800" alt="Slide 2" class="tres-colecciones__slide tres-colecciones__slide--2" loading="lazy">
+              <img src="https://dreamsmoothh.com/cdn/shop/files/Polo_Ralph_Lauren_Custom_Aphex_twin_delantera.jpg?v=1780079033&width=800" alt="Slide 3" class="tres-colecciones__slide tres-colecciones__slide--3" loading="lazy">
             {%- elsif col != blank and col.image != blank -%}
               {{
                 col.image
