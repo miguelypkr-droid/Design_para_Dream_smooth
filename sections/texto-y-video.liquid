@@ -1,4 +1,5 @@
 <div class="tyv-section" style="background: {{ section.settings.bg_color }};">
+  <div class="tyv-dots-layer"></div>
   <div class="tyv-inner">
 
     <!-- Columna izquierda: texto -->
@@ -62,13 +63,30 @@
 </div>
 
 <style>
+  @keyframes tyv-twinkle {
+    0%,100% { opacity: 0.10; transform: scale(0.8); }
+    30%     { opacity: 1;    transform: scale(1.5); }
+    60%     { opacity: 0.45; transform: scale(1);   }
+  }
+
   .tyv-section {
     width: 100%;
     padding: {{ section.settings.section_padding }}px 0;
     box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tyv-dots-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
   }
 
   .tyv-inner {
+    position: relative;
+    z-index: 1;
     max-width: {{ section.settings.max_width }}px;
     margin: 0 auto;
     padding: 0 2rem;
@@ -175,6 +193,37 @@
     .tyv-text-col  { width: 100%; }
   }
 </style>
+
+<script>
+  (function () {
+    function spawnDots() {
+      var layer = document.querySelector('.tyv-dots-layer');
+      if (!layer) return;
+      var total = 50;
+      for (var i = 0; i < total; i++) {
+        var dot = document.createElement('span');
+        var size = 2 + Math.random() * 5;
+        dot.style.cssText = [
+          'position:absolute',
+          'border-radius:50%',
+          'background:rgba(255,255,255,' + (0.3 + Math.random() * 0.7) + ')',
+          'width:' + size + 'px',
+          'height:' + size + 'px',
+          'left:' + (Math.random() * 99) + '%',
+          'top:' + (Math.random() * 99) + '%',
+          'pointer-events:none',
+          'animation:tyv-twinkle ' + (1.5 + Math.random() * 3.5) + 's ease-in-out ' + (Math.random() * 5) + 's infinite'
+        ].join(';');
+        layer.appendChild(dot);
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', spawnDots);
+    } else {
+      spawnDots();
+    }
+  })();
+</script>
 
 {% schema %}
 {
