@@ -96,7 +96,7 @@
 </div>
 
 <!-- Popup código de descuento -->
-<div class="tyv-gift-popup" id="tyv-gift-popup" aria-hidden="true">
+<div class="tyv-gift-popup" id="tyv-gift-popup" aria-hidden="true" style="display:none;">
   <button class="tyv-gift-close" id="tyv-gift-close" aria-label="Cerrar">&times;</button>
   <p class="tyv-gift-title">🎁 ¡Tu regalo!</p>
   <p class="tyv-gift-subtitle">Código de descuento</p>
@@ -595,8 +595,15 @@
 
       function togglePopup(e) {
         e.stopPropagation();
-        var visible = popup.classList.toggle('tyv-popup-visible');
-        popup.setAttribute('aria-hidden', !visible);
+        var visible = popup.style.display === 'block';
+        popup.style.display = visible ? 'none' : 'block';
+        popup.setAttribute('aria-hidden', visible);
+        if (!visible) popup.style.animation = 'none';
+        requestAnimationFrame(function() {
+          if (popup.style.display === 'block') {
+            popup.style.animation = '';
+          }
+        });
       }
       gift.addEventListener('click', togglePopup);
       gift.addEventListener('keydown', function(e) {
@@ -605,7 +612,7 @@
 
       closeBtn.addEventListener('click', function (e) {
         e.stopPropagation();
-        popup.classList.remove('tyv-popup-visible');
+        popup.style.display = 'none';
         popup.setAttribute('aria-hidden', 'true');
       });
 
@@ -640,7 +647,7 @@
 
       document.addEventListener('click', function (e) {
         if (!gift.contains(e.target) && !popup.contains(e.target)) {
-          popup.classList.remove('tyv-popup-visible');
+          popup.style.display = 'none';
           popup.setAttribute('aria-hidden', 'true');
         }
       });
