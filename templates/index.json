@@ -41,10 +41,11 @@
       "settings": {
         "bar_text": "Colecciones",
         "collection_1": "drop-29-de-abril-2026",
-        "collection_2": "",
+        "collection_2": "drop-20-de-abril-2026",
         "collection_3": "",
         "section_width": "page-width",
-        "color_scheme": "",
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
         "padding_top": 12,
         "padding_bottom": 8
       }
