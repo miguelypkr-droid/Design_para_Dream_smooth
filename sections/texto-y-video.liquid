@@ -68,6 +68,43 @@
   </div>
 </div>
 
+<!-- Regalo flotante -->
+<div class="tyv-gift" id="tyv-gift" role="button" tabindex="0" title="¡Toca para tu código de descuento!">
+  <svg width="60" height="66" viewBox="0 0 60 66" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <ellipse cx="30" cy="64" rx="22" ry="3.5" fill="rgba(255,255,255,0.07)"/>
+    <rect x="4" y="24" width="52" height="36" rx="3" fill="#1e1e2e"/>
+    <circle cx="11" cy="33" r="1.5" fill="rgba(255,255,255,0.55)"/>
+    <circle cx="22" cy="47" r="1"   fill="rgba(255,255,255,0.40)"/>
+    <circle cx="38" cy="31" r="1.2" fill="rgba(255,255,255,0.50)"/>
+    <circle cx="50" cy="52" r="1"   fill="rgba(255,255,255,0.60)"/>
+    <circle cx="16" cy="56" r="0.8" fill="rgba(255,255,255,0.45)"/>
+    <circle cx="45" cy="40" r="1.3" fill="rgba(255,255,255,0.35)"/>
+    <circle cx="28" cy="57" r="1"   fill="rgba(255,255,255,0.50)"/>
+    <circle cx="54" cy="35" r="0.9" fill="rgba(255,255,255,0.40)"/>
+    <rect x="27" y="24" width="6" height="36" fill="rgba(255,255,255,0.65)" rx="1"/>
+    <rect x="4"  y="36" width="52" height="6"  fill="rgba(255,255,255,0.65)" rx="1"/>
+    <rect x="2"  y="16" width="56" height="10" rx="2" fill="#2a2a3e"/>
+    <circle cx="12" cy="21" r="1"   fill="rgba(255,255,255,0.50)"/>
+    <circle cx="30" cy="19" r="1.2" fill="rgba(255,255,255,0.40)"/>
+    <circle cx="48" cy="22" r="1"   fill="rgba(255,255,255,0.55)"/>
+    <rect x="27" y="16" width="6" height="10" fill="rgba(255,255,255,0.65)" rx="1"/>
+    <path d="M30,16 C26,9 15,7 17,13 C19,17 26,14 30,16Z" fill="rgba(255,255,255,0.88)"/>
+    <path d="M30,16 C34,9 45,7 43,13 C41,17 34,14 30,16Z" fill="rgba(255,255,255,0.88)"/>
+    <circle cx="30" cy="16" r="3.5" fill="#fff"/>
+  </svg>
+  <span class="tyv-gift-sparkle" aria-hidden="true">✨</span>
+</div>
+
+<!-- Popup código de descuento -->
+<div class="tyv-gift-popup" id="tyv-gift-popup" aria-hidden="true">
+  <button class="tyv-gift-close" id="tyv-gift-close" aria-label="Cerrar">&times;</button>
+  <p class="tyv-gift-title">🎁 ¡Tu regalo!</p>
+  <p class="tyv-gift-subtitle">Código de descuento</p>
+  <div class="tyv-gift-code">DREAMCODE2026</div>
+  <button class="tyv-gift-copy" id="tyv-gift-copy">Copiar código</button>
+  <p class="tyv-gift-hint">Úsalo en tu próxima compra</p>
+</div>
+
 <style>
   @keyframes tyv-twinkle {
     0%,100% { opacity: 0.10; transform: scale(0.8); }
@@ -263,6 +300,117 @@
     letter-spacing: 0.04em;
   }
 
+  /* ---- Regalo flotante ---- */
+  @keyframes tyv-gift-float {
+    0%,100% { transform: translateY(0)    rotate(-4deg); }
+    50%     { transform: translateY(-14px) rotate(4deg); }
+  }
+  @keyframes tyv-sparkle-spin {
+    0%   { transform: rotate(0deg)   scale(1);   }
+    50%  { transform: rotate(180deg) scale(1.3); }
+    100% { transform: rotate(360deg) scale(1);   }
+  }
+  @keyframes tyv-popup-in {
+    from { opacity: 0; transform: translateY(16px) scale(0.92); }
+    to   { opacity: 1; transform: translateY(0)    scale(1);    }
+  }
+  .tyv-gift {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 9000;
+    cursor: pointer;
+    animation: tyv-gift-float 3s ease-in-out infinite;
+    filter: drop-shadow(0 4px 16px rgba(255,255,255,0.22));
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .tyv-gift:hover { filter: drop-shadow(0 4px 28px rgba(255,255,255,0.45)); }
+  .tyv-gift-sparkle {
+    position: absolute;
+    top: -8px;
+    right: -6px;
+    font-size: 1rem;
+    animation: tyv-sparkle-spin 2.2s linear infinite;
+    pointer-events: none;
+  }
+  .tyv-gift-popup {
+    position: fixed;
+    bottom: 8rem;
+    right: 2rem;
+    z-index: 9001;
+    background: #1a1a25;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 12px;
+    padding: 1.4rem 1.6rem;
+    width: 230px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.04);
+    text-align: center;
+    display: none;
+  }
+  .tyv-gift-popup.tyv-popup-visible {
+    display: block;
+    animation: tyv-popup-in 0.28s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  .tyv-gift-close {
+    position: absolute;
+    top: 0.45rem;
+    right: 0.7rem;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.45);
+    font-size: 1.3rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+  }
+  .tyv-gift-close:hover { color: #fff; }
+  .tyv-gift-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 0.25rem;
+  }
+  .tyv-gift-subtitle {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.5);
+    margin: 0 0 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .tyv-gift-code {
+    background: rgba(255,255,255,0.07);
+    border: 1.5px dashed rgba(255,255,255,0.32);
+    border-radius: 6px;
+    padding: 0.5rem 0.8rem;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    color: #fff;
+    margin-bottom: 0.75rem;
+    font-family: monospace;
+  }
+  .tyv-gift-copy {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.22);
+    color: #fff;
+    border-radius: 6px;
+    padding: 0.45rem 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    width: 100%;
+  }
+  .tyv-gift-copy:hover  { background: rgba(255,255,255,0.2); }
+  .tyv-gift-copy.tyv-copied { background: rgba(50,190,90,0.22); border-color: rgba(50,190,90,0.5); }
+  .tyv-gift-hint {
+    font-size: 0.66rem;
+    color: rgba(255,255,255,0.3);
+    margin: 0.55rem 0 0;
+  }
+
   /* ---- Responsive ---- */
   @media (max-width: 768px) {
     .tyv-inner {
@@ -429,6 +577,73 @@
       document.addEventListener('DOMContentLoaded', spawnAsteroids);
     } else {
       spawnAsteroids();
+    }
+  })();
+
+  (function () {
+    function initGift() {
+      var gift   = document.getElementById('tyv-gift');
+      var popup  = document.getElementById('tyv-gift-popup');
+      var closeBtn = document.getElementById('tyv-gift-close');
+      var copyBtn  = document.getElementById('tyv-gift-copy');
+      if (!gift || !popup) return;
+
+      function togglePopup(e) {
+        e.stopPropagation();
+        var visible = popup.classList.toggle('tyv-popup-visible');
+        popup.setAttribute('aria-hidden', !visible);
+      }
+      gift.addEventListener('click', togglePopup);
+      gift.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') togglePopup(e);
+      });
+
+      closeBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        popup.classList.remove('tyv-popup-visible');
+        popup.setAttribute('aria-hidden', 'true');
+      });
+
+      copyBtn.addEventListener('click', function () {
+        var code = 'DREAMCODE2026';
+        function markCopied() {
+          copyBtn.textContent = '¡Copiado! ✓';
+          copyBtn.classList.add('tyv-copied');
+          setTimeout(function () {
+            copyBtn.textContent = 'Copiar código';
+            copyBtn.classList.remove('tyv-copied');
+          }, 2200);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(code).then(markCopied).catch(function () {
+            fallbackCopy(code); markCopied();
+          });
+        } else {
+          fallbackCopy(code); markCopied();
+        }
+      });
+
+      function fallbackCopy(text) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+        document.body.appendChild(ta);
+        ta.focus(); ta.select();
+        try { document.execCommand('copy'); } catch(e) {}
+        document.body.removeChild(ta);
+      }
+
+      document.addEventListener('click', function (e) {
+        if (!gift.contains(e.target) && !popup.contains(e.target)) {
+          popup.classList.remove('tyv-popup-visible');
+          popup.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initGift);
+    } else {
+      initGift();
     }
   })();
 </script>
