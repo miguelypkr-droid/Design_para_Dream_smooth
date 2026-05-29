@@ -45,6 +45,7 @@
           ></video>
           <div class="tyv-stamp"><span>Prenda</span><span>trend</span></div>
         </div>
+        <p class="tyv-fun-fact"><span class="tyv-fun-fact-label">Dato curioso:</span> ¿Sabías que la polo monster su brillo en la oscuridad se recarga con rayos solares?</p>
       {%- elsif section.settings.video_shopify != blank -%}
         <div class="tyv-video-wrap" style="border-radius: {{ section.settings.video_radius }}px;">
           <video
@@ -60,6 +61,7 @@
           ></video>
           <div class="tyv-stamp"><span>Prenda</span><span>trend</span></div>
         </div>
+        <p class="tyv-fun-fact"><span class="tyv-fun-fact-label">Dato curioso:</span> ¿Sabías que la polo monster su brillo en la oscuridad se recarga con rayos solares?</p>
       {%- endif -%}
     </div>
 
@@ -240,6 +242,24 @@
     inset: 0;
     z-index: 1;
     pointer-events: all;
+  }
+
+  /* ---- Dato curioso ---- */
+  .tyv-fun-fact {
+    margin: 0.9rem 0 0;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.72);
+    background: rgba(255,255,255,0.07);
+    border-left: 3px solid rgba(255,255,255,0.35);
+    padding: 0.55rem 0.9rem;
+    border-radius: 0 4px 4px 0;
+    max-width: {{ section.settings.video_max_width }}px;
+  }
+  .tyv-fun-fact-label {
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.04em;
   }
 
   /* ---- Responsive ---- */
