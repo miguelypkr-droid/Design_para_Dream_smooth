@@ -4,7 +4,7 @@
   style="background: {{ section.settings.bg_color }}; {% render 'spacing-style', settings: section.settings %}"
 >
   {%- comment -%} Barra superior "Colecciones" {%- endcomment -%}
-  <div class="tres-colecciones__bar color-{{ sections['header_section'].settings.color_scheme_top }}">
+  <div class="tres-colecciones__bar">
     <span class="tres-colecciones__bar-text">{{ section.settings.bar_text }}</span>
   </div>
 
@@ -67,8 +67,16 @@
     justify-content: center;
     padding: 12px 20px;
     margin-bottom: 24px;
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    margin-left: calc(-1 * var(--page-margin, 0px));
+    margin-right: calc(-1 * var(--page-margin, 0px));
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background-color: #111111;
+    color: #ffffff;
   }
 
   .tres-colecciones__bar-text {
