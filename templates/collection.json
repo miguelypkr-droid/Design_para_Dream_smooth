@@ -16,7 +16,7 @@
           "type": "text",
           "name": "Title",
           "settings": {
-            "text": "<p>Nuevo sin usar</p>",
+            "text": "<p>Usado</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
