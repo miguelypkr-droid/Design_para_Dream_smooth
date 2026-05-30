@@ -9,7 +9,7 @@
     <span class="criticas__bar-text">{{ section.settings.bar_text }}</span>
   </div>
 
-  {%- comment -%} Carrusel de 6 reseñas {%- endcomment -%}
+  {%- comment -%} Carrusel de reseñas {%- endcomment -%}
   <div class="criticas__carousel-wrapper">
     <button class="criticas__arrow criticas__arrow--prev" aria-label="Anterior">&#8592;</button>
     <div class="criticas__grid">
@@ -59,7 +59,7 @@
               | image_url: width: 180
               | image_tag:
                 class: 'criticas__avatar',
-                alt: reviewer_name | default: '',
+                alt: reviewer_name,
                 width: reviewer_photo.width,
                 height: reviewer_photo.height
             }}
@@ -94,7 +94,7 @@
                 | image_url: width: 600
                 | image_tag:
                   class: 'criticas__bottom-image',
-                  alt: reviewer_name | default: '',
+                  alt: reviewer_name,
                   width: review_image.width,
                   height: review_image.height,
                   loading: 'lazy'
@@ -623,16 +623,7 @@
   ],
   "presets": [
     {
-      "name": "Críticas",
-      "blocks": [
-        { "type": "resena" },
-        { "type": "resena" },
-        { "type": "resena" },
-        { "type": "resena" },
-        { "type": "resena" },
-        { "type": "resena" },
-        { "type": "resena" }
-      ]
+      "name": "Críticas"
     }
   ]
 }
