@@ -13,7 +13,7 @@
   <div class="criticas__carousel-wrapper">
     <button class="criticas__arrow criticas__arrow--prev" aria-label="Anterior">&#8592;</button>
     <div class="criticas__grid">
-    {%- for i in (1..6) -%}
+    {%- for i in (1..7) -%}
       {%- liquid
         case i
           when 1
@@ -46,6 +46,11 @@
             assign reviewer_name  = section.settings.reviewer_name_6
             assign review_text    = section.settings.review_text_6
             assign review_image   = section.settings.review_image_6
+          when 7
+            assign reviewer_photo = section.settings.reviewer_photo_7
+            assign reviewer_name  = section.settings.reviewer_name_7
+            assign review_text    = section.settings.review_text_7
+            assign review_image   = section.settings.review_image_7
         endcase
       -%}
 
@@ -568,6 +573,32 @@
       "type": "image_picker",
       "id": "review_image_6",
       "label": "Imagen inferior 6"
+    },
+    {
+      "type": "header",
+      "content": "Reseña 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "reviewer_photo_7",
+      "label": "Foto del cliente 7"
+    },
+    {
+      "type": "text",
+      "id": "reviewer_name_7",
+      "label": "Nombre 7",
+      "default": "Valeria C."
+    },
+    {
+      "type": "textarea",
+      "id": "review_text_7",
+      "label": "Texto de la reseña 7",
+      "default": "Superó mis expectativas. La calidad del producto es excepcional."
+    },
+    {
+      "type": "image_picker",
+      "id": "review_image_7",
+      "label": "Imagen inferior 7"
     },
     {
       "type": "header",
