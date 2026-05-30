@@ -9,8 +9,10 @@
     <span class="criticas__bar-text">{{ section.settings.bar_text }}</span>
   </div>
 
-  {%- comment -%} Grid de 6 reseñas {%- endcomment -%}
-  <div class="criticas__grid">
+  {%- comment -%} Carrusel de 6 reseñas {%- endcomment -%}
+  <div class="criticas__carousel-wrapper">
+    <button class="criticas__arrow criticas__arrow--prev" aria-label="Anterior">&#8592;</button>
+    <div class="criticas__grid">
     {%- for i in (1..6) -%}
       {%- liquid
         case i
@@ -103,6 +105,8 @@
 
       </div>
     {%- endfor -%}
+    </div>
+    <button class="criticas__arrow criticas__arrow--next" aria-label="Siguiente">&#8594;</button>
   </div>
 </div>
 
@@ -141,47 +145,92 @@
     color: inherit;
   }
 
-  .criticas__grid {
+  .criticas__carousel-wrapper {
     position: relative;
     z-index: 1;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px 20px;
+    display: flex;
+    align-items: center;
   }
 
-  @media screen and (max-width: 989px) {
-    .criticas__grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 28px 16px;
-    }
+  .criticas__arrow {
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #ffffff;
+    font-size: 1.2rem;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 2;
+    line-height: 1;
   }
 
-  @media screen and (max-width: 549px) {
-    .criticas__grid {
-      grid-template-columns: 1fr;
-      gap: 28px 0;
-    }
+  .criticas__arrow--visible {
+    display: flex;
+  }
+
+  .criticas__arrow:hover {
+    background: rgba(255,255,255,0.25);
+  }
+
+  .criticas__arrow--prev { margin-right: 10px; }
+  .criticas__arrow--next { margin-left: 10px; }
+
+  .criticas__grid {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 16px;
+    padding-bottom: 10px;
+    scrollbar-width: none;
+  }
+
+  .criticas__grid::-webkit-scrollbar {
+    display: none;
   }
 
   .criticas__item {
+    flex: 0 0 calc(25% - 12px);
+    scroll-snap-align: start;
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-width: 0;
+  }
+
+  @media screen and (max-width: 989px) {
+    .criticas__item {
+      flex: 0 0 calc(33.333% - 11px);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .criticas__item {
+      flex: 0 0 72vw;
+    }
   }
 
   /* Circular avatar — overlaps the card top */
   .criticas__avatar-wrap {
     position: relative;
     z-index: 1;
-    margin-bottom: -44px;
-    width: 88px;
-    height: 88px;
+    margin-bottom: -34px;
+    width: 68px;
+    height: 68px;
     flex-shrink: 0;
   }
 
   .criticas__avatar {
-    width: 88px;
-    height: 88px;
+    width: 68px;
+    height: 68px;
     border-radius: 50%;
     object-fit: cover;
     object-position: center top;
@@ -191,8 +240,8 @@
   }
 
   .criticas__avatar-placeholder {
-    width: 88px;
-    height: 88px;
+    width: 68px;
+    height: 68px;
     border-radius: 50%;
     background: #222222;
     border: 3px solid #1a1a1a;
@@ -203,8 +252,8 @@
   }
 
   .criticas__avatar-placeholder svg {
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
   }
 
   /* Card */
@@ -212,17 +261,17 @@
     width: 100%;
     background: #111111;
     border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 20px;
-    padding: 56px 22px 22px;
+    border-radius: 16px;
+    padding: 44px 16px 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     text-align: center;
   }
 
   .criticas__name {
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -231,24 +280,24 @@
   }
 
   .criticas__text {
-    font-size: 0.9rem;
-    line-height: 1.65;
+    font-size: 0.78rem;
+    line-height: 1.6;
     color: rgba(255,255,255,0.75);
     margin: 0;
   }
 
   .criticas__bottom-image-wrap {
     width: 100%;
-    border-radius: 12px;
+    border-radius: 10px;
     overflow: hidden;
-    margin-top: 6px;
+    margin-top: 4px;
   }
 
   .criticas__bottom-image {
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 12px;
+    border-radius: 10px;
   }
 </style>
 
@@ -315,6 +364,33 @@
 
   document.querySelectorAll('.criticas__starfield').forEach(function (canvas) {
     initStarfield(canvas.closest('.section'));
+  });
+
+  // Arrow navigation
+  document.querySelectorAll('.criticas__carousel-wrapper').forEach(function (wrapper) {
+    var grid = wrapper.querySelector('.criticas__grid');
+    var prev = wrapper.querySelector('.criticas__arrow--prev');
+    var next = wrapper.querySelector('.criticas__arrow--next');
+    if (!grid || !prev || !next) return;
+
+    function updateArrowVisibility() {
+      var scrollable = grid.scrollWidth > grid.clientWidth + 2;
+      prev.classList.toggle('criticas__arrow--visible', scrollable);
+      next.classList.toggle('criticas__arrow--visible', scrollable);
+    }
+
+    function scrollBy(dir) {
+      var item = grid.querySelector('.criticas__item');
+      if (!item) return;
+      var amount = item.offsetWidth + 16;
+      grid.scrollBy({ left: dir * amount, behavior: 'smooth' });
+    }
+
+    prev.addEventListener('click', function () { scrollBy(-1); });
+    next.addEventListener('click', function () { scrollBy(1); });
+
+    updateArrowVisibility();
+    window.addEventListener('resize', updateArrowVisibility);
   });
 })();
 </script>
