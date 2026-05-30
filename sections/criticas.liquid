@@ -9,52 +9,17 @@
     <span class="criticas__bar-text">{{ section.settings.bar_text }}</span>
   </div>
 
-  {%- comment -%} Carrusel de 6 reseñas {%- endcomment -%}
+  {%- comment -%} Carrusel de reseñas (bloques) {%- endcomment -%}
   <div class="criticas__carousel-wrapper">
     <button class="criticas__arrow criticas__arrow--prev" aria-label="Anterior">&#8592;</button>
     <div class="criticas__grid">
-    {%- for i in (1..7) -%}
-      {%- liquid
-        case i
-          when 1
-            assign reviewer_photo = section.settings.reviewer_photo_1
-            assign reviewer_name  = section.settings.reviewer_name_1
-            assign review_text    = section.settings.review_text_1
-            assign review_image   = section.settings.review_image_1
-          when 2
-            assign reviewer_photo = section.settings.reviewer_photo_2
-            assign reviewer_name  = section.settings.reviewer_name_2
-            assign review_text    = section.settings.review_text_2
-            assign review_image   = section.settings.review_image_2
-          when 3
-            assign reviewer_photo = section.settings.reviewer_photo_3
-            assign reviewer_name  = section.settings.reviewer_name_3
-            assign review_text    = section.settings.review_text_3
-            assign review_image   = section.settings.review_image_3
-          when 4
-            assign reviewer_photo = section.settings.reviewer_photo_4
-            assign reviewer_name  = section.settings.reviewer_name_4
-            assign review_text    = section.settings.review_text_4
-            assign review_image   = section.settings.review_image_4
-          when 5
-            assign reviewer_photo = section.settings.reviewer_photo_5
-            assign reviewer_name  = section.settings.reviewer_name_5
-            assign review_text    = section.settings.review_text_5
-            assign review_image   = section.settings.review_image_5
-          when 6
-            assign reviewer_photo = section.settings.reviewer_photo_6
-            assign reviewer_name  = section.settings.reviewer_name_6
-            assign review_text    = section.settings.review_text_6
-            assign review_image   = section.settings.review_image_6
-          when 7
-            assign reviewer_photo = section.settings.reviewer_photo_7
-            assign reviewer_name  = section.settings.reviewer_name_7
-            assign review_text    = section.settings.review_text_7
-            assign review_image   = section.settings.review_image_7
-        endcase
-      -%}
+    {%- for block in section.blocks -%}
+      {%- assign reviewer_photo = block.settings.reviewer_photo -%}
+      {%- assign reviewer_name  = block.settings.reviewer_name -%}
+      {%- assign review_text    = block.settings.review_text -%}
+      {%- assign review_image   = block.settings.review_image -%}
 
-      <div class="criticas__item">
+      <div class="criticas__item" {{ block.shopify_attributes }}>
 
         {%- comment -%} Foto circular encima de la tarjeta {%- endcomment -%}
         <div class="criticas__avatar-wrap">
@@ -64,7 +29,7 @@
               | image_url: width: 180
               | image_tag:
                 class: 'criticas__avatar',
-                alt: reviewer_name | default: '',
+                alt: reviewer_name,
                 width: reviewer_photo.width,
                 height: reviewer_photo.height
             }}
@@ -99,7 +64,7 @@
                 | image_url: width: 600
                 | image_tag:
                   class: 'criticas__bottom-image',
-                  alt: reviewer_name | default: '',
+                  alt: reviewer_name,
                   width: review_image.width,
                   height: review_image.height,
                   loading: 'lazy'
@@ -407,6 +372,36 @@
   "disabled_on": {
     "groups": ["header", "footer"]
   },
+  "blocks": [
+    {
+      "type": "resena",
+      "name": "Reseña",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "reviewer_photo",
+          "label": "Foto del cliente"
+        },
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Nombre",
+          "default": "Cliente"
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Texto de la reseña",
+          "default": "Una experiencia increíble. Totalmente recomendado."
+        },
+        {
+          "type": "image_picker",
+          "id": "review_image",
+          "label": "Imagen inferior"
+        }
+      ]
+    }
+  ],
   "settings": [
     {
       "type": "header",
@@ -417,188 +412,6 @@
       "id": "bar_text",
       "label": "Texto de la barra",
       "default": "Reseñas"
-    },
-    {
-      "type": "header",
-      "content": "Reseña 1"
-    },
-    {
-      "type": "image_picker",
-      "id": "reviewer_photo_1",
-      "label": "Foto del cliente 1"
-    },
-    {
-      "type": "text",
-      "id": "reviewer_name_1",
-      "label": "Nombre 1",
-      "default": "María G."
-    },
-    {
-      "type": "textarea",
-      "id": "review_text_1",
-      "label": "Texto de la reseña 1",
-      "default": "Increíble calidad y atención al detalle. Definitivamente volveré a comprar."
-    },
-    {
-      "type": "image_picker",
-      "id": "review_image_1",
-      "label": "Imagen inferior 1"
-    },
-    {
-      "type": "header",
-      "content": "Reseña 2"
-    },
-    {
-      "type": "image_picker",
-      "id": "reviewer_photo_2",
-      "label": "Foto del cliente 2"
-    },
-    {
-      "type": "text",
-      "id": "reviewer_name_2",
-      "label": "Nombre 2",
-      "default": "Carlos R."
-    },
-    {
-      "type": "textarea",
-      "id": "review_text_2",
-      "label": "Texto de la reseña 2",
-      "default": "El producto superó todas mis expectativas. Muy recomendado."
-    },
-    {
-      "type": "image_picker",
-      "id": "review_image_2",
-      "label": "Imagen inferior 2"
-    },
-    {
-      "type": "header",
-      "content": "Reseña 3"
-    },
-    {
-      "type": "image_picker",
-      "id": "reviewer_photo_3",
-      "label": "Foto del cliente 3"
-    },
-    {
-      "type": "text",
-      "id": "reviewer_name_3",
-      "label": "Nombre 3",
-      "default": "Ana M."
-    },
-    {
-      "type": "textarea",
-      "id": "review_text_3",
-      "label": "Texto de la reseña 3",
-      "default": "Diseño único y envío rápido. Totalmente satisfecha con mi compra."
-    },
-    {
-      "type": "image_picker",
-      "id": "review_image_3",
-      "label": "Imagen inferior 3"
-    },
-    {
-      "type": "header",
-      "content": "Reseña 4"
-    },
-    {
-      "type": "image_picker",
-      "id": "reviewer_photo_4",
-      "label": "Foto del cliente 4"
-    },
-    {
-      "type": "text",
-      "id": "reviewer_name_4",
-      "label": "Nombre 4",
-      "default": "Luis P."
-    },
-    {
-      "type": "textarea",
-      "id": "review_text_4",
-      "label": "Texto de la reseña 4",
-      "default": "La mejor tienda para prendas de edición limitada. Calidad premium."
-    },
-    {
-      "type": "image_picker",
-      "id": "review_image_4",
-      "label": "Imagen inferior 4"
-    },
-    {
-      "type": "header",
-      "content": "Reseña 5"
-    },
-    {
-      "type": "image_picker",
-      "id": "reviewer_photo_5",
-      "label": "Foto del cliente 5"
-    },
-    {
-      "type": "text",
-      "id": "reviewer_name_5",
-      "label": "Nombre 5",
-      "default": "Sofía T."
-    },
-    {
-      "type": "textarea",
-      "id": "review_text_5",
-      "label": "Texto de la reseña 5",
-      "default": "Me encantó el packaging y la atención personalizada. 100% recomendable."
-    },
-    {
-      "type": "image_picker",
-      "id": "review_image_5",
-      "label": "Imagen inferior 5"
-    },
-    {
-      "type": "header",
-      "content": "Reseña 6"
-    },
-    {
-      "type": "image_picker",
-      "id": "reviewer_photo_6",
-      "label": "Foto del cliente 6"
-    },
-    {
-      "type": "text",
-      "id": "reviewer_name_6",
-      "label": "Nombre 6",
-      "default": "Diego F."
-    },
-    {
-      "type": "textarea",
-      "id": "review_text_6",
-      "label": "Texto de la reseña 6",
-      "default": "Producto auténtico, llegó perfectamente embalado y antes de lo esperado."
-    },
-    {
-      "type": "image_picker",
-      "id": "review_image_6",
-      "label": "Imagen inferior 6"
-    },
-    {
-      "type": "header",
-      "content": "Reseña 7"
-    },
-    {
-      "type": "image_picker",
-      "id": "reviewer_photo_7",
-      "label": "Foto del cliente 7"
-    },
-    {
-      "type": "text",
-      "id": "reviewer_name_7",
-      "label": "Nombre 7",
-      "default": "Valeria C."
-    },
-    {
-      "type": "textarea",
-      "id": "review_text_7",
-      "label": "Texto de la reseña 7",
-      "default": "Superó mis expectativas. La calidad del producto es excepcional."
-    },
-    {
-      "type": "image_picker",
-      "id": "review_image_7",
-      "label": "Imagen inferior 7"
     },
     {
       "type": "header",
@@ -654,7 +467,15 @@
   ],
   "presets": [
     {
-      "name": "Críticas"
+      "name": "Críticas",
+      "blocks": [
+        { "type": "resena" },
+        { "type": "resena" },
+        { "type": "resena" },
+        { "type": "resena" },
+        { "type": "resena" },
+        { "type": "resena" }
+      ]
     }
   ]
 }
