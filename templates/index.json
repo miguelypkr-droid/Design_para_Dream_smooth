@@ -42,7 +42,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h3>Disponibles</h3>",
+            "text": "<h4><strong>DISPONIBLES</strong></h4>",
             "width": "fit-content",
             "max_width": "narrow",
             "alignment": "left",
