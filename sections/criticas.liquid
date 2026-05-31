@@ -75,11 +75,11 @@
 
         {%- comment -%} Tarjeta con nombre, texto e imagen inferior {%- endcomment -%}
         <div class="criticas__card">
-          <span class="criticas__name" style="color: {{ section.settings.text_color }};">
+          <span class="criticas__name">
             {%- if reviewer_name != blank -%}{{ reviewer_name }}{%- else -%}Cliente{%- endif -%}
           </span>
 
-          <p class="criticas__text" style="color: {{ section.settings.text_color }};">
+          <p class="criticas__text">
             {%- if review_text != blank -%}
               {{ review_text }}
             {%- else -%}
@@ -282,7 +282,7 @@
   .criticas__text {
     font-size: 0.78rem;
     line-height: 1.6;
-    color: rgba(255,255,255,0.75);
+    color: #9a9a9a;
     margin: 0;
   }
 
