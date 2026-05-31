@@ -311,8 +311,22 @@
         "section_width": "page-width",
         "bg_color": "#000000",
         "text_color": "#ffffff",
-        "padding_top": 64,
-        "padding_bottom": 8
+        "padding_top": 72,
+        "padding_bottom": 84
+      }
+    },
+    "divider_JqteH4": {
+      "type": "divider",
+      "name": "t:names.divider_section",
+      "settings": {
+        "color_scheme": "scheme-f80cb8ef-ef9f-484c-a03c-c823a5a40588",
+        "section_width": "full-width",
+        "thickness": 1,
+        "corner_radius": "square",
+        "width_percent": 100,
+        "alignment_horizontal": "center",
+        "padding-block-start": 36,
+        "padding-block-end": 47
       }
     },
     "bento_features_dpPNyD": {
@@ -339,6 +353,20 @@
         "card4_heading": "¿Pagos por transferencia bancaria?",
         "card4_text": "¡Claro que si!, disponible unicamente en Colombia, aceptamos; Bancolombia, Daviplata, Nequi o llave."
       }
+    },
+    "divider_cw6Pr6": {
+      "type": "divider",
+      "name": "t:names.divider_section",
+      "settings": {
+        "color_scheme": "scheme-f80cb8ef-ef9f-484c-a03c-c823a5a40588",
+        "section_width": "full-width",
+        "thickness": 1,
+        "corner_radius": "square",
+        "width_percent": 100,
+        "alignment_horizontal": "center",
+        "padding-block-start": 36,
+        "padding-block-end": 47
+      }
     }
   },
   "order": [
@@ -347,6 +375,8 @@
     "product_list_UaiDUe",
     "criticas_kh7nDi",
     "tres_colecciones_nmwxR8",
-    "bento_features_dpPNyD"
+    "divider_JqteH4",
+    "bento_features_dpPNyD",
+    "divider_cw6Pr6"
   ]
 }
