@@ -213,11 +213,11 @@
       "scheme-4": {
         "settings": {
           "background": "#000000",
-          "foreground_heading": "#000000",
-          "foreground": "#000000cf",
-          "primary": "#000000cf",
+          "foreground_heading": "#ffffff",
+          "foreground": "#ffffffcf",
+          "primary": "#ffffffcf",
           "primary_hover": "#000000",
-          "border": "#1d368680",
+          "border": "#000000",
           "shadow": "#000000",
           "primary_button_background": "#000000",
           "primary_button_text": "#ffffff",

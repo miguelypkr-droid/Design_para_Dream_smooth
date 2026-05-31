@@ -259,7 +259,7 @@
         "section_width": "page-width",
         "horizontal_alignment": "flex-start",
         "gap": 28,
-        "color_scheme": "scheme-f80cb8ef-ef9f-484c-a03c-c823a5a40588",
+        "color_scheme": "scheme-4",
         "padding-block-start": 23,
         "padding-block-end": 23
       }
@@ -319,7 +319,7 @@
       "type": "divider",
       "name": "t:names.divider_section",
       "settings": {
-        "color_scheme": "scheme-f80cb8ef-ef9f-484c-a03c-c823a5a40588",
+        "color_scheme": "scheme-4",
         "section_width": "full-width",
         "thickness": 1,
         "corner_radius": "square",
