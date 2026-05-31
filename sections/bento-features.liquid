@@ -1,0 +1,576 @@
+<div class="bento-features" style="background-color: {{ section.settings.background_color }};">
+  <div class="bento-features__grid">
+
+    <!-- ── Tarjeta 1: Grande izquierda ── -->
+    <div class="bento-card bento-card--large">
+
+      <div class="bento-card__text">
+        {%- if section.settings.card1_heading != blank -%}
+          <h2 class="bento-card__heading">{{ section.settings.card1_heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.card1_text != blank -%}
+          <p class="bento-card__subtext">{{ section.settings.card1_text }}</p>
+        {%- endif -%}
+      </div>
+
+      <!-- Collage de imágenes -->
+      <div class="bento-collage">
+        {%- if section.settings.card1_image1 != blank -%}
+          <div class="bento-collage__item bento-collage__item--1">
+            {{ section.settings.card1_image1 | image_url: width: 500 | image_tag: class: 'bento-collage__img', loading: 'lazy', alt: section.settings.card1_heading }}
+            {%- if section.settings.card1_label2 != blank -%}
+              <span class="bento-badge">● {{ section.settings.card1_label2 }}</span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.card1_image2 != blank -%}
+          <div class="bento-collage__item bento-collage__item--2">
+            {{ section.settings.card1_image2 | image_url: width: 500 | image_tag: class: 'bento-collage__img', loading: 'lazy', alt: section.settings.card1_heading }}
+            {%- if section.settings.card1_label3 != blank -%}
+              <span class="bento-badge">● {{ section.settings.card1_label3 }}</span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.card1_image3 != blank -%}
+          <div class="bento-collage__item bento-collage__item--3">
+            {{ section.settings.card1_image3 | image_url: width: 320 | image_tag: class: 'bento-collage__img', loading: 'lazy', alt: section.settings.card1_heading }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Notificación flotante -->
+      {%- if section.settings.card1_notif_text != blank -%}
+        <div class="bento-notif">
+          {%- if section.settings.card1_notif_icon != blank -%}
+            {{ section.settings.card1_notif_icon | image_url: width: 80 | image_tag: class: 'bento-notif__icon', loading: 'lazy', alt: section.settings.card1_notif_app }}
+          {%- else -%}
+            <div class="bento-notif__icon bento-notif__icon--placeholder"></div>
+          {%- endif -%}
+          <div class="bento-notif__body">
+            <span class="bento-notif__app">{{ section.settings.card1_notif_app }}</span>
+            <span class="bento-notif__msg">{{ section.settings.card1_notif_text }}</span>
+          </div>
+          {%- if section.settings.card1_notif_time != blank -%}
+            <span class="bento-notif__time">{{ section.settings.card1_notif_time }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <!-- Etiqueta ciudad inferior -->
+      {%- if section.settings.card1_label1 != blank -%}
+        <span class="bento-badge bento-badge--abs-bottom">● {{ section.settings.card1_label1 }}</span>
+      {%- endif -%}
+
+    </div><!-- /card 1 -->
+
+    <!-- ── Columna derecha ── -->
+    <div class="bento-features__right">
+
+      <!-- Tarjeta 2: Grande superior derecha -->
+      <div class="bento-card bento-card--top-right">
+        <div class="bento-card__text">
+          {%- if section.settings.card2_heading != blank -%}
+            <h2 class="bento-card__heading">{{ section.settings.card2_heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.card2_text != blank -%}
+            <p class="bento-card__subtext">{{ section.settings.card2_text }}</p>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.card2_image != blank -%}
+          <div class="bento-card__media bento-card__media--float">
+            {{ section.settings.card2_image | image_url: width: 420 | image_tag: class: 'bento-card__img', loading: 'lazy', alt: section.settings.card2_heading }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Fila inferior: 2 tarjetas pequeñas -->
+      <div class="bento-features__bottom-row">
+
+        <!-- Tarjeta 3 -->
+        <div class="bento-card bento-card--small">
+          <div class="bento-card__text">
+            {%- if section.settings.card3_heading != blank -%}
+              <h2 class="bento-card__heading">{{ section.settings.card3_heading }}</h2>
+            {%- endif -%}
+            {%- if section.settings.card3_text != blank -%}
+              <p class="bento-card__subtext">{{ section.settings.card3_text }}</p>
+            {%- endif -%}
+          </div>
+          {%- if section.settings.card3_image != blank -%}
+            <div class="bento-card__media">
+              {{ section.settings.card3_image | image_url: width: 360 | image_tag: class: 'bento-card__img', loading: 'lazy', alt: section.settings.card3_heading }}
+            </div>
+          {%- endif -%}
+        </div>
+
+        <!-- Tarjeta 4 -->
+        <div class="bento-card bento-card--small">
+          <div class="bento-card__text">
+            {%- if section.settings.card4_heading != blank -%}
+              <h2 class="bento-card__heading">{{ section.settings.card4_heading }}</h2>
+            {%- endif -%}
+            {%- if section.settings.card4_text != blank -%}
+              <p class="bento-card__subtext">{{ section.settings.card4_text }}</p>
+            {%- endif -%}
+          </div>
+          {%- if section.settings.card4_image != blank -%}
+            <div class="bento-card__media">
+              {{ section.settings.card4_image | image_url: width: 360 | image_tag: class: 'bento-card__img', loading: 'lazy', alt: section.settings.card4_heading }}
+            </div>
+          {%- endif -%}
+        </div>
+
+      </div><!-- /bottom row -->
+    </div><!-- /right column -->
+
+  </div><!-- /grid -->
+</div><!-- /bento-features -->
+
+{% stylesheet %}
+
+/* ─────────────── WRAPPER ─────────────── */
+.bento-features {
+  width: 100%;
+  padding: 2.5rem 1.5rem;
+  box-sizing: border-box;
+}
+
+.bento-features__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ─────────────── TARJETA BASE ─────────────── */
+.bento-card {
+  background: #1c1c1e;
+  border-radius: 22px;
+  padding: 1.75rem;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  color: #ffffff;
+}
+
+.bento-card__heading {
+  font-size: clamp(1.5rem, 2.8vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 0.4rem 0;
+  color: #ffffff;
+}
+
+.bento-card__subtext {
+  font-size: 0.92rem;
+  color: #9a9a9a;
+  margin: 0;
+  line-height: 1.55;
+  max-width: 26ch;
+}
+
+/* ─────────────── TARJETA GRANDE (izquierda) ─────────────── */
+.bento-card--large {
+  min-height: 540px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Collage */
+.bento-collage {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.bento-collage__item {
+  position: absolute;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+}
+
+.bento-collage__item--1 {
+  top: 28%;
+  right: 5%;
+  width: 46%;
+  height: 38%;
+}
+
+.bento-collage__item--2 {
+  bottom: 8%;
+  right: 28%;
+  width: 46%;
+  height: 38%;
+}
+
+.bento-collage__item--3 {
+  bottom: 12%;
+  right: 5%;
+  width: 32%;
+  height: 28%;
+  transform: rotate(2deg);
+  z-index: 2;
+}
+
+.bento-collage__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Badge de ciudad */
+.bento-badge {
+  position: absolute;
+  bottom: 0.45rem;
+  left: 0.6rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 0.22em 0.65em;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.bento-badge--abs-bottom {
+  position: absolute;
+  bottom: 1.4rem;
+  left: 1.75rem;
+}
+
+/* Notificación flotante */
+.bento-notif {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  padding: 0.65rem 0.9rem;
+  position: absolute;
+  bottom: 3.8rem;
+  left: 1.75rem;
+  max-width: 56%;
+  z-index: 10;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.bento-notif__icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.bento-notif__icon--placeholder {
+  background: linear-gradient(135deg, #444, #222);
+  display: block;
+}
+
+.bento-notif__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.08rem;
+  min-width: 0;
+}
+
+.bento-notif__app {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.bento-notif__msg {
+  font-size: 0.72rem;
+  color: #cccccc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bento-notif__time {
+  font-size: 0.63rem;
+  color: #777;
+  margin-left: auto;
+  flex-shrink: 0;
+  align-self: flex-start;
+  padding-top: 0.1rem;
+}
+
+/* ─────────────── COLUMNA DERECHA ─────────────── */
+.bento-features__right {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Tarjeta grande superior derecha */
+.bento-card--top-right {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 240px;
+  overflow: hidden;
+}
+
+/* Imágenes en las tarjetas */
+.bento-card__media {
+  flex-shrink: 0;
+  max-width: 50%;
+  display: flex;
+  align-items: flex-end;
+  align-self: stretch;
+}
+
+.bento-card__media--float {
+  align-items: center;
+  overflow: visible;
+}
+
+.bento-card__img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  border-radius: 10px;
+  max-height: 100%;
+}
+
+/* Fila inferior: 2 tarjetas pequeñas */
+.bento-features__bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.bento-card--small {
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bento-card--small .bento-card__media {
+  max-width: 100%;
+  margin-top: 0.75rem;
+  align-self: flex-end;
+}
+
+.bento-card--small .bento-card__img {
+  border-radius: 8px;
+}
+
+/* ─────────────── RESPONSIVE ─────────────── */
+@media screen and (max-width: 900px) {
+  .bento-features__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bento-card--large {
+    min-height: 420px;
+  }
+
+  .bento-card--top-right {
+    min-height: 200px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .bento-features {
+    padding: 1rem;
+  }
+
+  .bento-features__bottom-row {
+    grid-template-columns: 1fr;
+  }
+
+  .bento-card--small {
+    min-height: 160px;
+  }
+
+  .bento-card__heading {
+    font-size: 1.4rem;
+  }
+}
+
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Bento Features",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Color de fondo de la sección",
+      "default": "#111111"
+    },
+
+    {
+      "type": "header",
+      "content": "── Tarjeta 1 · Grande izquierda ──"
+    },
+    {
+      "type": "text",
+      "id": "card1_heading",
+      "label": "Título",
+      "default": "Enviar dinero globalmente"
+    },
+    {
+      "type": "textarea",
+      "id": "card1_text",
+      "label": "Texto descriptivo",
+      "default": "Pagos transfronterizos fluidos en cualquier momento, al instante, sin comisiones."
+    },
+    {
+      "type": "image_picker",
+      "id": "card1_image1",
+      "label": "Imagen del collage 1 (arriba derecha)"
+    },
+    {
+      "type": "image_picker",
+      "id": "card1_image2",
+      "label": "Imagen del collage 2 (abajo centro)"
+    },
+    {
+      "type": "image_picker",
+      "id": "card1_image3",
+      "label": "Imagen del collage 3 (abajo derecha, girada)"
+    },
+    {
+      "type": "text",
+      "id": "card1_label1",
+      "label": "Etiqueta de ciudad 1 (inferior izquierda)",
+      "default": "LONDON"
+    },
+    {
+      "type": "text",
+      "id": "card1_label2",
+      "label": "Etiqueta de ciudad 2 (sobre imagen 1)",
+      "default": "TOKIO"
+    },
+    {
+      "type": "text",
+      "id": "card1_label3",
+      "label": "Etiqueta de ciudad 3 (sobre imagen 2)",
+      "default": "PARIS"
+    },
+
+    {
+      "type": "header",
+      "content": "── Notificación flotante (tarjeta 1) ──"
+    },
+    {
+      "type": "image_picker",
+      "id": "card1_notif_icon",
+      "label": "Icono de la notificación"
+    },
+    {
+      "type": "text",
+      "id": "card1_notif_app",
+      "label": "Nombre de la app",
+      "default": "Bleap"
+    },
+    {
+      "type": "text",
+      "id": "card1_notif_text",
+      "label": "Mensaje de la notificación",
+      "default": "You received $550"
+    },
+    {
+      "type": "text",
+      "id": "card1_notif_time",
+      "label": "Hora",
+      "default": "9:42 AM"
+    },
+
+    {
+      "type": "header",
+      "content": "── Tarjeta 2 · Grande superior derecha ──"
+    },
+    {
+      "type": "text",
+      "id": "card2_heading",
+      "label": "Título",
+      "default": "Hasta 20% de cashback"
+    },
+    {
+      "type": "textarea",
+      "id": "card2_text",
+      "label": "Texto descriptivo",
+      "default": "Ahorra mientras gastas, en cada compra"
+    },
+    {
+      "type": "image_picker",
+      "id": "card2_image",
+      "label": "Imagen (mockup de teléfono, app, etc.)"
+    },
+
+    {
+      "type": "header",
+      "content": "── Tarjeta 3 · Pequeña inferior izquierda ──"
+    },
+    {
+      "type": "text",
+      "id": "card3_heading",
+      "label": "Título",
+      "default": "Hasta 8% TAE"
+    },
+    {
+      "type": "textarea",
+      "id": "card3_text",
+      "label": "Texto descriptivo",
+      "default": "Una forma más inteligente de salvar lo que es tuyo."
+    },
+    {
+      "type": "image_picker",
+      "id": "card3_image",
+      "label": "Imagen"
+    },
+
+    {
+      "type": "header",
+      "content": "── Tarjeta 4 · Pequeña inferior derecha ──"
+    },
+    {
+      "type": "text",
+      "id": "card4_heading",
+      "label": "Título",
+      "default": "Opera con cripto"
+    },
+    {
+      "type": "textarea",
+      "id": "card4_text",
+      "label": "Texto descriptivo",
+      "default": "Compra y vende más de 18,000 tokens, sin comisiones."
+    },
+    {
+      "type": "image_picker",
+      "id": "card4_image",
+      "label": "Imagen"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bento Features"
+    }
+  ]
+}
+{% endschema %}
