@@ -1,0 +1,510 @@
+
+<div
+  class="section section--{{ section.settings.section_width }} spacing-style"
+  style="background: {{ section.settings.bg_color }}; position: relative; overflow: hidden; {% render 'spacing-style', settings: section.settings %}"
+>
+  <canvas class="tres-colecciones__starfield" aria-hidden="true"></canvas>
+
+  {%- comment -%} Barra superior "Colecciones" {%- endcomment -%}
+  <div class="tres-colecciones__bar">
+    <span class="tres-colecciones__bar-text">{{ section.settings.bar_text }}</span>
+  </div>
+
+  {%- comment -%} Carrusel de 4 colecciones {%- endcomment -%}
+  <div class="tres-colecciones__carousel-wrapper">
+    <button class="tres-colecciones__arrow tres-colecciones__arrow--prev" aria-label="Anterior">&#8592;</button>
+    <div class="tres-colecciones__grid">
+    {%- for i in (1..4) -%}
+      {%- liquid
+        case i
+          when 1
+            assign col = section.settings.collection_0
+          when 2
+            assign col = section.settings.collection_1
+          when 3
+            assign col = section.settings.collection_2
+          when 4
+            assign col = section.settings.collection_3
+        endcase
+      -%}
+
+      <div class="tres-colecciones__item">
+        <a
+          class="tres-colecciones__link"
+          {% unless col == blank %}href="{{ col.url }}"{% endunless %}
+        >
+          <div class="tres-colecciones__image-wrap{% if i == 2 or i == 3 or i == 4 %} tres-colecciones__image-wrap--slideshow{% endif %}">
+            {%- if i == 1 -%}
+              <div class="tres-colecciones__qmark-wrap">
+                <span class="tres-colecciones__qmark">?</span>
+              </div>
+            {%- elsif i == 2 -%}
+              <img src="https://dreamsmoothh.com/cdn/shop/files/Adidas-Jeremy-Scott-Wings-de-lado.jpg?v=1780076103&width=800" alt="Slide 1" class="tres-colecciones__slide tres-colecciones__slide--1" loading="lazy">
+              <img src="https://dreamsmoothh.com/cdn/shop/files/Francia_Polo_Small_Pony_Futbol_Azul.jpg?v=1780077561&width=800" alt="Slide 2" class="tres-colecciones__slide tres-colecciones__slide--2" loading="lazy">
+              <img src="https://dreamsmoothh.com/cdn/shop/files/Adidas_Jeremy_Scott_Negros_de_lado_reflectivos.jpg?v=1780076629&width=400" alt="Slide 3" class="tres-colecciones__slide tres-colecciones__slide--3" loading="lazy">
+            {%- elsif i == 3 -%}
+              <img src="https://dreamsmoothh.com/cdn/shop/files/Polo_Ralph_Lauren_Big_Pony_Tokyo_Delantera.jpg?v=1780080129&width=400" alt="Slide 1" class="tres-colecciones__slide tres-colecciones__slide--1" loading="lazy">
+              <img src="https://dreamsmoothh.com/cdn/shop/files/3E1DFD93-27DA-450D-A007-B9840B42C60E.jpg?v=1757499606&width=800" alt="Slide 2" class="tres-colecciones__slide tres-colecciones__slide--2" loading="lazy">
+              <img src="https://dreamsmoothh.com/cdn/shop/files/Polo_Ralph_Lauren_Japon_Big_pony.jpg?v=1780079024&width=800" alt="Slide 3" class="tres-colecciones__slide tres-colecciones__slide--3" loading="lazy">
+            {%- elsif i == 4 -%}
+              <img src="https://dreamsmoothh.com/cdn/shop/files/Polo_Ralph_Lauren_Custom_Sakura_delantera.jpg?v=1780079927&width=800" alt="Slide 1" class="tres-colecciones__slide tres-colecciones__slide--1" loading="lazy">
+              <img src="https://dreamsmoothh.com/cdn/shop/files/Polo_Ralph_Lauren_Big_Pony_Custom_Nostalgic_Delantera.jpg?v=1780080760&width=800" alt="Slide 2" class="tres-colecciones__slide tres-colecciones__slide--2" loading="lazy">
+              <img src="https://dreamsmoothh.com/cdn/shop/files/Polo_Ralph_Lauren_Custom_Aphex_twin_delantera.jpg?v=1780079033&width=800" alt="Slide 3" class="tres-colecciones__slide tres-colecciones__slide--3" loading="lazy">
+            {%- elsif col != blank and col.image != blank -%}
+              {{
+                col.image
+                | image_url: width: 800
+                | image_tag:
+                  width: col.image.width,
+                  height: col.image.height,
+                  alt: col.image.alt | default: col.title,
+                  class: 'tres-colecciones__img',
+                  widths: '400, 600, 800',
+                  sizes: '(min-width: 750px) 33vw, 100vw'
+              }}
+            {%- else -%}
+              {{ 'collection-1' | placeholder_svg_tag: 'tres-colecciones__placeholder' }}
+            {%- endif -%}
+          </div>
+
+          <div class="tres-colecciones__info">
+            <span class="tres-colecciones__title" style="color: {{ section.settings.text_color }};">
+              {%- if col != blank -%}
+                {{ col.title }}
+              {%- else -%}
+                {{ 'onboarding.collection_title' | t }}
+              {%- endif -%}
+            </span>
+
+          </div>
+        </a>
+      </div>
+    {%- endfor -%}
+  </div>
+    <button class="tres-colecciones__arrow tres-colecciones__arrow--next" aria-label="Siguiente">&#8594;</button>
+  </div>
+</div>
+
+<style>
+  .tres-colecciones__starfield {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    display: block;
+  }
+
+  .tres-colecciones__bar,
+  .tres-colecciones__carousel-wrapper,
+  .tres-colecciones__grid {
+    position: relative;
+    z-index: 1;
+  }
+
+  .tres-colecciones__carousel-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .tres-colecciones__arrow {
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #ffffff;
+    font-size: 1.4rem;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 2;
+    line-height: 1;
+  }
+
+  .tres-colecciones__arrow--visible {
+    display: flex;
+  }
+
+  .tres-colecciones__arrow:hover {
+    background: rgba(255,255,255,0.25);
+  }
+
+  .tres-colecciones__arrow--prev { margin-right: 10px; }
+  .tres-colecciones__arrow--next { margin-left: 10px; }
+
+  .tres-colecciones__bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    margin-bottom: 24px;
+    margin-left: calc(-1 * var(--page-margin, 0px));
+    margin-right: calc(-1 * var(--page-margin, 0px));
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background-color: #111111;
+    color: #ffffff;
+  }
+
+  .tres-colecciones__bar-text {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: inherit;
+  }
+
+  .tres-colecciones__grid {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 20px;
+    padding-bottom: 12px;
+    scrollbar-width: none;
+  }
+
+  .tres-colecciones__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tres-colecciones__item {
+    flex: 0 0 calc(25% - 15px);
+    scroll-snap-align: start;
+  }
+
+  @media screen and (max-width: 749px) {
+    .tres-colecciones__item {
+      flex: 0 0 82vw;
+    }
+  }
+
+  .tres-colecciones__item {
+    position: relative;
+    min-width: 0;
+  }
+
+  .tres-colecciones__link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .tres-colecciones__image-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--media-radius, 0px);
+  }
+
+  .tres-colecciones__qmark-wrap {
+    position: absolute;
+    inset: 0;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tres-colecciones__qmark {
+    font-size: clamp(5rem, 14vw, 9rem);
+    font-weight: 900;
+    color: #111111;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .tres-colecciones__img,
+  .tres-colecciones__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .tres-colecciones__link:hover .tres-colecciones__img,
+  .tres-colecciones__link:hover .tres-colecciones__placeholder {
+    transform: scale(1.04);
+  }
+
+  /* Slideshow card 1 */
+  .tres-colecciones__image-wrap--slideshow {
+    position: relative;
+  }
+
+  .tres-colecciones__slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: tcSlide 9s infinite;
+  }
+
+  .tres-colecciones__slide--1 { animation-delay: 0s; }
+  .tres-colecciones__slide--2 { animation-delay: 3s; }
+  .tres-colecciones__slide--3 { animation-delay: 6s; }
+
+  @keyframes tcSlide {
+    0%        { opacity: 0; }
+    5%        { opacity: 1; }
+    30%       { opacity: 1; }
+    35%       { opacity: 0; }
+    100%      { opacity: 0; }
+  }
+
+  .tres-colecciones__info {
+    margin-top: 12px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tres-colecciones__badge {
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 4px;
+    border: 1px solid #ffffff;
+    white-space: nowrap;
+  }
+
+  .tres-colecciones__badge--available {
+    background-color: #1a7a3a;
+    color: #ffffff;
+  }
+
+  .tres-colecciones__badge--soon {
+    background-color: #c47800;
+    color: #ffe066;
+    border-color: #ffe066;
+  }
+
+  .tres-colecciones__badge--unavailable {
+    background-color: #b01e1e;
+    color: #ffffff;
+  }
+
+  .tres-colecciones__title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+</style>
+
+<script>
+(function () {
+  function initStarfield(section) {
+    var canvas = section.querySelector('.tres-colecciones__starfield');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var stars = [];
+    var raf;
+
+    function buildStars() {
+      canvas.width  = section.offsetWidth  || 1200;
+      canvas.height = section.offsetHeight || 600;
+      stars = [];
+      // Stars spread across the whole canvas
+      for (var i = 0; i < 110; i++) {
+        stars.push({
+          x:     Math.random() * canvas.width,
+          y:     Math.random() * canvas.height,
+          r:     Math.random() * 1.4 + 0.3,
+          phase: Math.random() * Math.PI * 2,
+          speed: Math.random() * 0.012 + 0.004
+        });
+      }
+      // Extra stars concentrated in the left third
+      for (var j = 0; j < 75; j++) {
+        stars.push({
+          x:     Math.random() * canvas.width * 0.3,
+          y:     Math.random() * canvas.height,
+          r:     Math.random() * 1.3 + 0.2,
+          phase: Math.random() * Math.PI * 2,
+          speed: Math.random() * 0.012 + 0.004
+        });
+      }
+    }
+
+    function draw(t) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      var time = t * 0.001;
+      for (var i = 0; i < stars.length; i++) {
+        var s = stars[i];
+        var opacity = 0.15 + 0.75 * (0.5 + 0.5 * Math.sin(time * s.speed * 60 + s.phase));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, 6.2832);
+        ctx.fillStyle = 'rgba(255,255,255,' + opacity.toFixed(3) + ')';
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(draw);
+    }
+
+    buildStars();
+    raf = requestAnimationFrame(draw);
+
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        cancelAnimationFrame(raf);
+        buildStars();
+        raf = requestAnimationFrame(draw);
+      }, 150);
+    });
+  }
+
+  var sections = document.querySelectorAll('.tres-colecciones__starfield');
+  sections.forEach(function (canvas) { initStarfield(canvas.closest('.section')); });
+
+  // Arrow navigation
+  document.querySelectorAll('.tres-colecciones__carousel-wrapper').forEach(function (wrapper) {
+    var grid = wrapper.querySelector('.tres-colecciones__grid');
+    var prev = wrapper.querySelector('.tres-colecciones__arrow--prev');
+    var next = wrapper.querySelector('.tres-colecciones__arrow--next');
+    if (!grid || !prev || !next) return;
+
+    function updateArrowVisibility() {
+      var scrollable = grid.scrollWidth > grid.clientWidth + 2;
+      prev.classList.toggle('tres-colecciones__arrow--visible', scrollable);
+      next.classList.toggle('tres-colecciones__arrow--visible', scrollable);
+    }
+
+    function scrollBy(dir) {
+      var item = grid.querySelector('.tres-colecciones__item');
+      if (!item) return;
+      var amount = item.offsetWidth + 20;
+      grid.scrollBy({ left: dir * amount, behavior: 'smooth' });
+    }
+
+    prev.addEventListener('click', function () { scrollBy(-1); });
+    next.addEventListener('click', function () { scrollBy(1); });
+
+    updateArrowVisibility();
+    window.addEventListener('resize', updateArrowVisibility);
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Tres colecciones",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Barra superior"
+    },
+    {
+      "type": "text",
+      "id": "bar_text",
+      "label": "Texto de la barra",
+      "default": "Colecciones"
+    },
+    {
+      "type": "header",
+      "content": "Colecciones"
+    },
+    {
+      "type": "collection",
+      "id": "collection_0",
+      "label": "Colección 0 (primera)"
+    },
+    {
+      "type": "collection",
+      "id": "collection_1",
+      "label": "Colección 1"
+    },
+    {
+      "type": "collection",
+      "id": "collection_2",
+      "label": "Colección 2"
+    },
+    {
+      "type": "collection",
+      "id": "collection_3",
+      "label": "Colección 3"
+    },
+    {
+      "type": "header",
+      "content": "Diseño de sección"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Ancho de la sección",
+      "options": [
+        { "value": "full-width", "label": "Completo" },
+        { "value": "page-width", "label": "Página" },
+        { "value": "narrow", "label": "Angosto" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Color de fondo de la sección",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color del texto (títulos)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espacio superior",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espacio inferior",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tres colecciones"
+    }
+  ]
+}
+{% endschema %}
