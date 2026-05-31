@@ -264,6 +264,22 @@
         "padding-block-end": 23
       }
     },
+    "tres_colecciones_nmwxR8": {
+      "type": "tres-colecciones",
+      "name": "Tres colecciones",
+      "settings": {
+        "bar_text": "Colecciones",
+        "collection_0": "drop-1-de-junio-2026",
+        "collection_1": "drop-29-de-abril-2026",
+        "collection_2": "drop-20-de-abril-2026",
+        "collection_3": "drop-19-de-marzo-2026",
+        "section_width": "page-width",
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
+        "padding_top": 72,
+        "padding_bottom": 84
+      }
+    },
     "criticas_kh7nDi": {
       "type": "criticas",
       "name": "Críticas",
@@ -299,22 +315,6 @@
         "padding-block-end": 48
       }
     },
-    "tres_colecciones_nmwxR8": {
-      "type": "tres-colecciones",
-      "name": "Tres colecciones",
-      "settings": {
-        "bar_text": "Colecciones",
-        "collection_0": "drop-1-de-junio-2026",
-        "collection_1": "drop-29-de-abril-2026",
-        "collection_2": "drop-20-de-abril-2026",
-        "collection_3": "drop-19-de-marzo-2026",
-        "section_width": "page-width",
-        "bg_color": "#000000",
-        "text_color": "#ffffff",
-        "padding_top": 72,
-        "padding_bottom": 84
-      }
-    },
     "divider_JqteH4": {
       "type": "divider",
       "name": "t:names.divider_section",
@@ -348,10 +348,12 @@
         "card1_notif_time": "9:42 AM",
         "card2_heading": "Paga un 50% de la prenda para ser reservada",
         "card2_text": "Puedes pagar el 50% de la prenda para que esta sea separada y exclusivamente tu compra. Puedes pagar el resto progresivamente.",
+        "card2_image": "shopify://shop_images/Tarjetas_de_credito.png",
         "card3_heading": "¿Pagos contra entrega?",
-        "card3_text": "¡Claro que si!, disponibles únicamente en Colombia, próximamente también estara disponible en Estados Unidos.",
+        "card3_text": "¡Claro que si!, disponibles únicamente en Colombia, próximamente también estará disponible en Estados Unidos. Nos encargamos de que llegue en las optimas condiciones, para su entrega. Puedes pagar por transferencia o en efectivo apenas llegue a tu puerta.",
         "card4_heading": "¿Pagos por transferencia bancaria?",
-        "card4_text": "¡Claro que si!, disponible unicamente en Colombia, aceptamos; Bancolombia, Daviplata, Nequi o llave."
+        "card4_text": "¡Claro que si!, disponible unicamente en Colombia, aceptamos; Bancolombia, Daviplata, Nequi o llave.",
+        "card4_image": "shopify://shop_images/Bancolombia.png"
       }
     },
     "divider_cw6Pr6": {
@@ -373,8 +375,8 @@
     "texto_y_video_xceEpM",
     "section_A7HQXF",
     "product_list_UaiDUe",
-    "criticas_kh7nDi",
     "tres_colecciones_nmwxR8",
+    "criticas_kh7nDi",
     "divider_JqteH4",
     "bento_features_dpPNyD",
     "divider_cw6Pr6"
