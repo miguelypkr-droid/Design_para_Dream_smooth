@@ -353,6 +353,20 @@
         "card4_heading": "¿Pagos por transferencia bancaria?",
         "card4_text": "¡Claro que si!, disponible unicamente en Colombia, aceptamos; Bancolombia, Daviplata, Nequi o llave."
       }
+    },
+    "divider_cw6Pr6": {
+      "type": "divider",
+      "name": "t:names.divider_section",
+      "settings": {
+        "color_scheme": "scheme-f80cb8ef-ef9f-484c-a03c-c823a5a40588",
+        "section_width": "full-width",
+        "thickness": 1,
+        "corner_radius": "square",
+        "width_percent": 100,
+        "alignment_horizontal": "center",
+        "padding-block-start": 36,
+        "padding-block-end": 47
+      }
     }
   },
   "order": [
@@ -362,6 +376,7 @@
     "criticas_kh7nDi",
     "tres_colecciones_nmwxR8",
     "divider_JqteH4",
-    "bento_features_dpPNyD"
+    "bento_features_dpPNyD",
+    "divider_cw6Pr6"
   ]
 }
