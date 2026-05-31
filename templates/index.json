@@ -264,6 +264,22 @@
         "padding-block-end": 23
       }
     },
+    "tres_colecciones_nmwxR8": {
+      "type": "tres-colecciones",
+      "name": "Tres colecciones",
+      "settings": {
+        "bar_text": "Colecciones",
+        "collection_0": "drop-1-de-junio-2026",
+        "collection_1": "drop-29-de-abril-2026",
+        "collection_2": "drop-20-de-abril-2026",
+        "collection_3": "drop-19-de-marzo-2026",
+        "section_width": "page-width",
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
+        "padding_top": 72,
+        "padding_bottom": 84
+      }
+    },
     "criticas_kh7nDi": {
       "type": "criticas",
       "name": "Críticas",
@@ -297,22 +313,6 @@
         "text_color": "#ffffff",
         "padding-block-start": 48,
         "padding-block-end": 48
-      }
-    },
-    "tres_colecciones_nmwxR8": {
-      "type": "tres-colecciones",
-      "name": "Tres colecciones",
-      "settings": {
-        "bar_text": "Colecciones",
-        "collection_0": "drop-1-de-junio-2026",
-        "collection_1": "drop-29-de-abril-2026",
-        "collection_2": "drop-20-de-abril-2026",
-        "collection_3": "drop-19-de-marzo-2026",
-        "section_width": "page-width",
-        "bg_color": "#000000",
-        "text_color": "#ffffff",
-        "padding_top": 72,
-        "padding_bottom": 84
       }
     },
     "divider_JqteH4": {
@@ -375,8 +375,8 @@
     "texto_y_video_xceEpM",
     "section_A7HQXF",
     "product_list_UaiDUe",
-    "criticas_kh7nDi",
     "tres_colecciones_nmwxR8",
+    "criticas_kh7nDi",
     "divider_JqteH4",
     "bento_features_dpPNyD",
     "divider_cw6Pr6"
