@@ -35,31 +35,6 @@
         "video_radius": 8
       }
     },
-    "bento_features_dpPNyD": {
-      "type": "bento-features",
-      "name": "Bento Features",
-      "settings": {
-        "background_color": "#000000",
-        "card1_heading": "Paga globalmente",
-        "card1_text": "En Dream Smooth nos encargamos de facilitar los pagos de nuestros clientes desde cualquier parte del mundo, ofreciendo métodos de pago seguros, rápidos y accesibles. Nuestro objetivo es eliminar las barreras que puedan dificultar una compra. Paga desde tus tarjetas o",
-        "card1_image1": "shopify://shop_images/Reino_Unido.jpg",
-        "card1_image2": "shopify://shop_images/Colombia_Medellin.webp",
-        "card1_image3": "shopify://shop_images/Mexico_Foto.jpg",
-        "card1_label1": "",
-        "card1_label2": "",
-        "card1_label3": "",
-        "card1_notif_icon": "shopify://shop_images/boldteam_logo.jpg",
-        "card1_notif_app": "Bold",
-        "card1_notif_text": "¡Compraste exitosamente!",
-        "card1_notif_time": "9:42 AM",
-        "card2_heading": "Paga un 50% de la prenda para ser reservada",
-        "card2_text": "Puedes pagar el 50% de la prenda para que esta sea separada y exclusivamente tu compra. Puedes pagar el resto progresivamente.",
-        "card3_heading": "¿Pagos contra entrega?",
-        "card3_text": "¡Claro que si!, disponibles únicamente en Colombia, próximamente también estara disponible en Estados Unidos.",
-        "card4_heading": "¿Pagos por transferencia bancaria?",
-        "card4_text": "¡Claro que si!, disponible unicamente en Colombia, aceptamos; Bancolombia, Daviplata, Nequi o llave."
-      }
-    },
     "section_A7HQXF": {
       "type": "section",
       "blocks": {
@@ -336,17 +311,57 @@
         "section_width": "page-width",
         "bg_color": "#000000",
         "text_color": "#ffffff",
-        "padding_top": 64,
-        "padding_bottom": 8
+        "padding_top": 72,
+        "padding_bottom": 84
+      }
+    },
+    "divider_JqteH4": {
+      "type": "divider",
+      "name": "t:names.divider_section",
+      "settings": {
+        "color_scheme": "scheme-f80cb8ef-ef9f-484c-a03c-c823a5a40588",
+        "section_width": "full-width",
+        "thickness": 1,
+        "corner_radius": "square",
+        "width_percent": 100,
+        "alignment_horizontal": "center",
+        "padding-block-start": 55,
+        "padding-block-end": 47
+      }
+    },
+    "bento_features_dpPNyD": {
+      "type": "bento-features",
+      "name": "Bento Features",
+      "settings": {
+        "background_color": "#000000",
+        "card1_heading": "Paga globalmente",
+        "card1_text": "En Dream Smooth nos encargamos de facilitar los pagos de nuestros clientes desde cualquier parte del mundo, ofreciendo métodos de pago seguros, rápidos y accesibles. Nuestro objetivo es eliminar las barreras que puedan dificultar una compra. Paga desde tus tarjetas o",
+        "card1_image1": "shopify://shop_images/Reino_Unido.jpg",
+        "card1_image2": "shopify://shop_images/Colombia_Medellin.webp",
+        "card1_image3": "shopify://shop_images/Mexico_Foto.jpg",
+        "card1_label1": "",
+        "card1_label2": "",
+        "card1_label3": "",
+        "card1_notif_icon": "shopify://shop_images/boldteam_logo.jpg",
+        "card1_notif_app": "Bold",
+        "card1_notif_text": "¡Compraste exitosamente!",
+        "card1_notif_time": "9:42 AM",
+        "card2_heading": "Paga un 50% de la prenda para ser reservada",
+        "card2_text": "Puedes pagar el 50% de la prenda para que esta sea separada y exclusivamente tu compra. Puedes pagar el resto progresivamente.",
+        "card3_heading": "¿Pagos contra entrega?",
+        "card3_text": "¡Claro que si!, disponibles únicamente en Colombia, próximamente también estara disponible en Estados Unidos.",
+        "card4_heading": "¿Pagos por transferencia bancaria?",
+        "card4_text": "¡Claro que si!, disponible unicamente en Colombia, aceptamos; Bancolombia, Daviplata, Nequi o llave."
       }
     }
   },
   "order": [
     "texto_y_video_xceEpM",
-    "bento_features_dpPNyD",
     "section_A7HQXF",
     "product_list_UaiDUe",
     "criticas_kh7nDi",
-    "tres_colecciones_nmwxR8"
+    "tres_colecciones_nmwxR8",
+    "divider_JqteH4",
+    "bento_features_dpPNyD"
   ]
 }
