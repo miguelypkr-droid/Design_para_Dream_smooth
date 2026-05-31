@@ -212,7 +212,7 @@
       },
       "scheme-4": {
         "settings": {
-          "background": "#e1edf5",
+          "background": "#000000",
           "foreground_heading": "#000000",
           "foreground": "#000000cf",
           "primary": "#000000cf",
@@ -368,7 +368,7 @@
       },
       "scheme-f80cb8ef-ef9f-484c-a03c-c823a5a40588": {
         "settings": {
-          "background": "#000000",
+          "background": "#111111",
           "foreground_heading": "#ffffff",
           "foreground": "#ffffff",
           "primary": "#ffffffcf",
