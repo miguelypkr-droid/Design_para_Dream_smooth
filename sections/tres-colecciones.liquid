@@ -104,12 +104,38 @@
   }
 
   .tres-colecciones__carousel-wrapper {
-    display: block;
+    display: flex;
+    align-items: center;
   }
 
   .tres-colecciones__arrow {
-    display: none !important;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #ffffff;
+    font-size: 1.4rem;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 2;
+    line-height: 1;
   }
+
+  .tres-colecciones__arrow--visible {
+    display: flex;
+  }
+
+  .tres-colecciones__arrow:hover {
+    background: rgba(255,255,255,0.25);
+  }
+
+  .tres-colecciones__arrow--prev { margin-right: 10px; }
+  .tres-colecciones__arrow--next { margin-left: 10px; }
 
   .tres-colecciones__bar {
     display: flex;
@@ -138,35 +164,44 @@
   }
 
   .tres-colecciones__grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
     gap: 20px;
-    justify-items: center;
     padding-bottom: 12px;
+    scrollbar-width: none;
+  }
+
+  .tres-colecciones__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tres-colecciones__item {
+    flex: 0 0 calc(25% - 15px);
+    scroll-snap-align: start;
+    position: relative;
+    min-width: 0;
   }
 
   @media screen and (max-width: 1100px) {
-    .tres-colecciones__grid {
-      grid-template-columns: repeat(3, 1fr);
+    .tres-colecciones__item {
+      flex: 0 0 calc(33.333% - 14px);
     }
   }
 
   @media screen and (max-width: 749px) {
-    .tres-colecciones__grid {
-      grid-template-columns: repeat(2, 1fr);
+    .tres-colecciones__item {
+      flex: 0 0 calc(50% - 10px);
     }
   }
 
   @media screen and (max-width: 480px) {
-    .tres-colecciones__grid {
-      grid-template-columns: repeat(1, 1fr);
+    .tres-colecciones__item {
+      flex: 0 0 calc(100%);
     }
-  }
-
-  .tres-colecciones__item {
-    position: relative;
-    min-width: 0;
-    width: 100%;
   }
 
   .tres-colecciones__link {
@@ -179,7 +214,7 @@
     position: relative;
     overflow: hidden;
     aspect-ratio: 2 / 3;
-    border-radius: var(--media-radius, 0px);
+    border-radius: 18px;
   }
 
   .tres-colecciones__qmark-wrap {
