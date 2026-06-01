@@ -83,13 +83,10 @@
                 <p class="ctabs__card-title">{{ product.title }}</p>
                 <div class="ctabs__card-price">
                   {%- if product.compare_at_price > product.price -%}
-                    <span class="ctabs__price ctabs__price--sale">USD {{ product.price | money_without_currency }}</span>
-                    <span class="ctabs__price ctabs__price--compare">USD {{ product.compare_at_price | money_without_currency }}</span>
+                    <span class="ctabs__price ctabs__price--sale">{{ product.price | money }}</span>
+                    <span class="ctabs__price ctabs__price--compare">{{ product.compare_at_price | money }}</span>
                   {%- else -%}
-                    <span class="ctabs__price">USD {{ product.price | money_without_currency }}</span>
-                  {%- endif -%}
-                  {%- if localization.country.currency.iso_code != 'USD' -%}
-                    <span class="ctabs__price ctabs__price--local">{{ product.price | money_with_currency }}</span>
+                    <span class="ctabs__price">{{ product.price | money }}</span>
                   {%- endif -%}
                 </div>
                 <div class="ctabs__availability">
