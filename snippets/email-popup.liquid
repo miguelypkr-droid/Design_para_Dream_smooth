@@ -1,8 +1,8 @@
-<div class="epop-overlay" id="emailPopupOverlay" aria-hidden="true">
+﻿<div class="epop-overlay" id="emailPopupOverlay" aria-hidden="true">
   <div class="epop-modal" role="dialog" aria-modal="true" aria-labelledby="epopTitle">
     <button class="epop-close" id="emailPopupClose" aria-label="Cerrar">&#10005;</button>
 
-    <p class="epop-tagline" id="epopTitle">¿Quieres conseguir un descuento<br>con nuestra ruleta?</p>
+    <p class="epop-tagline" id="epopTitle">Â¿Quieres conseguir un descuento<br>con nuestra ruleta?</p>
     <p class="epop-sub">Ingresa tus datos para activarla</p>
 
     <!-- Ruleta -->
@@ -28,7 +28,7 @@
           type="email"
           name="contact[email]"
           id="epopEmail"
-          placeholder="Correo electrónico"
+          placeholder="Correo electrÃ³nico"
           required
           autocomplete="email"
         >
@@ -37,27 +37,40 @@
           type="tel"
           name="contact[phone]"
           id="epopPhone"
-          placeholder="Número de teléfono"
+          placeholder="NÃºmero de telÃ©fono"
           autocomplete="tel"
         >
-        <p class="epop-error" id="epopError" hidden>Ingresa un correo electrónico válido.</p>
-        <button class="epop-btn" type="submit" id="epopSubmitBtn">¡Girar la ruleta!</button>
+        <p class="epop-error" id="epopError" hidden>Ingresa un correo electrÃ³nico vÃ¡lido.</p>
+        <button class="epop-btn" type="submit" id="epopSubmitBtn">Â¡Girar la ruleta!</button>
       </form>
     </div>
 
-    <!-- Resultado (oculto hasta que termina el giro) -->
-    <div class="epop-result" id="epopResult" hidden>
-      <p class="epop-result-msg" id="epopResultMsg"></p>
-      <div class="epop-code-wrap" id="epopCodeWrap" hidden>
-        <p class="epop-code-label">Tu código de descuento:</p>
-        <div class="epop-code-row">
-          <strong class="epop-code" id="epopCode"></strong>
-          <button class="epop-copy-btn" id="epopCopyBtn" type="button">Copiar</button>
-        </div>
-      </div>
-      <button class="epop-dismiss-btn" id="epopDismiss" type="button">Cerrar</button>
-    </div>
+  </div>
+</div>
 
+<!-- Popup resultado: PERDISTE -->
+<div class="epop-result-overlay" id="epopLoseOverlay" aria-hidden="true">
+  <div class="epop-result-modal epop-result-modal--lose">
+    <button class="epop-close" id="epopLoseClose" aria-label="Cerrar">&#10005;</button>
+    <div class="epop-result-icon">&#128532;</div>
+    <h2 class="epop-result-title">&#161;Perdiste!</h2>
+    <p class="epop-result-body">Pero no te preocupes, te enviaremos <strong>descuentos exclusivos</strong> a tu correo.</p>
+    <button class="epop-dismiss-btn" id="epopLoseDismiss">Entendido</button>
+  </div>
+</div>
+
+<!-- Popup resultado: GANASTE -->
+<div class="epop-result-overlay" id="epopWinOverlay" aria-hidden="true">
+  <div class="epop-result-modal epop-result-modal--win">
+    <button class="epop-close" id="epopWinClose" aria-label="Cerrar">&#10005;</button>
+    <div class="epop-result-icon">&#127881;</div>
+    <h2 class="epop-result-title">&#161;Ganaste un 3% de descuento!</h2>
+    <p class="epop-result-body">Usa este c&#243;digo en tu pr&#243;xima compra:</p>
+    <div class="epop-code-row">
+      <strong class="epop-code" id="epopWinCode">DREAM2026</strong>
+      <button class="epop-copy-btn" id="epopCopyBtn" type="button">Copiar</button>
+    </div>
+    <button class="epop-dismiss-btn epop-dismiss-btn--highlight" id="epopWinDismiss">&#161;Ir a comprar!</button>
   </div>
 </div>
 
@@ -270,6 +283,81 @@
     .epop-wheel-outer, .epop-wheel-spin { width: 200px; height: 200px; }
     .epop-wheel-spin canvas { width: 200px; height: 200px; }
   }
+
+  /* ── Popups de resultado ───────────────────────────────────────────── */
+  .epop-result-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    background: rgba(0,0,0,0.82);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .epop-result-overlay.epop-result-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+  .epop-result-modal {
+    position: relative;
+    background: #111;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 44px 28px 32px;
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.9);
+    transform: scale(0.92);
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    box-sizing: border-box;
+  }
+  .epop-result-overlay.epop-result-visible .epop-result-modal {
+    transform: scale(1);
+  }
+  .epop-result-modal--win {
+    border-color: rgba(251,191,36,0.35);
+    background: linear-gradient(160deg, #1a1500 0%, #111 60%);
+  }
+  .epop-result-icon {
+    font-size: 2.8rem;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .epop-result-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin: 0 0 10px;
+    letter-spacing: 0.02em;
+  }
+  .epop-result-modal--win .epop-result-title { color: #fbbf24; }
+  .epop-result-body {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.65);
+    margin: 0 0 20px;
+    line-height: 1.55;
+  }
+  .epop-result-body strong { color: #fff; }
+  .epop-dismiss-btn--highlight {
+    background: #fbbf24;
+    color: #000;
+    border: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 12px 28px;
+    border-radius: 9px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.2s;
+    margin-top: 6px;
+  }
+  .epop-dismiss-btn--highlight:hover { background: #f59e0b; }
 </style>
 
 <script>
@@ -281,12 +369,9 @@
   var closeBtn   = document.getElementById('emailPopupClose');
   var form       = document.getElementById('emailPopupForm');
   var formSec    = document.getElementById('epopFormSection');
-  var resultSec  = document.getElementById('epopResult');
-  var resultMsg  = document.getElementById('epopResultMsg');
-  var codeWrap   = document.getElementById('epopCodeWrap');
-  var codeEl     = document.getElementById('epopCode');
-  var copyBtn    = document.getElementById('epopCopyBtn');
-  var dismissBtn = document.getElementById('epopDismiss');
+  var loseOverlay = document.getElementById('epopLoseOverlay');
+  var winOverlay  = document.getElementById('epopWinOverlay');
+  var copyBtn     = document.getElementById('epopCopyBtn');
   var errorEl    = document.getElementById('epopError');
   var submitBtn  = document.getElementById('epopSubmitBtn');
   var spinEl     = document.getElementById('epopWheelSpin');
@@ -294,7 +379,7 @@
 
   if (!overlay || !canvas) return;
 
-  // ─── Segmentos ────────────────────────────────────────────────────────────
+  // â”€â”€â”€ Segmentos â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   // weight 0 = nunca se selecciona (aparece visualmente pero no puede salir)
   var SEGS = [
     { lines: ['12%', 'OFF'],   bg: '#1e3a5f', fg: '#ffffff', weight: 0,  type: 'discount' },
@@ -307,7 +392,7 @@
     { lines: ['5%', 'OFF'],    bg: '#1e3a5f', fg: '#ffffff', weight: 0,  type: 'discount' }
   ];
 
-  // ─── Dibujar ruleta ───────────────────────────────────────────────────────
+  // â”€â”€â”€ Dibujar ruleta â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function drawWheel() {
     var ctx = canvas.getContext('2d');
     var n   = SEGS.length;
@@ -364,7 +449,7 @@
 
   drawWheel();
 
-  // ─── Selección aleatoria ponderada ───────────────────────────────────────
+  // â”€â”€â”€ SelecciÃ³n aleatoria ponderada â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function pickSegment() {
     var total = SEGS.reduce(function (s, seg) { return s + seg.weight; }, 0);
     var rand  = Math.random() * total;
@@ -375,7 +460,7 @@
     return SEGS.length - 1;
   }
 
-  // ─── Animación de giro ────────────────────────────────────────────────────
+  // â”€â”€â”€ AnimaciÃ³n de giro â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   var totalRot = 0;
   var spinning = false;
 
@@ -384,9 +469,9 @@
     var arcDeg = 360 / n;
     // Centro del segmento objetivo en grados desde arriba (sentido horario)
     var center = segIdx * arcDeg + arcDeg / 2;
-    // Variación aleatoria dentro del segmento (±40% del arco)
+    // VariaciÃ³n aleatoria dentro del segmento (Â±40% del arco)
     var jitter = (Math.random() - 0.5) * arcDeg * 0.8;
-    // Rotación clockwise necesaria para llevar ese punto al puntero (arriba)
+    // RotaciÃ³n clockwise necesaria para llevar ese punto al puntero (arriba)
     var target  = ((360 - center + jitter) % 360 + 360) % 360;
     var curNorm = ((totalRot % 360) + 360) % 360;
     var delta   = (target - curNorm + 360) % 360;
@@ -404,7 +489,7 @@
     });
   }
 
-  // ─── Abrir / cerrar popup ─────────────────────────────────────────────────
+  // â”€â”€â”€ Abrir / cerrar popup â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function openPopup() {
     overlay.removeAttribute('aria-hidden');
     overlay.classList.add('epop-visible');
@@ -422,10 +507,37 @@
 
   closeBtn.addEventListener('click', closePopup);
   overlay.addEventListener('click', function (e) { if (e.target === overlay) closePopup(); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePopup(); });
-  if (dismissBtn) dismissBtn.addEventListener('click', closePopup);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closePopup(); closeResultPopups(); } });
 
-  // ─── Envío del formulario ─────────────────────────────────────────────────
+  function closeResultPopups() {
+    [loseOverlay, winOverlay].forEach(function (el) {
+      if (!el) return;
+      el.setAttribute('aria-hidden', 'true');
+      el.classList.remove('epop-result-visible');
+    });
+    document.body.style.overflow = '';
+  }
+
+  function openResultPopup(el) {
+    if (!el) return;
+    el.removeAttribute('aria-hidden');
+    el.classList.add('epop-result-visible');
+    document.body.style.overflow = 'hidden';
+  }
+
+  ['epopLoseClose', 'epopLoseDismiss', 'epopWinClose'].forEach(function (id) {
+    var btn = document.getElementById(id);
+    if (btn) btn.addEventListener('click', closeResultPopups);
+  });
+
+  var winDismiss = document.getElementById('epopWinDismiss');
+  if (winDismiss) winDismiss.addEventListener('click', closeResultPopups);
+
+  [loseOverlay, winOverlay].forEach(function (el) {
+    if (el) el.addEventListener('click', function (e) { if (e.target === el) closeResultPopups(); });
+  });
+
+  // â”€â”€â”€ EnvÃ­o del formulario â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (spinning) return;
@@ -453,30 +565,20 @@
     var segIdx = pickSegment();
     spinTo(segIdx, function () {
       var seg = SEGS[segIdx];
-      formSec.hidden = true;
-      resultSec.hidden = false;
-
-      if (seg.type === 'win') {
-        resultMsg.textContent = '\u00a1Ganaste un 3% de descuento! \uD83C\uDF89';
-        codeEl.textContent    = seg.code;
-        codeWrap.hidden = false;
-      } else if (seg.type === 'lose') {
-        resultMsg.textContent = '\u00a1Perdiste! Suerte la pr\u00f3xima vez \uD83D\uDE42';
-        codeWrap.hidden = true;
-      } else {
-        // Descuentos con weight 0 — inalcanzables, pero cubiertos por si acaso
-        resultMsg.textContent = '\u00a1Conseguiste un descuento!';
-        codeWrap.hidden = true;
-      }
-
       localStorage.setItem(STORAGE_KEY, '1');
+      closePopup();
+      if (seg.type === 'win') {
+        openResultPopup(winOverlay);
+      } else {
+        openResultPopup(loseOverlay);
+      }
     });
   });
 
-  // ─── Copiar código ────────────────────────────────────────────────────────
+  // â”€â”€â”€ Copiar cÃ³digo â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   if (copyBtn) {
     copyBtn.addEventListener('click', function () {
-      var code = codeEl.textContent;
+      var code = (document.getElementById('epopWinCode') || {}).textContent || '';
       if (navigator.clipboard) {
         navigator.clipboard.writeText(code).then(function () {
           copyBtn.textContent = '\u00a1Copiado!';
@@ -496,300 +598,5 @@
     });
   }
 
-})();
-</script>
-
-  <div class="epop-modal" role="dialog" aria-modal="true" aria-labelledby="epopTitle">
-    <button class="epop-close" id="emailPopupClose" aria-label="Cerrar">&#10005;</button>
-
-    <div class="epop-content">
-      <img
-        class="epop-logo"
-        src="https://dreamsmoothh.com/cdn/shop/files/LOGO_DREAM_SMOOTH.png?v=1780287234&width=1950"
-        alt="Dream Smooth"
-        width="140"
-        height="auto"
-      >
-
-      <h2 class="epop-title" id="epopTitle">Únete a Dream Smooth</h2>
-      <p class="epop-subtitle">Suscríbete y recibe ofertas exclusivas, novedades y más.</p>
-
-      <!-- Estado: formulario -->
-      <form
-        class="epop-form"
-        id="emailPopupForm"
-        method="post"
-        action="/contact#contact_form"
-        novalidate
-      >
-        <input type="hidden" name="form_type" value="customer">
-        <input type="hidden" name="utf8" value="✓">
-        <input type="hidden" name="contact[tags]" value="newsletter">
-        <input type="hidden" name="customer[accepts_marketing]" value="true">
-
-        <div class="epop-field-wrap">
-          <input
-            class="epop-input"
-            type="email"
-            name="contact[email]"
-            id="epopEmail"
-            placeholder="Tu correo electrónico"
-            required
-            autocomplete="email"
-          >
-          <button class="epop-btn" type="submit">Suscribirme</button>
-        </div>
-        <p class="epop-error" id="epopError" hidden>Por favor introduce un correo válido.</p>
-      </form>
-
-      <!-- Estado: éxito -->
-      <div class="epop-success" id="epopSuccess" hidden>
-        <svg class="epop-check" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="26" cy="26" r="25" stroke="#fff" stroke-width="2" opacity="0.3"/>
-          <path d="M14 27l8 8 16-16" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <p>¡Gracias! Ya estás suscrito.</p>
-      </div>
-
-      <p class="epop-disclaimer">Sin spam. Cancela cuando quieras.</p>
-    </div>
-  </div>
-</div>
-
-<style>
-  .epop-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 999998;
-    background: rgba(0,0,0,0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.35s ease, visibility 0.35s ease;
-    padding: 16px;
-    box-sizing: border-box;
-  }
-  .epop-overlay.epop-visible {
-    opacity: 1;
-    visibility: visible;
-  }
-  .epop-modal {
-    position: relative;
-    background: #111;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 18px;
-    padding: 48px 32px 36px;
-    max-width: 420px;
-    width: 100%;
-    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
-    transform: translateY(24px);
-    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
-    text-align: center;
-    color: #fff;
-    box-sizing: border-box;
-  }
-  .epop-overlay.epop-visible .epop-modal {
-    transform: translateY(0);
-  }
-  .epop-close {
-    position: absolute;
-    top: 14px;
-    right: 16px;
-    background: none;
-    border: none;
-    color: rgba(255,255,255,0.5);
-    font-size: 1rem;
-    cursor: pointer;
-    line-height: 1;
-    padding: 4px;
-    transition: color 0.2s;
-  }
-  .epop-close:hover {
-    color: #fff;
-  }
-  .epop-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-  .epop-logo {
-    width: 120px;
-    height: auto;
-    display: block;
-    margin-bottom: 4px;
-  }
-  .epop-title {
-    font-size: 1.3rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    margin: 0;
-    color: #fff;
-  }
-  .epop-subtitle {
-    font-size: 0.88rem;
-    color: rgba(255,255,255,0.6);
-    margin: 0;
-    line-height: 1.5;
-  }
-  .epop-form {
-    width: 100%;
-  }
-  .epop-field-wrap {
-    display: flex;
-    gap: 8px;
-    width: 100%;
-  }
-  .epop-input {
-    flex: 1;
-    min-width: 0;
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 8px;
-    color: #fff;
-    font-size: 0.88rem;
-    padding: 10px 14px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .epop-input::placeholder {
-    color: rgba(255,255,255,0.35);
-  }
-  .epop-input:focus {
-    border-color: rgba(255,255,255,0.5);
-  }
-  .epop-btn {
-    flex-shrink: 0;
-    background: #fff;
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    padding: 10px 16px;
-    cursor: pointer;
-    letter-spacing: 0.04em;
-    transition: background 0.2s, color 0.2s;
-    white-space: nowrap;
-  }
-  .epop-btn:hover {
-    background: #e0e0e0;
-  }
-  .epop-error {
-    font-size: 0.8rem;
-    color: #ff6b6b;
-    margin: 6px 0 0;
-    text-align: left;
-  }
-  .epop-success {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    font-size: 1rem;
-    color: #fff;
-    padding: 8px 0;
-  }
-  .epop-success[hidden] {
-    display: none;
-  }
-  .epop-check {
-    width: 52px;
-    height: 52px;
-  }
-  .epop-disclaimer {
-    font-size: 0.72rem;
-    color: rgba(255,255,255,0.3);
-    margin: 0;
-  }
-  @media screen and (max-width: 480px) {
-    .epop-modal {
-      padding: 40px 20px 28px;
-    }
-    .epop-field-wrap {
-      flex-direction: column;
-    }
-    .epop-btn {
-      width: 100%;
-    }
-  }
-</style>
-
-<script>
-(function () {
-  var STORAGE_KEY = 'ds_epop_dismissed';
-  var overlay = document.getElementById('emailPopupOverlay');
-  var closeBtn = document.getElementById('emailPopupClose');
-  var form    = document.getElementById('emailPopupForm');
-  var success = document.getElementById('epopSuccess');
-  var error   = document.getElementById('epopError');
-
-  if (!overlay) return;
-
-  // No mostrar si ya fue cerrado o suscrito
-  if (localStorage.getItem(STORAGE_KEY)) return;
-
-  function openPopup() {
-    overlay.removeAttribute('aria-hidden');
-    overlay.classList.add('epop-visible');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closePopup() {
-    overlay.setAttribute('aria-hidden', 'true');
-    overlay.classList.remove('epop-visible');
-    document.body.style.overflow = '';
-    localStorage.setItem(STORAGE_KEY, '1');
-  }
-
-  // Abrir tras 4 segundos
-  setTimeout(openPopup, 4000);
-
-  closeBtn.addEventListener('click', closePopup);
-  overlay.addEventListener('click', function (e) {
-    if (e.target === overlay) closePopup();
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closePopup();
-  });
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var emailInput = document.getElementById('epopEmail');
-    var emailVal   = emailInput.value.trim();
-
-    // Validación básica
-    if (!emailVal || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
-      error.hidden = false;
-      emailInput.focus();
-      return;
-    }
-    error.hidden = true;
-
-    // Envío via fetch al endpoint de Shopify
-    var data = new FormData(form);
-    fetch('/contact', {
-      method: 'POST',
-      headers: { 'X-Requested-With': 'XMLHttpRequest' },
-      body: data
-    })
-    .then(function (res) {
-      if (res.ok || res.redirected) {
-        form.hidden = true;
-        success.hidden = false;
-        localStorage.setItem(STORAGE_KEY, '1');
-        setTimeout(closePopup, 2500);
-      } else {
-        error.textContent = 'Algo falló. Intenta de nuevo.';
-        error.hidden = false;
-      }
-    })
-    .catch(function () {
-      error.textContent = 'Error de conexión. Intenta de nuevo.';
-      error.hidden = false;
-    });
-  });
 })();
 </script>
