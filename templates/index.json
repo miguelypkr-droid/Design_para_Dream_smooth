@@ -42,7 +42,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h4><strong>DISPONIBLES</strong></h4>",
+            "text": "<h4><strong>RECIENTES</strong></h4>",
             "width": "fit-content",
             "max_width": "narrow",
             "alignment": "left",
@@ -164,7 +164,7 @@
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
-            "border_radius": 0,
+            "border_radius": 18,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -179,7 +179,7 @@
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
-                "border_radius": 0,
+                "border_radius": 17,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -259,9 +259,9 @@
         "section_width": "page-width",
         "horizontal_alignment": "flex-start",
         "gap": 28,
-        "color_scheme": "scheme-f80cb8ef-ef9f-484c-a03c-c823a5a40588",
+        "color_scheme": "scheme-4",
         "padding-block-start": 23,
-        "padding-block-end": 23
+        "padding-block-end": 35
       }
     },
     "tres_colecciones_nmwxR8": {
@@ -319,7 +319,7 @@
       "type": "divider",
       "name": "t:names.divider_section",
       "settings": {
-        "color_scheme": "scheme-f80cb8ef-ef9f-484c-a03c-c823a5a40588",
+        "color_scheme": "scheme-4",
         "section_width": "full-width",
         "thickness": 1,
         "corner_radius": "square",
@@ -360,7 +360,7 @@
       "type": "divider",
       "name": "t:names.divider_section",
       "settings": {
-        "color_scheme": "scheme-f80cb8ef-ef9f-484c-a03c-c823a5a40588",
+        "color_scheme": "scheme-4",
         "section_width": "full-width",
         "thickness": 1,
         "corner_radius": "square",
