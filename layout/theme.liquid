@@ -33,9 +33,90 @@
     {% endif %}
 
     {{ content_for_header }}
+
+    <style>
+      .page-curtains {
+        position: fixed;
+        inset: 0;
+        z-index: 999999;
+        display: flex;
+        pointer-events: none;
+      }
+      .page-curtains.curtains-done {
+        display: none;
+      }
+      .curtain-panel {
+        width: 50%;
+        height: 100%;
+        background: #000;
+        display: flex;
+        align-items: center;
+        transition: transform 1.1s cubic-bezier(0.77, 0, 0.18, 1);
+      }
+      .curtain-panel--left {
+        justify-content: flex-end;
+      }
+      .curtain-panel--right {
+        justify-content: flex-start;
+      }
+      .curtain-logo {
+        color: #fff;
+        font-size: 1.1rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        font-family: sans-serif;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+        user-select: none;
+        padding: 0 2px;
+        white-space: nowrap;
+      }
+      .curtain-panel--right .curtain-logo {
+        opacity: 0;
+      }
+      .page-curtains.curtains-open .curtain-panel--left {
+        transform: translateX(-100%);
+      }
+      .page-curtains.curtains-open .curtain-panel--right {
+        transform: translateX(100%);
+      }
+      .page-curtains.curtains-open .curtain-logo {
+        opacity: 0;
+      }
+    </style>
   </head>
 
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
+
+    <div class="page-curtains" id="pageCurtains" aria-hidden="true">
+      <div class="curtain-panel curtain-panel--left">
+        <span class="curtain-logo">Dream Smooth</span>
+      </div>
+      <div class="curtain-panel curtain-panel--right">
+        <span class="curtain-logo">Dream Smooth</span>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var curtains = document.getElementById('pageCurtains');
+        if (!curtains) return;
+        // Pequeña pausa para que el navegador pinte las cortinas antes de abrirlas
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            setTimeout(function () {
+              curtains.classList.add('curtains-open');
+              curtains.addEventListener('transitionend', function handler(e) {
+                if (e.target === curtains.querySelector('.curtain-panel--right')) {
+                  curtains.classList.add('curtains-done');
+                  curtains.removeEventListener('transitionend', handler);
+                }
+              });
+            }, 350);
+          });
+        });
+      })();
+    </script>
     {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}
     <div id="header-group">
       {% sections 'header-group' %}
