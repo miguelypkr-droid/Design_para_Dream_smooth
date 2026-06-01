@@ -1,0 +1,295 @@
+<div class="epop-overlay" id="emailPopupOverlay" aria-hidden="true">
+  <div class="epop-modal" role="dialog" aria-modal="true" aria-labelledby="epopTitle">
+    <button class="epop-close" id="emailPopupClose" aria-label="Cerrar">&#10005;</button>
+
+    <div class="epop-content">
+      <img
+        class="epop-logo"
+        src="https://dreamsmoothh.com/cdn/shop/files/LOGO_DREAM_SMOOTH.png?v=1780287234&width=1950"
+        alt="Dream Smooth"
+        width="140"
+        height="auto"
+      >
+
+      <h2 class="epop-title" id="epopTitle">Únete a Dream Smooth</h2>
+      <p class="epop-subtitle">Suscríbete y recibe ofertas exclusivas, novedades y más.</p>
+
+      <!-- Estado: formulario -->
+      <form
+        class="epop-form"
+        id="emailPopupForm"
+        method="post"
+        action="/contact#contact_form"
+        novalidate
+      >
+        <input type="hidden" name="form_type" value="customer">
+        <input type="hidden" name="utf8" value="✓">
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="hidden" name="customer[accepts_marketing]" value="true">
+
+        <div class="epop-field-wrap">
+          <input
+            class="epop-input"
+            type="email"
+            name="contact[email]"
+            id="epopEmail"
+            placeholder="Tu correo electrónico"
+            required
+            autocomplete="email"
+          >
+          <button class="epop-btn" type="submit">Suscribirme</button>
+        </div>
+        <p class="epop-error" id="epopError" hidden>Por favor introduce un correo válido.</p>
+      </form>
+
+      <!-- Estado: éxito -->
+      <div class="epop-success" id="epopSuccess" hidden>
+        <svg class="epop-check" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="25" stroke="#fff" stroke-width="2" opacity="0.3"/>
+          <path d="M14 27l8 8 16-16" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <p>¡Gracias! Ya estás suscrito.</p>
+      </div>
+
+      <p class="epop-disclaimer">Sin spam. Cancela cuando quieras.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .epop-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999998;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  .epop-overlay.epop-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+  .epop-modal {
+    position: relative;
+    background: #111;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 18px;
+    padding: 48px 32px 36px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    transform: translateY(24px);
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    text-align: center;
+    color: #fff;
+    box-sizing: border-box;
+  }
+  .epop-overlay.epop-visible .epop-modal {
+    transform: translateY(0);
+  }
+  .epop-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.5);
+    font-size: 1rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+    transition: color 0.2s;
+  }
+  .epop-close:hover {
+    color: #fff;
+  }
+  .epop-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .epop-logo {
+    width: 120px;
+    height: auto;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .epop-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin: 0;
+    color: #fff;
+  }
+  .epop-subtitle {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.6);
+    margin: 0;
+    line-height: 1.5;
+  }
+  .epop-form {
+    width: 100%;
+  }
+  .epop-field-wrap {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+  }
+  .epop-input {
+    flex: 1;
+    min-width: 0;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 0.88rem;
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .epop-input::placeholder {
+    color: rgba(255,255,255,0.35);
+  }
+  .epop-input:focus {
+    border-color: rgba(255,255,255,0.5);
+  }
+  .epop-btn {
+    flex-shrink: 0;
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 10px 16px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+  .epop-btn:hover {
+    background: #e0e0e0;
+  }
+  .epop-error {
+    font-size: 0.8rem;
+    color: #ff6b6b;
+    margin: 6px 0 0;
+    text-align: left;
+  }
+  .epop-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    font-size: 1rem;
+    color: #fff;
+    padding: 8px 0;
+  }
+  .epop-success[hidden] {
+    display: none;
+  }
+  .epop-check {
+    width: 52px;
+    height: 52px;
+  }
+  .epop-disclaimer {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.3);
+    margin: 0;
+  }
+  @media screen and (max-width: 480px) {
+    .epop-modal {
+      padding: 40px 20px 28px;
+    }
+    .epop-field-wrap {
+      flex-direction: column;
+    }
+    .epop-btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'ds_epop_dismissed';
+  var overlay = document.getElementById('emailPopupOverlay');
+  var closeBtn = document.getElementById('emailPopupClose');
+  var form    = document.getElementById('emailPopupForm');
+  var success = document.getElementById('epopSuccess');
+  var error   = document.getElementById('epopError');
+
+  if (!overlay) return;
+
+  // No mostrar si ya fue cerrado o suscrito
+  if (localStorage.getItem(STORAGE_KEY)) return;
+
+  function openPopup() {
+    overlay.removeAttribute('aria-hidden');
+    overlay.classList.add('epop-visible');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePopup() {
+    overlay.setAttribute('aria-hidden', 'true');
+    overlay.classList.remove('epop-visible');
+    document.body.style.overflow = '';
+    localStorage.setItem(STORAGE_KEY, '1');
+  }
+
+  // Abrir tras 4 segundos
+  setTimeout(openPopup, 4000);
+
+  closeBtn.addEventListener('click', closePopup);
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closePopup();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closePopup();
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var emailInput = document.getElementById('epopEmail');
+    var emailVal   = emailInput.value.trim();
+
+    // Validación básica
+    if (!emailVal || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+      error.hidden = false;
+      emailInput.focus();
+      return;
+    }
+    error.hidden = true;
+
+    // Envío via fetch al endpoint de Shopify
+    var data = new FormData(form);
+    fetch('/contact', {
+      method: 'POST',
+      headers: { 'X-Requested-With': 'XMLHttpRequest' },
+      body: data
+    })
+    .then(function (res) {
+      if (res.ok || res.redirected) {
+        form.hidden = true;
+        success.hidden = false;
+        localStorage.setItem(STORAGE_KEY, '1');
+        setTimeout(closePopup, 2500);
+      } else {
+        error.textContent = 'Algo falló. Intenta de nuevo.';
+        error.hidden = false;
+      }
+    })
+    .catch(function () {
+      error.textContent = 'Error de conexión. Intenta de nuevo.';
+      error.hidden = false;
+    });
+  });
+})();
+</script>
