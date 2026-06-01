@@ -1,6 +1,6 @@
 ﻿<div
   class="section section--{{ section.settings.section_width }} spacing-style ctabs__section"
-  style="background: {{ section.settings.bg_color }}; position: relative; overflow: hidden; {% render 'spacing-style', settings: section.settings %}"
+  style="background: {{ section.settings.bg_color }}; position: relative; {% render 'spacing-style', settings: section.settings %}"
 >
   <canvas class="ctabs__starfield" aria-hidden="true"></canvas>
 
@@ -78,9 +78,6 @@
                       <path d="M10 30l8-10 6 7 4-5 8 8H10z" fill="rgba(255,255,255,0.1)"/>
                     </svg>
                   </div>
-                {%- endif -%}
-                {%- if product.compare_at_price > product.price -%}
-                  <span class="ctabs__badge">SALE</span>
                 {%- endif -%}
               </div>
               <div class="ctabs__card-body">
@@ -164,12 +161,8 @@
     display: flex;
     justify-content: center;
     gap: 0;
-    background: #1c1c1e;
-    width: 100vw;
-    left: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    margin-bottom: 32px;
+    background: transparent;
+    width: 100%;
     overflow-x: auto;
     scrollbar-width: none;
   }
