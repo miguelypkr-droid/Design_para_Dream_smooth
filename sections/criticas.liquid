@@ -4,6 +4,13 @@
 >
   <canvas class="criticas__starfield" aria-hidden="true"></canvas>
 
+  {%- comment -%} Título encima de la barra {%- endcomment -%}
+  {%- if section.settings.heading_text != blank -%}
+    <div class="criticas__heading-wrap">
+      <h2 class="criticas__heading">{{ section.settings.heading_text }}</h2>
+    </div>
+  {%- endif -%}
+
   {%- comment -%} Barra superior {%- endcomment -%}
   <div class="criticas__bar">
     <span class="criticas__bar-text">{{ section.settings.bar_text }}</span>
@@ -121,6 +128,27 @@
     display: block;
   }
 
+  .criticas__heading-wrap {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background: #000000;
+    padding: 32px 20px 20px;
+    margin-bottom: 0;
+  }
+
+  .criticas__heading {
+    text-align: center;
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 0;
+  }
+
   .criticas__bar {
     display: flex;
     align-items: center;
@@ -138,11 +166,11 @@
   }
 
   .criticas__bar-text {
-    font-size: 1.4rem;
+    font-size: 0.88rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: inherit;
+    color: #9A9A9A;
   }
 
   .criticas__carousel-wrapper {
@@ -441,6 +469,12 @@
     {
       "type": "header",
       "content": "Barra superior"
+    },
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Título encima de la barra",
+      "default": "Nuestros drops"
     },
     {
       "type": "text",
