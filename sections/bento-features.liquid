@@ -424,6 +424,19 @@
   }
 }
 
+/* ─────────────── ANIMACIONES DE APARICIÓN ─────────────── */
+.bento-card {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.bento-card.bento-anim--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 {% endstylesheet %}
 
 <script>
@@ -481,6 +494,30 @@
   document.querySelectorAll('.bento-features__starfield').forEach(function (canvas) {
     initBentoStarfield(canvas.closest('.bento-features'));
   });
+
+  // Animaciones de aparición al hacer scroll
+  if ('IntersectionObserver' in window) {
+    var cardObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var delay = parseInt(entry.target.getAttribute('data-bento-delay') || '0', 10);
+          setTimeout(function () {
+            entry.target.classList.add('bento-anim--visible');
+          }, delay);
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.bento-features .bento-card').forEach(function (card, i) {
+      card.setAttribute('data-bento-delay', i * 130);
+      cardObserver.observe(card);
+    });
+  } else {
+    document.querySelectorAll('.bento-features .bento-card').forEach(function (card) {
+      card.classList.add('bento-anim--visible');
+    });
+  }
 })();
 </script>
 

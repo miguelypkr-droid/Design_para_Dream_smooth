@@ -318,6 +318,29 @@
     font-weight: 600;
     letter-spacing: 0.04em;
   }
+
+  /* Animaciones de aparición */
+  .tres-colecciones__bar {
+    opacity: 0;
+    transform: translateY(-18px);
+    transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .tres-colecciones__bar.tc-anim--visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .tres-colecciones__item {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .tres-colecciones__item.tc-anim--visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 </style>
 
 <script>
@@ -412,6 +435,41 @@
     updateArrowVisibility();
     window.addEventListener('resize', updateArrowVisibility);
   });
+
+  // Animaciones de aparición al hacer scroll
+  if ('IntersectionObserver' in window) {
+    var barObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('tc-anim--visible');
+          barObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.tres-colecciones__bar').forEach(function (bar) {
+      barObserver.observe(bar);
+    });
+
+    var itemObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var delay = parseInt(entry.target.getAttribute('data-tc-delay') || '0', 10);
+          setTimeout(function () {
+            entry.target.classList.add('tc-anim--visible');
+          }, delay);
+          itemObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.tres-colecciones__item').forEach(function (item, i) {
+      item.setAttribute('data-tc-delay', i * 100);
+      itemObserver.observe(item);
+    });
+  } else {
+    document.querySelectorAll('.tres-colecciones__bar, .tres-colecciones__item').forEach(function (el) {
+      el.classList.add('tc-anim--visible');
+    });
+  }
 })();
 </script>
 
