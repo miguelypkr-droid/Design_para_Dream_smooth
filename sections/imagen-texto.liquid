@@ -1,0 +1,238 @@
+<div
+  class="section spacing-style imgtxt__outer"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="imgtxt__card">
+
+    {%- comment -%} Imagen izquierda {%- endcomment -%}
+    <div class="imgtxt__img-side">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 900
+          | image_tag:
+            class: 'imgtxt__img',
+            alt: section.settings.image.alt | default: section.settings.title,
+            loading: 'lazy',
+            widths: '400,600,900'
+        }}
+      {%- else -%}
+        <div class="imgtxt__img-placeholder">
+          <svg viewBox="0 0 60 60" fill="none" aria-hidden="true">
+            <rect width="60" height="60" rx="8" fill="rgba(255,255,255,0.06)"/>
+            <path d="M10 45l14-18 10 12 8-9 14 15H10z" fill="rgba(255,255,255,0.12)"/>
+            <circle cx="20" cy="22" r="5" fill="rgba(255,255,255,0.12)"/>
+          </svg>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Texto derecho {%- endcomment -%}
+    <div class="imgtxt__text-side">
+      {%- if section.settings.label != blank -%}
+        <p class="imgtxt__label">{{ section.settings.label }}</p>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="imgtxt__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="imgtxt__desc">{{ section.settings.description }}</div>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank and section.settings.button_url != blank -%}
+        <a class="imgtxt__btn" href="{{ section.settings.button_url }}">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .imgtxt__outer {
+    background: {{ section.settings.bg_color }};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .imgtxt__card {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    background: {{ section.settings.card_color }};
+    border-radius: 20px;
+    overflow: hidden;
+    max-width: 960px;
+    width: 90%;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.45);
+  }
+
+  /* Imagen */
+  .imgtxt__img-side {
+    flex: 0 0 45%;
+    min-height: 320px;
+    position: relative;
+    overflow: hidden;
+  }
+  .imgtxt__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .imgtxt__img-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.04);
+  }
+  .imgtxt__img-placeholder svg {
+    width: 80px;
+    height: 80px;
+  }
+
+  /* Texto */
+  .imgtxt__text-side {
+    flex: 1;
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+  }
+  .imgtxt__label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin: 0;
+  }
+  .imgtxt__title {
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.2;
+  }
+  .imgtxt__desc {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.65);
+  }
+  .imgtxt__desc p { margin: 0; }
+  .imgtxt__btn {
+    display: inline-block;
+    align-self: flex-start;
+    margin-top: 8px;
+    padding: 12px 32px;
+    background: #ffffff;
+    color: #000000;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .imgtxt__btn:hover {
+    background: rgba(255,255,255,0.85);
+  }
+
+  /* Responsive */
+  @media screen and (max-width: 749px) {
+    .imgtxt__card {
+      flex-direction: column;
+      width: 94%;
+    }
+    .imgtxt__img-side {
+      flex: none;
+      min-height: 240px;
+    }
+    .imgtxt__text-side {
+      padding: 32px 24px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Imagen con Texto",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Color de fondo exterior",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "card_color",
+      "label": "Color del recuadro",
+      "default": "#1c1c1e"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen (lado izquierdo)"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Etiqueta pequeña (opcional)",
+      "default": "Destacado"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Un título llamativo"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descripción",
+      "default": "<p>Escribe aquí una descripción que acompañe la imagen. Puedes hablar del producto, la colección o lo que necesites.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto del botón (opcional)"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Enlace del botón"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaciado superior",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaciado inferior",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Imagen con Texto"
+    }
+  ]
+}
+{% endschema %}
