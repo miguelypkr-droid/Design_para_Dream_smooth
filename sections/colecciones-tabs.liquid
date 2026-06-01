@@ -10,6 +10,9 @@
 
   {%- comment -%} Barra de tabs {%- endcomment -%}
   <div class="ctabs__tabbar" role="tablist">
+    {%- if section.settings.tabbar_text != blank -%}
+      <span class="ctabs__tabbar-label">{{ section.settings.tabbar_text }}</span>
+    {%- endif -%}
     {%- for i in (1..3) -%}
       {%- liquid
         case i
@@ -158,6 +161,20 @@
     scrollbar-width: none;
   }
   .ctabs__tabbar::-webkit-scrollbar { display: none; }
+
+  .ctabs__tabbar-label {
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    white-space: nowrap;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    margin-right: 8px;
+  }
 
   .ctabs__tab {
     flex-shrink: 0;
@@ -478,6 +495,12 @@
 {
   "name": "Colecciones con Tabs",
   "settings": [
+    {
+      "type": "text",
+      "id": "tabbar_text",
+      "label": "Texto dentro de la barra",
+      "default": "Colecciones"
+    },
     {
       "type": "text",
       "id": "title",
