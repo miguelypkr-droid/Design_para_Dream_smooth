@@ -5,6 +5,13 @@
 >
   <canvas class="tres-colecciones__starfield" aria-hidden="true"></canvas>
 
+  {%- comment -%} Título encima de la barra {%- endcomment -%}
+  {%- if section.settings.heading_text != blank -%}
+    <div class="tres-colecciones__heading-wrap">
+      <h2 class="tres-colecciones__heading">{{ section.settings.heading_text }}</h2>
+    </div>
+  {%- endif -%}
+
   {%- comment -%} Barra superior "Colecciones" {%- endcomment -%}
   <div class="tres-colecciones__bar">
     <span class="tres-colecciones__bar-text">{{ section.settings.bar_text }}</span>
@@ -136,6 +143,27 @@
 
   .tres-colecciones__arrow--prev { margin-right: 10px; }
   .tres-colecciones__arrow--next { margin-left: 10px; }
+
+  .tres-colecciones__heading-wrap {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background: #000000;
+    padding: 32px 20px 20px;
+    margin-bottom: 0;
+  }
+
+  .tres-colecciones__heading {
+    text-align: center;
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 0;
+  }
 
   .tres-colecciones__bar {
     display: flex;
@@ -484,6 +512,12 @@
     {
       "type": "header",
       "content": "Barra superior"
+    },
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Título encima de la barra",
+      "default": "Nuestras Colecciones"
     },
     {
       "type": "text",
