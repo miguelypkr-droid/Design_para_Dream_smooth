@@ -107,7 +107,7 @@
         "sub_estado_1_url": "shopify://collections/nuevas-sin-usar",
         "sub_estado_2_url": "shopify://collections/usado",
         "link_4_label": "Acuerdos",
-        "link_4_url": "",
+        "link_4_url": "shopify://policies/privacy-policy",
         "acuerdo_1_label": "Sistema de calidad",
         "acuerdo_1_url": "shopify://pages/calidades",
         "acuerdo_2_label": "Acuerdos de Reembolsos",
