@@ -39,6 +39,7 @@
       "type": "colecciones-tabs",
       "name": "Colecciones con Tabs",
       "settings": {
+        "tabbar_text": "Colecciones",
         "title": "Nuestros Productos",
         "bg_color": "#000000",
         "collection_1": "disponibles",
