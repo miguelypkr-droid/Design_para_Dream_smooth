@@ -144,5 +144,96 @@
     {% if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add-modal' %}
     {% endif %}
+
+    <!-- Background music -->
+    <audio id="ds-bg-audio" loop preload="none">
+      <source src="https://cdn.shopify.com/s/files/1/0770/0751/9995/files/twentythree_-_Queen_St_Lyrics.mp3?v=1780322119" type="audio/mpeg">
+    </audio>
+
+    <button id="ds-audio-btn" aria-label="Activar música" title="Activar música">
+      <svg id="ds-icon-muted" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+        <path d="M3.63 3.63a1 1 0 0 0 0 1.41L7.29 8.7 7 9H4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3l3.29 3.29c.63.63 1.71.18 1.71-.71v-4.17l4.18 4.18A7 7 0 0 1 5.19 9.1L3.63 7.54a1 1 0 0 0-1.42 1.42l.42.42A9 9 0 0 0 13 20.93V21c0 .55.45 1 1 1s1-.45 1-1v-.08a9 9 0 0 0 4.95-2.6l1.42 1.43a1 1 0 1 0 1.41-1.41L5.04 3.63a1 1 0 0 0-1.41 0zM11 15.17l-1.88-1.88L11 12v3.17zm7.22-1.77A5 5 0 0 0 19 12v-1a1 1 0 0 0-2 0v1a3 3 0 0 1-.22 1.12l1.44 1.28zM14 3c-.55 0-1 .45-1 1v.18l2 2V4a1 1 0 0 0-1-1zm3 6.17V8a3 3 0 0 0-3-3 3 3 0 0 0-.8.11L15.07 7A1 1 0 0 1 17 8v1.17z"/>
+      </svg>
+      <svg id="ds-icon-playing" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="22" height="22" style="display:none">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+      </svg>
+    </button>
+
+    <style>
+      #ds-audio-btn {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 9999;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(0,0,0,0.75);
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+        backdrop-filter: blur(6px);
+        transition: transform 0.15s, background 0.2s;
+      }
+      #ds-audio-btn:hover {
+        transform: scale(1.1);
+        background: rgba(0,0,0,0.9);
+      }
+    </style>
+
+    <script>
+    (function () {
+      var audio  = document.getElementById('ds-bg-audio');
+      var btn    = document.getElementById('ds-audio-btn');
+      var iMuted   = document.getElementById('ds-icon-muted');
+      var iPlaying = document.getElementById('ds-icon-playing');
+      var playing  = false;
+
+      function startPlay() {
+        audio.volume = 0.5;
+        audio.play().then(function () {
+          playing = true;
+          iMuted.style.display   = 'none';
+          iPlaying.style.display = '';
+          btn.setAttribute('aria-label', 'Silenciar música');
+          btn.setAttribute('title', 'Silenciar música');
+        }).catch(function(){});
+      }
+
+      function stopPlay() {
+        audio.pause();
+        playing = false;
+        iMuted.style.display   = '';
+        iPlaying.style.display = 'none';
+        btn.setAttribute('aria-label', 'Activar música');
+        btn.setAttribute('title', 'Activar música');
+      }
+
+      btn.addEventListener('click', function () {
+        if (playing) { stopPlay(); } else { startPlay(); }
+      });
+
+      // Intenta autoplay silencioso; si el navegador lo permite, arranca solo
+      document.addEventListener('DOMContentLoaded', function () {
+        audio.muted = true;
+        audio.play().then(function () {
+          audio.muted = false;
+          audio.volume = 0.5;
+          playing = true;
+          iMuted.style.display   = 'none';
+          iPlaying.style.display = '';
+          btn.setAttribute('aria-label', 'Silenciar música');
+          btn.setAttribute('title', 'Silenciar música');
+        }).catch(function () {
+          // Autoplay bloqueado — el usuario activa con el botón
+        });
+      });
+    })();
+    </script>
+
   </body>
 </html>
