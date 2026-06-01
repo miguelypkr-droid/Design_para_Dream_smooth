@@ -119,20 +119,6 @@
         "padding-block-end": 0
       }
     },
-    "divider_JqteH4": {
-      "type": "divider",
-      "name": "t:names.divider_section",
-      "settings": {
-        "color_scheme": "scheme-4",
-        "section_width": "full-width",
-        "thickness": 1,
-        "corner_radius": "square",
-        "width_percent": 100,
-        "alignment_horizontal": "center",
-        "padding-block-start": 36,
-        "padding-block-end": 10
-      }
-    },
     "bento_features_dpPNyD": {
       "type": "bento-features",
       "name": "Bento Features",
@@ -181,7 +167,6 @@
     "tres_colecciones_nmwxR8",
     "criticas_kh7nDi",
     "imagen_texto_dnyNwL",
-    "divider_JqteH4",
     "bento_features_dpPNyD",
     "divider_cw6Pr6"
   ]
