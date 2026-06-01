@@ -112,7 +112,7 @@
         "acuerdo_1_url": "shopify://pages/calidades",
         "acuerdo_2_label": "Acuerdos de Reembolsos",
         "acuerdo_2_url": "shopify://policies/refund-policy",
-        "nav_bg": "#111111",
+        "nav_bg": "#1c1c1e",
         "nav_color": "#ffffff"
       }
     }
