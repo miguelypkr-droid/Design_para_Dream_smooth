@@ -51,6 +51,22 @@
         "padding-block-end": 0
       }
     },
+    "imagen_texto_dnyNwL": {
+      "type": "imagen-texto",
+      "name": "Imagen con Texto",
+      "settings": {
+        "bg_color": "#000000",
+        "card_color": "#1c1c1e",
+        "image": "shopify://shop_images/Foto_de_banner_de_todas_las_polos.png",
+        "label": "IMPORTANTE",
+        "title": "¿Quieres saber como identificar que calidad es la prenda que compras?",
+        "description": "<p>Te recomendamos leer todo nuestro articulo de \"Sistema de calidad\", con esto podras guiarte de manera correcta de como comprar sin preocupaciones en nuestro sitio web.</p>",
+        "button_label": "Mas informacion",
+        "button_url": "shopify://pages/calidades",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "tres_colecciones_nmwxR8": {
       "type": "tres-colecciones",
       "name": "Tres colecciones",
@@ -163,6 +179,7 @@
   "order": [
     "texto_y_video_xceEpM",
     "colecciones_tabs_4f3nFR",
+    "imagen_texto_dnyNwL",
     "tres_colecciones_nmwxR8",
     "criticas_kh7nDi",
     "divider_JqteH4",
