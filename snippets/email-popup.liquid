@@ -2,6 +2,506 @@
   <div class="epop-modal" role="dialog" aria-modal="true" aria-labelledby="epopTitle">
     <button class="epop-close" id="emailPopupClose" aria-label="Cerrar">&#10005;</button>
 
+    <p class="epop-tagline" id="epopTitle">¿Quieres conseguir un descuento<br>con nuestra ruleta?</p>
+    <p class="epop-sub">Ingresa tus datos para activarla</p>
+
+    <!-- Ruleta -->
+    <div class="epop-wheel-section">
+      <div class="epop-pointer">&#9660;</div>
+      <div class="epop-wheel-outer">
+        <div class="epop-wheel-spin" id="epopWheelSpin">
+          <canvas id="epopWheelCanvas" width="240" height="240"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulario -->
+    <div id="epopFormSection">
+      <form class="epop-form" id="emailPopupForm" method="post" action="/contact#contact_form" novalidate>
+        <input type="hidden" name="form_type" value="customer">
+        <input type="hidden" name="utf8" value="&#x2713;">
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="hidden" name="customer[accepts_marketing]" value="true">
+
+        <input
+          class="epop-input"
+          type="email"
+          name="contact[email]"
+          id="epopEmail"
+          placeholder="Correo electrónico"
+          required
+          autocomplete="email"
+        >
+        <input
+          class="epop-input"
+          type="tel"
+          name="contact[phone]"
+          id="epopPhone"
+          placeholder="Número de teléfono"
+          autocomplete="tel"
+        >
+        <p class="epop-error" id="epopError" hidden>Ingresa un correo electrónico válido.</p>
+        <button class="epop-btn" type="submit" id="epopSubmitBtn">¡Girar la ruleta!</button>
+      </form>
+    </div>
+
+    <!-- Resultado (oculto hasta que termina el giro) -->
+    <div class="epop-result" id="epopResult" hidden>
+      <p class="epop-result-msg" id="epopResultMsg"></p>
+      <div class="epop-code-wrap" id="epopCodeWrap" hidden>
+        <p class="epop-code-label">Tu código de descuento:</p>
+        <div class="epop-code-row">
+          <strong class="epop-code" id="epopCode"></strong>
+          <button class="epop-copy-btn" id="epopCopyBtn" type="button">Copiar</button>
+        </div>
+      </div>
+      <button class="epop-dismiss-btn" id="epopDismiss" type="button">Cerrar</button>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .epop-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999998;
+    background: rgba(0,0,0,0.78);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+  }
+  .epop-overlay.epop-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .epop-modal {
+    position: relative;
+    background: #0d0d0d;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 28px 24px 24px;
+    max-width: 390px;
+    width: 100%;
+    max-height: 92vh;
+    overflow-y: auto;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.85);
+    color: #fff;
+    text-align: center;
+    box-sizing: border-box;
+    transform: translateY(20px) scale(0.97);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    scrollbar-width: none;
+  }
+  .epop-modal::-webkit-scrollbar { display: none; }
+  .epop-overlay.epop-visible .epop-modal {
+    transform: translateY(0) scale(1);
+  }
+
+  .epop-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.38);
+    font-size: 0.95rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+    transition: color 0.2s;
+  }
+  .epop-close:hover { color: #fff; }
+
+  .epop-tagline {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin: 0 0 4px;
+    letter-spacing: 0.02em;
+  }
+  .epop-sub {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.45);
+    margin: 0 0 14px;
+  }
+
+  /* Wheel */
+  .epop-wheel-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .epop-pointer {
+    font-size: 1.3rem;
+    color: #fbbf24;
+    line-height: 1;
+    margin-bottom: -3px;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 0 7px rgba(251,191,36,0.75));
+  }
+  .epop-wheel-outer {
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 0 4px rgba(255,255,255,0.07), 0 10px 36px rgba(0,0,0,0.6);
+  }
+  .epop-wheel-spin {
+    width: 240px;
+    height: 240px;
+    transition: transform 4.2s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+    will-change: transform;
+  }
+  .epop-wheel-spin canvas { display: block; }
+
+  /* Form */
+  .epop-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .epop-input {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 9px;
+    color: #fff;
+    font-size: 0.88rem;
+    padding: 11px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .epop-input::placeholder { color: rgba(255,255,255,0.28); }
+  .epop-input:focus { border-color: rgba(255,255,255,0.42); }
+  .epop-error {
+    font-size: 0.78rem;
+    color: #f87171;
+    margin: -4px 0 0;
+    text-align: left;
+  }
+  .epop-btn {
+    background: #fbbf24;
+    color: #000;
+    border: none;
+    border-radius: 9px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 12px 16px;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.2s, opacity 0.2s;
+    width: 100%;
+  }
+  .epop-btn:hover { background: #f59e0b; }
+  .epop-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  /* Result */
+  .epop-result[hidden], .epop-code-wrap[hidden] { display: none; }
+  .epop-result {
+    padding: 6px 0 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .epop-result-msg {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.4;
+  }
+  .epop-code-label {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.55);
+    margin: 0 0 6px;
+  }
+  .epop-code-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+  }
+  .epop-code {
+    font-family: monospace;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #fbbf24;
+    letter-spacing: 0.1em;
+    background: rgba(251,191,36,0.1);
+    border: 1px solid rgba(251,191,36,0.3);
+    border-radius: 8px;
+    padding: 7px 16px;
+  }
+  .epop-copy-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    border-radius: 7px;
+    font-size: 0.78rem;
+    padding: 7px 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .epop-copy-btn:hover { background: rgba(255,255,255,0.2); }
+  .epop-dismiss-btn {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.45);
+    border-radius: 7px;
+    font-size: 0.78rem;
+    padding: 7px 20px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .epop-dismiss-btn:hover { color: #fff; border-color: rgba(255,255,255,0.38); }
+
+  @media screen and (max-width: 420px) {
+    .epop-wheel-outer, .epop-wheel-spin { width: 200px; height: 200px; }
+    .epop-wheel-spin canvas { width: 200px; height: 200px; }
+  }
+</style>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'ds_wheel_dismissed';
+  if (localStorage.getItem(STORAGE_KEY)) return;
+
+  var overlay    = document.getElementById('emailPopupOverlay');
+  var closeBtn   = document.getElementById('emailPopupClose');
+  var form       = document.getElementById('emailPopupForm');
+  var formSec    = document.getElementById('epopFormSection');
+  var resultSec  = document.getElementById('epopResult');
+  var resultMsg  = document.getElementById('epopResultMsg');
+  var codeWrap   = document.getElementById('epopCodeWrap');
+  var codeEl     = document.getElementById('epopCode');
+  var copyBtn    = document.getElementById('epopCopyBtn');
+  var dismissBtn = document.getElementById('epopDismiss');
+  var errorEl    = document.getElementById('epopError');
+  var submitBtn  = document.getElementById('epopSubmitBtn');
+  var spinEl     = document.getElementById('epopWheelSpin');
+  var canvas     = document.getElementById('epopWheelCanvas');
+
+  if (!overlay || !canvas) return;
+
+  // ─── Segmentos ────────────────────────────────────────────────────────────
+  // weight 0 = nunca se selecciona (aparece visualmente pero no puede salir)
+  var SEGS = [
+    { lines: ['12%', 'OFF'],   bg: '#1e3a5f', fg: '#ffffff', weight: 0,  type: 'discount' },
+    { lines: ['PERDISTE'],     bg: '#7f1d1d', fg: '#fca5a5', weight: 27, type: 'lose'     },
+    { lines: ['20%', 'OFF'],   bg: '#1e3a5f', fg: '#ffffff', weight: 0,  type: 'discount' },
+    { lines: ['PERDISTE'],     bg: '#7f1d1d', fg: '#fca5a5', weight: 27, type: 'lose'     },
+    { lines: ['3%', 'OFF \u2605'], bg: '#fbbf24', fg: '#000000', weight: 50, type: 'win', code: 'DREAM2026' },
+    { lines: ['10%', 'OFF'],   bg: '#1e3a5f', fg: '#ffffff', weight: 0,  type: 'discount' },
+    { lines: ['PERDISTE'],     bg: '#7f1d1d', fg: '#fca5a5', weight: 26, type: 'lose'     },
+    { lines: ['5%', 'OFF'],    bg: '#1e3a5f', fg: '#ffffff', weight: 0,  type: 'discount' }
+  ];
+
+  // ─── Dibujar ruleta ───────────────────────────────────────────────────────
+  function drawWheel() {
+    var ctx = canvas.getContext('2d');
+    var n   = SEGS.length;
+    var cx  = canvas.width  / 2;
+    var cy  = canvas.height / 2;
+    var r   = Math.min(cx, cy) - 2;
+    var arc = (2 * Math.PI) / n;
+    var off = -Math.PI / 2; // empezar desde arriba
+
+    for (var i = 0; i < n; i++) {
+      var s     = SEGS[i];
+      var start = off + i * arc;
+      var end   = start + arc;
+
+      // Sector
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, r, start, end);
+      ctx.closePath();
+      ctx.fillStyle = s.bg;
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // Texto
+      var mid = start + arc / 2;
+      var tr  = r * 0.62;
+      var tx  = cx + Math.cos(mid) * tr;
+      var ty  = cy + Math.sin(mid) * tr;
+
+      ctx.save();
+      ctx.translate(tx, ty);
+      ctx.rotate(mid + Math.PI / 2);
+      ctx.fillStyle = s.fg;
+      ctx.font = 'bold 10px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      s.lines.forEach(function (line, li) {
+        ctx.fillText(line, 0, (li - (s.lines.length - 1) / 2) * 13);
+      });
+      ctx.restore();
+    }
+
+    // Centro
+    ctx.beginPath();
+    ctx.arc(cx, cy, 14, 0, 2 * Math.PI);
+    ctx.fillStyle = '#0d0d0d';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+
+  drawWheel();
+
+  // ─── Selección aleatoria ponderada ───────────────────────────────────────
+  function pickSegment() {
+    var total = SEGS.reduce(function (s, seg) { return s + seg.weight; }, 0);
+    var rand  = Math.random() * total;
+    for (var i = 0; i < SEGS.length; i++) {
+      rand -= SEGS[i].weight;
+      if (rand <= 0) return i;
+    }
+    return SEGS.length - 1;
+  }
+
+  // ─── Animación de giro ────────────────────────────────────────────────────
+  var totalRot = 0;
+  var spinning = false;
+
+  function spinTo(segIdx, onDone) {
+    var n      = SEGS.length;
+    var arcDeg = 360 / n;
+    // Centro del segmento objetivo en grados desde arriba (sentido horario)
+    var center = segIdx * arcDeg + arcDeg / 2;
+    // Variación aleatoria dentro del segmento (±40% del arco)
+    var jitter = (Math.random() - 0.5) * arcDeg * 0.8;
+    // Rotación clockwise necesaria para llevar ese punto al puntero (arriba)
+    var target  = ((360 - center + jitter) % 360 + 360) % 360;
+    var curNorm = ((totalRot % 360) + 360) % 360;
+    var delta   = (target - curNorm + 360) % 360;
+    if (delta < 45) delta += 360;
+
+    var newRot = totalRot + 360 * 6 + delta;
+    totalRot   = newRot;
+
+    spinEl.style.transform = 'rotate(' + newRot + 'deg)';
+
+    spinEl.addEventListener('transitionend', function handler() {
+      spinEl.removeEventListener('transitionend', handler);
+      spinning = false;
+      if (onDone) onDone();
+    });
+  }
+
+  // ─── Abrir / cerrar popup ─────────────────────────────────────────────────
+  function openPopup() {
+    overlay.removeAttribute('aria-hidden');
+    overlay.classList.add('epop-visible');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePopup() {
+    overlay.setAttribute('aria-hidden', 'true');
+    overlay.classList.remove('epop-visible');
+    document.body.style.overflow = '';
+    localStorage.setItem(STORAGE_KEY, '1');
+  }
+
+  setTimeout(openPopup, 4000);
+
+  closeBtn.addEventListener('click', closePopup);
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) closePopup(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePopup(); });
+  if (dismissBtn) dismissBtn.addEventListener('click', closePopup);
+
+  // ─── Envío del formulario ─────────────────────────────────────────────────
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (spinning) return;
+
+    var emailVal = document.getElementById('epopEmail').value.trim();
+    if (!emailVal || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+      errorEl.hidden = false;
+      document.getElementById('epopEmail').focus();
+      return;
+    }
+    errorEl.hidden = true;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Girando\u2026';
+    spinning = true;
+
+    // Enviar datos a Shopify en segundo plano
+    var data = new FormData(form);
+    fetch('/contact', {
+      method: 'POST',
+      headers: { 'X-Requested-With': 'XMLHttpRequest' },
+      body: data
+    }).catch(function () {});
+
+    // Girar con resultado predeterminado (ponderado)
+    var segIdx = pickSegment();
+    spinTo(segIdx, function () {
+      var seg = SEGS[segIdx];
+      formSec.hidden = true;
+      resultSec.hidden = false;
+
+      if (seg.type === 'win') {
+        resultMsg.textContent = '\u00a1Ganaste un 3% de descuento! \uD83C\uDF89';
+        codeEl.textContent    = seg.code;
+        codeWrap.hidden = false;
+      } else if (seg.type === 'lose') {
+        resultMsg.textContent = '\u00a1Perdiste! Suerte la pr\u00f3xima vez \uD83D\uDE42';
+        codeWrap.hidden = true;
+      } else {
+        // Descuentos con weight 0 — inalcanzables, pero cubiertos por si acaso
+        resultMsg.textContent = '\u00a1Conseguiste un descuento!';
+        codeWrap.hidden = true;
+      }
+
+      localStorage.setItem(STORAGE_KEY, '1');
+    });
+  });
+
+  // ─── Copiar código ────────────────────────────────────────────────────────
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function () {
+      var code = codeEl.textContent;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(code).then(function () {
+          copyBtn.textContent = '\u00a1Copiado!';
+          setTimeout(function () { copyBtn.textContent = 'Copiar'; }, 2000);
+        });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = code;
+        ta.style.cssText = 'position:fixed;opacity:0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        copyBtn.textContent = '\u00a1Copiado!';
+        setTimeout(function () { copyBtn.textContent = 'Copiar'; }, 2000);
+      }
+    });
+  }
+
+})();
+</script>
+
+  <div class="epop-modal" role="dialog" aria-modal="true" aria-labelledby="epopTitle">
+    <button class="epop-close" id="emailPopupClose" aria-label="Cerrar">&#10005;</button>
+
     <div class="epop-content">
       <img
         class="epop-logo"
