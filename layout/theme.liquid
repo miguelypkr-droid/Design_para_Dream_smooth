@@ -146,7 +146,7 @@
     {% endif %}
 
     <!-- Background music -->
-    <audio id="ds-bg-audio" loop preload="none">
+    <audio id="ds-bg-audio" loop preload="auto" volume="0.5">
       <source src="https://cdn.shopify.com/s/files/1/0770/0751/9995/files/twentythree_-_Queen_St_Lyrics.mp3?v=1780322119" type="audio/mpeg">
     </audio>
 
@@ -187,50 +187,49 @@
 
     <script>
     (function () {
-      var audio  = document.getElementById('ds-bg-audio');
-      var btn    = document.getElementById('ds-audio-btn');
+      var audio    = document.getElementById('ds-bg-audio');
+      var btn      = document.getElementById('ds-audio-btn');
       var iMuted   = document.getElementById('ds-icon-muted');
       var iPlaying = document.getElementById('ds-icon-playing');
       var playing  = false;
 
-      function startPlay() {
-        audio.volume = 0.5;
-        audio.play().then(function () {
-          playing = true;
-          iMuted.style.display   = 'none';
-          iPlaying.style.display = '';
-          btn.setAttribute('aria-label', 'Silenciar música');
-          btn.setAttribute('title', 'Silenciar música');
-        }).catch(function(){});
-      }
+      audio.volume = 0.5;
 
-      function stopPlay() {
-        audio.pause();
-        playing = false;
-        iMuted.style.display   = '';
-        iPlaying.style.display = 'none';
-        btn.setAttribute('aria-label', 'Activar música');
-        btn.setAttribute('title', 'Activar música');
+      function setPlaying(val) {
+        playing = val;
+        iMuted.style.display   = val ? 'none' : '';
+        iPlaying.style.display = val ? '' : 'none';
+        btn.setAttribute('aria-label', val ? 'Silenciar música' : 'Activar música');
+        btn.setAttribute('title',      val ? 'Silenciar música' : 'Activar música');
       }
 
       btn.addEventListener('click', function () {
-        if (playing) { stopPlay(); } else { startPlay(); }
+        if (playing) {
+          audio.pause();
+          setPlaying(false);
+        } else {
+          var p = audio.play();
+          if (p !== undefined) {
+            p.then(function () { setPlaying(true); }).catch(function () {});
+          } else {
+            setPlaying(true);
+          }
+        }
       });
 
-      // Intenta autoplay silencioso; si el navegador lo permite, arranca solo
+      // Intento de autoplay muted (Chrome lo permite)
       document.addEventListener('DOMContentLoaded', function () {
         audio.muted = true;
-        audio.play().then(function () {
+        var p = audio.play();
+        if (p !== undefined) {
+          p.then(function () {
+            audio.muted = false;
+            setPlaying(true);
+          }).catch(function () { /* bloqueado */ });
+        } else {
           audio.muted = false;
-          audio.volume = 0.5;
-          playing = true;
-          iMuted.style.display   = 'none';
-          iPlaying.style.display = '';
-          btn.setAttribute('aria-label', 'Silenciar música');
-          btn.setAttribute('title', 'Silenciar música');
-        }).catch(function () {
-          // Autoplay bloqueado — el usuario activa con el botón
-        });
+          setPlaying(true);
+        }
       });
     })();
     </script>
