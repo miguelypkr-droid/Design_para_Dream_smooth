@@ -252,7 +252,7 @@
         "columns": 4,
         "mobile_columns": "2",
         "mobile_card_size": "60cqw",
-        "columns_gap": 55,
+        "columns_gap": 21,
         "rows_gap": 67,
         "icons_style": "arrow",
         "icons_shape": "none",
