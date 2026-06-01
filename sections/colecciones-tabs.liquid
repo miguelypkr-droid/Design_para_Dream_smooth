@@ -88,6 +88,9 @@
                   {%- else -%}
                     <span class="ctabs__price">USD {{ product.price | money_without_currency }}</span>
                   {%- endif -%}
+                  {%- if localization.country.currency.iso_code != 'USD' -%}
+                    <span class="ctabs__price ctabs__price--local">{{ product.price | money_with_currency }}</span>
+                  {%- endif -%}
                 </div>
                 <div class="ctabs__availability">
                   {%- if product.available -%}
@@ -342,6 +345,11 @@
     font-weight: 400;
     color: rgba(255,255,255,0.35);
     text-decoration: line-through;
+  }
+  .ctabs__price--local {
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: rgba(255,255,255,0.4);
   }
 
   .ctabs__viewmore-wrap {

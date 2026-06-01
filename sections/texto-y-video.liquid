@@ -1,4 +1,4 @@
-<div class="tyv-section" style="background: {{ section.settings.bg_color }};">
+﻿<div class="tyv-section" style="background: {{ section.settings.bg_color }};">
   <div class="tyv-dots-layer"></div>
   <div class="tyv-inner">
 
@@ -45,7 +45,7 @@
           ></video>
           <div class="tyv-stamp"><span>Prenda</span><span>trend</span></div>
         </div>
-        <p class="tyv-fun-fact"><span class="tyv-fun-fact-label">Dato curioso:</span> ¿Sabías que la polo monster su brillo en la oscuridad se recarga con rayos solares?</p>
+        <p class="tyv-fun-fact"><span class="tyv-fun-fact-label">{% if localization.language.iso_code == 'es' %}Dato curioso:{% else %}Fun fact:{% endif %}</span> {% if localization.language.iso_code == 'es' %}¿Sabías que la polo monster su brillo en la oscuridad se recarga con rayos solares?{% else %}Did you know the monster polo's glow-in-the-dark effect recharges with sunlight?{% endif %}</p>
       {%- elsif section.settings.video_shopify != blank -%}
         <div class="tyv-video-wrap" style="border-radius: {{ section.settings.video_radius }}px;">
           <video
@@ -61,7 +61,7 @@
           ></video>
           <div class="tyv-stamp"><span>Prenda</span><span>trend</span></div>
         </div>
-        <p class="tyv-fun-fact"><span class="tyv-fun-fact-label">Dato curioso:</span> ¿Sabías que la polo monster su brillo en la oscuridad se recarga con rayos solares?</p>
+        <p class="tyv-fun-fact"><span class="tyv-fun-fact-label">{% if localization.language.iso_code == 'es' %}Dato curioso:{% else %}Fun fact:{% endif %}</span> {% if localization.language.iso_code == 'es' %}¿Sabías que la polo monster su brillo en la oscuridad se recarga con rayos solares?{% else %}Did you know the monster polo's glow-in-the-dark effect recharges with sunlight?{% endif %}</p>
       {%- endif -%}
     </div>
 

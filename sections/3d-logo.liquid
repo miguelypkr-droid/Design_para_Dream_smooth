@@ -57,17 +57,17 @@
     <a href="{{ section.settings.link_2_url }}" class="l3d-link">{{ section.settings.link_2_label }}</a>
     <div class="l3d-submenu">
       <div class="l3d-group">
-        <span class="l3d-group-title">Marcas</span>
+        <span class="l3d-group-title">{% if localization.language.iso_code == 'es' %}Marcas{% else %}Brands{% endif %}</span>
         <a href="{{ section.settings.sub_marca_1_url }}" class="l3d-sub-link">Polo Ralph Lauren</a>
         <a href="{{ section.settings.sub_marca_2_url }}" class="l3d-sub-link">Dream Smooth</a>
         <a href="{{ section.settings.sub_marca_4_url }}" class="l3d-sub-link">Adidas</a>
-        <a href="{{ section.settings.sub_marca_3_url }}" class="l3d-sub-link">Otros</a>
+        <a href="{{ section.settings.sub_marca_3_url }}" class="l3d-sub-link">{% if localization.language.iso_code == 'es' %}Otros{% else %}Others{% endif %}</a>
       </div>
       <div class="l3d-divider"></div>
       <div class="l3d-group">
-        <span class="l3d-group-title">Estado</span>
-        <a href="{{ section.settings.sub_estado_1_url }}" class="l3d-sub-link">Nuevo</a>
-        <a href="{{ section.settings.sub_estado_2_url }}" class="l3d-sub-link">Usado</a>
+        <span class="l3d-group-title">{% if localization.language.iso_code == 'es' %}Estado{% else %}Condition{% endif %}</span>
+        <a href="{{ section.settings.sub_estado_1_url }}" class="l3d-sub-link">{% if localization.language.iso_code == 'es' %}Nuevo{% else %}New{% endif %}</a>
+        <a href="{{ section.settings.sub_estado_2_url }}" class="l3d-sub-link">{% if localization.language.iso_code == 'es' %}Usado{% else %}Used{% endif %}</a>
       </div>
     </div>
   </div>
