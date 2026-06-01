@@ -51,21 +51,6 @@
         "padding-block-end": 0
       }
     },
-    "imagen_texto_dnyNwL": {
-      "type": "imagen-texto",
-      "name": "Imagen con Texto",
-      "settings": {
-        "card_color": "#1c1c1e",
-        "image": "shopify://shop_images/Foto_de_banner_de_todas_las_polos_4d8ff89c-2506-4972-ad13-8db0e6333c37.png",
-        "label": "IMPORTANTE",
-        "title": "¿Quieres saber como identificar que calidad es la prenda que compras?",
-        "description": "<p>Te recomendamos leer todo nuestro articulo de \"Sistema de calidad\", con esto podras guiarte de manera correcta de como comprar sin preocupaciones en nuestro sitio web.</p>",
-        "button_label": "Mas informacion",
-        "button_url": "shopify://pages/calidades",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
     "tres_colecciones_nmwxR8": {
       "type": "tres-colecciones",
       "name": "Tres colecciones",
@@ -117,6 +102,21 @@
         "text_color": "#ffffff",
         "padding-block-start": 48,
         "padding-block-end": 48
+      }
+    },
+    "imagen_texto_dnyNwL": {
+      "type": "imagen-texto",
+      "name": "Imagen con Texto",
+      "settings": {
+        "card_color": "#1c1c1e",
+        "image": "shopify://shop_images/Foto_de_banner_de_todas_las_polos_4d8ff89c-2506-4972-ad13-8db0e6333c37.png",
+        "label": "IMPORTANTE",
+        "title": "¿Quieres saber como identificar que calidad es la prenda que compras?",
+        "description": "<p>Te recomendamos leer todo nuestro articulo de \"Sistema de calidad\", con esto podras guiarte de manera correcta de como comprar sin preocupaciones en nuestro sitio web.</p>",
+        "button_label": "Mas informacion",
+        "button_url": "shopify://pages/calidades",
+        "padding-block-start": 0,
+        "padding-block-end": 0
       }
     },
     "divider_JqteH4": {
@@ -178,9 +178,9 @@
   "order": [
     "texto_y_video_xceEpM",
     "colecciones_tabs_4f3nFR",
-    "imagen_texto_dnyNwL",
     "tres_colecciones_nmwxR8",
     "criticas_kh7nDi",
+    "imagen_texto_dnyNwL",
     "divider_JqteH4",
     "bento_features_dpPNyD",
     "divider_cw6Pr6"
