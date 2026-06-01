@@ -420,10 +420,6 @@
 {% schema %}
 {
   "name": "Colecciones con Tabs",
-  "tag": "section",
-  "disabled_on": {
-    "groups": ["header", "footer"]
-  },
   "settings": [
     {
       "type": "text",
@@ -438,17 +434,9 @@
       "default": "#000000"
     },
     {
-      "type": "header",
-      "content": "Colección 1"
-    },
-    {
       "type": "collection",
       "id": "collection_1",
       "label": "Colección 1"
-    },
-    {
-      "type": "header",
-      "content": "Colección 2"
     },
     {
       "type": "collection",
@@ -456,17 +444,9 @@
       "label": "Colección 2"
     },
     {
-      "type": "header",
-      "content": "Colección 3"
-    },
-    {
       "type": "collection",
       "id": "collection_3",
       "label": "Colección 3"
-    },
-    {
-      "type": "header",
-      "content": "Configuración"
     },
     {
       "type": "range",
@@ -488,13 +468,9 @@
       "default": "page-width"
     },
     {
-      "type": "header",
-      "content": "Espaciado"
-    },
-    {
       "type": "range",
       "id": "padding-block-start",
-      "label": "Padding superior",
+      "label": "Espacio superior",
       "min": 0,
       "max": 100,
       "step": 4,
@@ -504,7 +480,7 @@
     {
       "type": "range",
       "id": "padding-block-end",
-      "label": "Padding inferior",
+      "label": "Espacio inferior",
       "min": 0,
       "max": 100,
       "step": 4,
@@ -514,8 +490,7 @@
   ],
   "presets": [
     {
-      "name": "Colecciones con Tabs",
-      "category": "Productos"
+      "name": "Colecciones con Tabs"
     }
   ]
 }
