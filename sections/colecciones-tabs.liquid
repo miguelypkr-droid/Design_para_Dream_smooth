@@ -1,16 +1,16 @@
-<div
+﻿<div
   class="section section--{{ section.settings.section_width }} spacing-style ctabs__section"
   style="background: {{ section.settings.bg_color }}; position: relative; overflow: hidden; {% render 'spacing-style', settings: section.settings %}"
 >
   <canvas class="ctabs__starfield" aria-hidden="true"></canvas>
 
-  {%- comment -%} Título opcional {%- endcomment -%}
-  {%- if section.settings.title != blank -%}
-    <h2 class="ctabs__heading">{{ section.settings.title }}</h2>
-  {%- endif -%}
+  <div class="ctabs__header">
+    {%- if section.settings.title != blank -%}
+      <h2 class="ctabs__heading">{{ section.settings.title }}</h2>
+    {%- endif -%}
 
-  {%- comment -%} Barra de tabs {%- endcomment -%}
-  <div class="ctabs__tabbar" role="tablist">
+    {%- comment -%} Barra de tabs {%- endcomment -%}
+    <div class="ctabs__tabbar" role="tablist">
     {%- for i in (1..3) -%}
       {%- liquid
         case i
@@ -34,6 +34,7 @@
         </button>
       {%- endif -%}
     {%- endfor -%}
+    </div>
   </div>
 
   {%- comment -%} Paneles de productos {%- endcomment -%}
@@ -87,10 +88,17 @@
                 <p class="ctabs__card-title">{{ product.title }}</p>
                 <div class="ctabs__card-price">
                   {%- if product.compare_at_price > product.price -%}
-                    <span class="ctabs__price ctabs__price--sale">{{ product.price | money }}</span>
-                    <span class="ctabs__price ctabs__price--compare">{{ product.compare_at_price | money }}</span>
+                    <span class="ctabs__price ctabs__price--sale">USD {{ product.price | money_without_currency }}</span>
+                    <span class="ctabs__price ctabs__price--compare">USD {{ product.compare_at_price | money_without_currency }}</span>
                   {%- else -%}
-                    <span class="ctabs__price">{{ product.price | money }}</span>
+                    <span class="ctabs__price">USD {{ product.price | money_without_currency }}</span>
+                  {%- endif -%}
+                </div>
+                <div class="ctabs__availability">
+                  {%- if product.available -%}
+                    <span class="ctabs__avail ctabs__avail--available">Disponible</span>
+                  {%- else -%}
+                    <span class="ctabs__avail ctabs__avail--sold">Vendido</span>
                   {%- endif -%}
                 </div>
               </div>
@@ -99,6 +107,11 @@
             <p class="ctabs__empty">Esta colección no tiene productos.</p>
           {%- endfor -%}
         </div>
+        {%- if col.products_count > 8 -%}
+          <div class="ctabs__viewmore-wrap">
+            <a class="ctabs__viewmore" href="{{ col.url }}">Ver más</a>
+          </div>
+        {%- endif -%}
       </div>
     {%- endif -%}
   {%- endfor -%}
@@ -120,6 +133,17 @@
     display: block;
   }
 
+  .ctabs__header {
+    position: relative;
+    z-index: 1;
+    background: #111111;
+    width: 100vw;
+    left: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-bottom: 32px;
+  }
+
   .ctabs__heading {
     position: relative;
     z-index: 1;
@@ -129,8 +153,8 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: #ffffff;
-    margin: 0 0 28px;
-    padding-top: 40px;
+    margin: 0;
+    padding: 36px 20px 16px;
   }
 
   /* ── Barra de tabs ───────────────────────────────────────────────── */
@@ -318,6 +342,55 @@
     font-weight: 400;
     color: rgba(255,255,255,0.35);
     text-decoration: line-through;
+  }
+
+  .ctabs__viewmore-wrap {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    padding: 12px 0 32px;
+  }
+  .ctabs__viewmore {
+    display: inline-block;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 12px 36px;
+    border-radius: 8px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .ctabs__viewmore:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.6);
+  }
+
+  .ctabs__availability {
+    margin-top: 5px;
+  }
+  .ctabs__avail {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .ctabs__avail--available {
+    background: rgba(59,130,246,0.15);
+    color: #60a5fa;
+    border: 1px solid rgba(59,130,246,0.3);
+  }
+  .ctabs__avail--sold {
+    background: rgba(239,68,68,0.15);
+    color: #f87171;
+    border: 1px solid rgba(239,68,68,0.3);
   }
 
   .ctabs__empty {
