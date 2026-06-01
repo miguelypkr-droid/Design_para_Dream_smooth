@@ -55,7 +55,7 @@
       "type": "tres-colecciones",
       "name": "Tres colecciones",
       "settings": {
-        "bar_text": "Mira los drops que hemos sacado",
+        "bar_text": "Mira los drops que hemos sacado durante este tiempo",
         "collection_0": "drop-1-de-junio-2026",
         "collection_1": "drop-29-de-abril-2026",
         "collection_2": "drop-20-de-abril-2026",
