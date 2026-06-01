@@ -7,9 +7,6 @@
   {%- if section.settings.title != blank -%}
     <h2 class="ctabs__heading">{{ section.settings.title }}</h2>
   {%- endif -%}
-  {%- if section.settings.tabbar_text != blank -%}
-    <p class="ctabs__subheading">{{ section.settings.tabbar_text }}</p>
-  {%- endif -%}
 
   {%- comment -%} Barra de tabs {%- endcomment -%}
   <div class="ctabs__tabbar" role="tablist">
@@ -140,19 +137,8 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: #ffffff;
-    margin: 0 0 8px;
+    margin: 0 0 28px;
     padding-top: 40px;
-  }
-
-  .ctabs__subheading {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    font-size: 0.9rem;
-    font-weight: 400;
-    color: rgba(255,255,255,0.5);
-    margin: 0 0 24px;
-    padding: 0;
   }
 
   /* ── Barra de tabs ───────────────────────────────────────────────── */
