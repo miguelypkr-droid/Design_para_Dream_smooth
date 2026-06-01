@@ -81,16 +81,49 @@
         opacity: 0;
       }
     </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": {{ shop.name | json }},
+      "url": {{ request.origin | json }},
+      "logo": "https://dreamsmoothh.com/cdn/shop/files/LOGO_DREAM_SMOOTH.png?v=1780287234&width=320",
+      "sameAs": [
+        {% if settings.social_instagram_link != blank %}{{ settings.social_instagram_link | json }}{% endif %}
+      ]
+    }
+    </script>
+
+    {%- if request.page_type == 'product' -%}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": {{ product.title | json }},
+      "description": {{ product.description | strip_html | truncate: 200 | json }},
+      "image": {{ product.featured_image | image_url: width: 800 | prepend: 'https:' | json }},
+      "brand": { "@type": "Brand", "name": {{ shop.name | json }} },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": {{ cart.currency.iso_code | json }},
+        "price": {{ product.price | money_without_currency | strip_html | json }},
+        "availability": {% if product.available %}"https://schema.org/InStock"{% else %}"https://schema.org/OutOfStock"{% endif %},
+        "url": {{ canonical_url | json }}
+      }
+    }
+    </script>
+    {%- endif -%}
   </head>
 
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
 
     <div class="page-curtains" id="pageCurtains" aria-hidden="true">
       <div class="curtain-panel curtain-panel--left">
-        <img class="curtain-logo" src="https://dreamsmoothh.com/cdn/shop/files/LOGO_DREAM_SMOOTH.png?v=1780287234&width=1950" alt="Dream Smooth" width="160">
+        <img class="curtain-logo" src="https://dreamsmoothh.com/cdn/shop/files/LOGO_DREAM_SMOOTH.png?v=1780287234&width=320" alt="Dream Smooth" width="160" height="auto" fetchpriority="high">
       </div>
       <div class="curtain-panel curtain-panel--right">
-        <img class="curtain-logo" src="https://dreamsmoothh.com/cdn/shop/files/LOGO_DREAM_SMOOTH.png?v=1780287234&width=1950" alt="Dream Smooth" width="160">
+        <img class="curtain-logo" src="https://dreamsmoothh.com/cdn/shop/files/LOGO_DREAM_SMOOTH.png?v=1780287234&width=320" alt="Dream Smooth" width="160" height="auto">
       </div>
     </div>
 
@@ -146,7 +179,7 @@
     {% endif %}
 
     <!-- Background music -->
-    <audio id="ds-bg-audio" loop preload="auto" volume="0.5">
+    <audio id="ds-bg-audio" loop preload="metadata">
       <source src="https://cdn.shopify.com/s/files/1/0770/0751/9995/files/twentythree_-_Queen_St_Lyrics.mp3?v=1780322119" type="audio/mpeg">
     </audio>
 
