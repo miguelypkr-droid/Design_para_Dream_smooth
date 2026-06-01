@@ -1,4 +1,4 @@
-﻿<div class="epop-overlay" id="emailPopupOverlay" aria-hidden="true">
+﻿<div class="epop-overlay" id="emailPopupOverlay" aria-hidden="true" style="position:fixed;inset:0;visibility:hidden;opacity:0;pointer-events:none;">
   <div class="epop-modal" role="dialog" aria-modal="true" aria-labelledby="epopTitle">
     <button class="epop-close" id="emailPopupClose" aria-label="Cerrar">&#10005;</button>
 
@@ -49,7 +49,7 @@
 </div>
 
 <!-- Popup resultado: PERDISTE -->
-<div class="epop-result-overlay" id="epopLoseOverlay" aria-hidden="true">
+<div class="epop-result-overlay" id="epopLoseOverlay" aria-hidden="true" style="position:fixed;inset:0;visibility:hidden;opacity:0;pointer-events:none;">
   <div class="epop-result-modal epop-result-modal--lose">
     <button class="epop-close" id="epopLoseClose" aria-label="Cerrar">&#10005;</button>
     <div class="epop-result-icon">&#128532;</div>
@@ -60,7 +60,7 @@
 </div>
 
 <!-- Popup resultado: GANASTE -->
-<div class="epop-result-overlay" id="epopWinOverlay" aria-hidden="true">
+<div class="epop-result-overlay" id="epopWinOverlay" aria-hidden="true" style="position:fixed;inset:0;visibility:hidden;opacity:0;pointer-events:none;">
   <div class="epop-result-modal epop-result-modal--win">
     <button class="epop-close" id="epopWinClose" aria-label="Cerrar">&#10005;</button>
     <div class="epop-result-icon">&#127881;</div>
@@ -362,7 +362,7 @@
 
 <script>
 (function () {
-  var STORAGE_KEY = 'ds_wheel_dismissed';
+  var STORAGE_KEY = 'ds_wheel_v2';
   if (localStorage.getItem(STORAGE_KEY)) return;
 
   var overlay    = document.getElementById('emailPopupOverlay');
@@ -492,13 +492,19 @@
   // â”€â”€â”€ Abrir / cerrar popup â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function openPopup() {
     overlay.removeAttribute('aria-hidden');
-    overlay.classList.add('epop-visible');
+    overlay.style.visibility = 'visible';
+    overlay.style.opacity = '1';
+    overlay.style.pointerEvents = 'auto';
     document.body.style.overflow = 'hidden';
   }
 
   function closePopup() {
     overlay.setAttribute('aria-hidden', 'true');
-    overlay.classList.remove('epop-visible');
+    overlay.style.opacity = '0';
+    setTimeout(function () {
+      overlay.style.visibility = 'hidden';
+      overlay.style.pointerEvents = 'none';
+    }, 350);
     document.body.style.overflow = '';
     localStorage.setItem(STORAGE_KEY, '1');
   }
@@ -513,7 +519,11 @@
     [loseOverlay, winOverlay].forEach(function (el) {
       if (!el) return;
       el.setAttribute('aria-hidden', 'true');
-      el.classList.remove('epop-result-visible');
+      el.style.opacity = '0';
+      setTimeout(function () {
+        el.style.visibility = 'hidden';
+        el.style.pointerEvents = 'none';
+      }, 300);
     });
     document.body.style.overflow = '';
   }
@@ -521,7 +531,9 @@
   function openResultPopup(el) {
     if (!el) return;
     el.removeAttribute('aria-hidden');
-    el.classList.add('epop-result-visible');
+    el.style.visibility = 'visible';
+    el.style.opacity = '1';
+    el.style.pointerEvents = 'auto';
     document.body.style.overflow = 'hidden';
   }
 
