@@ -190,6 +190,27 @@
   }
   .ctabs__panel--active {
     display: block;
+    animation: ctabsPanelIn 0.35s ease both;
+  }
+
+  @keyframes ctabsPanelIn {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Animación de entrada de tarjetas al hacer scroll */
+  .ctabs__card {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.45s ease, transform 0.45s ease, box-shadow 0.25s ease;
+  }
+  .ctabs__card.ctabs--visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .ctabs__card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.55);
   }
 
   /* ── Grid de productos ────────────────────────────────────────────── */
@@ -232,11 +253,6 @@
     background: #1c1c1e;
     border-radius: 14px;
     overflow: hidden;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-  }
-  .ctabs__card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.55);
   }
 
   .ctabs__card-img-wrap {
@@ -443,6 +459,27 @@
     initStarfield(canvas.closest('.ctabs__section'));
   });
 
+  /* ── Animación de entrada al hacer scroll ──────────────────────────── */
+  var cardObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var card = entry.target;
+        var panel = card.closest('.ctabs__panel');
+        var cards = panel ? Array.from(panel.querySelectorAll('.ctabs__card')) : [card];
+        var idx = cards.indexOf(card);
+        setTimeout(function () {
+          card.style.transitionDelay = (idx * 55) + 'ms';
+          card.classList.add('ctabs--visible');
+        }, 60);
+        cardObserver.unobserve(card);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.ctabs__section .ctabs__card').forEach(function (card) {
+    cardObserver.observe(card);
+  });
+
   /* ── Tabs ──────────────────────────────────────────────────────────── */
   document.querySelectorAll('.ctabs__tabbar').forEach(function (tabbar) {
     var section = tabbar.closest('.ctabs__section');
@@ -464,6 +501,15 @@
         section.querySelectorAll('.ctabs__panel').forEach(function (panel) {
           if (panel.getAttribute('data-panel') === idx) {
             panel.classList.add('ctabs__panel--active');
+            // re-animar tarjetas del panel activo
+            panel.querySelectorAll('.ctabs__card').forEach(function (card, i) {
+              card.classList.remove('ctabs--visible');
+              card.style.transitionDelay = '';
+              setTimeout(function () {
+                card.style.transitionDelay = (i * 55) + 'ms';
+                card.classList.add('ctabs--visible');
+              }, 20);
+            });
           } else {
             panel.classList.remove('ctabs__panel--active');
           }
