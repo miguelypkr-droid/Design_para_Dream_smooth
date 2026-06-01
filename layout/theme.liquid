@@ -191,45 +191,37 @@
       var btn      = document.getElementById('ds-audio-btn');
       var iMuted   = document.getElementById('ds-icon-muted');
       var iPlaying = document.getElementById('ds-icon-playing');
-      var playing  = false;
 
       audio.volume = 0.5;
 
-      function setPlaying(val) {
-        playing = val;
-        iMuted.style.display   = val ? 'none' : '';
-        iPlaying.style.display = val ? '' : 'none';
-        btn.setAttribute('aria-label', val ? 'Silenciar música' : 'Activar música');
-        btn.setAttribute('title',      val ? 'Silenciar música' : 'Activar música');
+      function setUI(isPlaying) {
+        iMuted.style.display   = isPlaying ? 'none' : '';
+        iPlaying.style.display = isPlaying ? '' : 'none';
+        btn.setAttribute('aria-label', isPlaying ? 'Silenciar música' : 'Activar música');
+        btn.setAttribute('title',      isPlaying ? 'Silenciar música' : 'Activar música');
       }
 
+      // Sincronizar UI con eventos reales del audio
+      audio.addEventListener('play',  function() { setUI(true);  });
+      audio.addEventListener('pause', function() { setUI(false); });
+      audio.addEventListener('ended', function() { setUI(false); });
+
       btn.addEventListener('click', function () {
-        if (playing) {
-          audio.pause();
-          setPlaying(false);
+        if (audio.paused) {
+          audio.play().catch(function() { setUI(false); });
         } else {
-          var p = audio.play();
-          if (p !== undefined) {
-            p.then(function () { setPlaying(true); }).catch(function () {});
-          } else {
-            setPlaying(true);
-          }
+          audio.pause();
         }
       });
 
-      // Intento de autoplay muted (Chrome lo permite)
-      document.addEventListener('DOMContentLoaded', function () {
+      // Autoplay muted al cargar (Chrome lo permite; si no, queda listo para el botón)
+      window.addEventListener('load', function () {
         audio.muted = true;
-        var p = audio.play();
-        if (p !== undefined) {
-          p.then(function () {
-            audio.muted = false;
-            setPlaying(true);
-          }).catch(function () { /* bloqueado */ });
-        } else {
+        audio.play().then(function () {
           audio.muted = false;
-          setPlaying(true);
-        }
+        }).catch(function () {
+          audio.muted = false;
+        });
       });
     })();
     </script>
