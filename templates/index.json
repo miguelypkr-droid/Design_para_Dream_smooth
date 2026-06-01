@@ -55,6 +55,7 @@
       "type": "tres-colecciones",
       "name": "Tres colecciones",
       "settings": {
+        "heading_text": "Nuestros drops",
         "bar_text": "Mira los drops que hemos sacado durante este tiempo",
         "collection_0": "drop-1-de-junio-2026",
         "collection_1": "drop-29-de-abril-2026",
@@ -71,7 +72,8 @@
       "type": "criticas",
       "name": "Críticas",
       "settings": {
-        "bar_text": "Reseñas",
+        "heading_text": "Nuestras reseñas",
+        "bar_text": "Mira algunas de nuestras reseñas de nuestros clientes potenciales",
         "reviewer_photo_1": "shopify://shop_images/RobertoImagen.jpg",
         "reviewer_name_1": "Ricardo",
         "review_text_1": "Increíble calidad y atención al detalle. Definitivamente volveré a comprar.",
