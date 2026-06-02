@@ -72,7 +72,7 @@
       "type": "criticas",
       "name": "Críticas",
       "settings": {
-        "heading_text": "Nuestras reseñas",
+        "text_header": "Nuestras Reseñas",
         "bar_text": "Mira algunas de nuestras reseñas de nuestros clientes potenciales",
         "reviewer_photo_1": "shopify://shop_images/RobertoImagen.jpg",
         "reviewer_name_1": "Ricardo",
@@ -100,7 +100,7 @@
         "section_width": "page-width",
         "bg_color": "#000000",
         "text_color": "#ffffff",
-        "padding-block-start": 48,
+        "padding-block-start": 20,
         "padding-block-end": 16
       }
     },
