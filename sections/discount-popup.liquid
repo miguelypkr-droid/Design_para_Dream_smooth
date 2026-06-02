@@ -1,0 +1,523 @@
+{% comment %} ── Discount Email Popup ── {% endcomment %}
+
+{%- assign popup_delay = section.settings.delay | times: 1000 -%}
+
+<div id="ds-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="ds-popup-title" hidden>
+  <div id="ds-popup-card">
+    <button id="ds-popup-close" aria-label="Cerrar">&times;</button>
+
+    {%- comment %} ── PASO 1: formulario ── {%- endcomment %}
+    <div id="ds-popup-step1">
+      <div class="ds-popup-icon" aria-hidden="true">🎁</div>
+      <h2 id="ds-popup-title">{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.subtext }}</p>
+
+      <form id="ds-popup-form" novalidate>
+        <label for="ds-popup-email" class="visually-hidden">Correo electrónico</label>
+        <input
+          id="ds-popup-email"
+          type="email"
+          name="contact[email]"
+          placeholder="{{ section.settings.placeholder }}"
+          autocomplete="email"
+          required
+        >
+        <div id="ds-popup-error" role="alert" hidden></div>
+        <button type="submit" id="ds-popup-submit">
+          <span id="ds-popup-btn-label">{{ section.settings.button_text }}</span>
+          <span id="ds-popup-spinner" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10" opacity=".25"/><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/></svg>
+          </span>
+        </button>
+      </form>
+      <p class="ds-popup-privacy">{{ section.settings.privacy_note }}</p>
+    </div>
+
+    {%- comment %} ── PASO 2: código de descuento ── {%- endcomment %}
+    <div id="ds-popup-step2" hidden>
+      <div class="ds-popup-icon" aria-hidden="true">✅</div>
+      <h2>{{ section.settings.success_heading }}</h2>
+      <p>{{ section.settings.success_text }}</p>
+      <div class="ds-code-wrapper">
+        <span id="ds-discount-code">{{ section.settings.discount_code }}</span>
+        <button id="ds-copy-btn" aria-label="Copiar código">
+          <svg id="ds-copy-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <svg id="ds-check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" hidden><polyline points="20 6 9 17 4 12"/></svg>
+        </button>
+      </div>
+      <p id="ds-copied-msg" hidden>¡Copiado!</p>
+      <button id="ds-popup-step2-close" class="ds-btn-secondary">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* ── overlay ── */
+  #ds-popup-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  #ds-popup-overlay.ds-visible {
+    opacity: 1;
+  }
+
+  /* ── card ── */
+  #ds-popup-card {
+    position: relative;
+    background: {{ section.settings.card_bg }};
+    color: {{ section.settings.card_text }};
+    border-radius: 20px;
+    padding: 40px 36px 32px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+    transform: translateY(24px) scale(0.97);
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.35s ease;
+    opacity: 0;
+  }
+  #ds-popup-overlay.ds-visible #ds-popup-card {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  /* ── close btn ── */
+  #ds-popup-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    color: {{ section.settings.card_text }};
+    opacity: 0.5;
+    padding: 4px 8px;
+    transition: opacity 0.15s;
+  }
+  #ds-popup-close:hover { opacity: 1; }
+
+  /* ── icon ── */
+  .ds-popup-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+  }
+
+  /* ── headings / text ── */
+  #ds-popup-card h2 {
+    font-size: clamp(1.1rem, 4vw, 1.4rem);
+    font-weight: 700;
+    margin: 0 0 10px;
+    line-height: 1.3;
+    color: {{ section.settings.card_text }};
+  }
+  #ds-popup-card p {
+    font-size: 0.92rem;
+    opacity: 0.8;
+    margin: 0 0 18px;
+    line-height: 1.5;
+    color: {{ section.settings.card_text }};
+  }
+
+  /* ── email input ── */
+  #ds-popup-email {
+    display: block;
+    width: 100%;
+    padding: 13px 16px;
+    border: 1.5px solid rgba(0,0,0,0.18);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s;
+    background: #fff;
+    color: #111;
+  }
+  #ds-popup-email:focus {
+    border-color: {{ section.settings.accent_color }};
+  }
+
+  /* ── error ── */
+  #ds-popup-error {
+    color: #d93025;
+    font-size: 0.83rem;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+
+  /* ── submit button ── */
+  #ds-popup-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 13px;
+    background: {{ section.settings.accent_color }};
+    color: {{ section.settings.accent_text }};
+    border: none;
+    border-radius: 10px;
+    font-size: 0.97rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: filter 0.2s, transform 0.15s;
+    letter-spacing: 0.03em;
+  }
+  #ds-popup-submit:hover:not(:disabled) {
+    filter: brightness(1.1);
+    transform: scale(1.02);
+  }
+  #ds-popup-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  /* spinner rotation */
+  @keyframes ds-spin { to { transform: rotate(360deg); } }
+  #ds-popup-spinner svg { animation: ds-spin 0.8s linear infinite; }
+
+  /* ── privacy note ── */
+  .ds-popup-privacy {
+    font-size: 0.76rem;
+    margin: 12px 0 0;
+    opacity: 0.55;
+  }
+
+  /* ── code wrapper ── */
+  .ds-code-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #f4f4f4;
+    border: 2px dashed {{ section.settings.accent_color }};
+    border-radius: 10px;
+    padding: 12px 20px;
+    margin: 8px 0 18px;
+  }
+  #ds-discount-code {
+    font-family: monospace;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: {{ section.settings.accent_color }};
+    user-select: all;
+  }
+  #ds-copy-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: {{ section.settings.accent_color }};
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    transition: transform 0.15s;
+  }
+  #ds-copy-btn:hover { transform: scale(1.15); }
+
+  #ds-copied-msg {
+    color: #2e7d32;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: -10px 0 12px;
+  }
+
+  /* ── secondary close btn ── */
+  .ds-btn-secondary {
+    background: transparent;
+    border: 1.5px solid currentColor;
+    border-radius: 8px;
+    padding: 9px 24px;
+    font-size: 0.88rem;
+    cursor: pointer;
+    color: {{ section.settings.card_text }};
+    opacity: 0.7;
+    transition: opacity 0.15s;
+  }
+  .ds-btn-secondary:hover { opacity: 1; }
+
+  /* ── accessibility helper ── */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 480px) {
+    #ds-popup-card { padding: 32px 22px 26px; }
+  }
+</style>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'ds_popup_done';
+  var delay       = {{ popup_delay }};
+
+  var overlay    = document.getElementById('ds-popup-overlay');
+  var closeBtn   = document.getElementById('ds-popup-close');
+  var form       = document.getElementById('ds-popup-form');
+  var emailInput = document.getElementById('ds-popup-email');
+  var submitBtn  = document.getElementById('ds-popup-submit');
+  var btnLabel   = document.getElementById('ds-popup-btn-label');
+  var spinner    = document.getElementById('ds-popup-spinner');
+  var errorEl    = document.getElementById('ds-popup-error');
+  var step1      = document.getElementById('ds-popup-step1');
+  var step2      = document.getElementById('ds-popup-step2');
+  var copyBtn    = document.getElementById('ds-copy-btn');
+  var copyIcon   = document.getElementById('ds-copy-icon');
+  var checkIcon  = document.getElementById('ds-check-icon');
+  var copiedMsg  = document.getElementById('ds-copied-msg');
+  var step2Close = document.getElementById('ds-popup-step2-close');
+  var codeEl     = document.getElementById('ds-discount-code');
+
+  // ── Don't show if already subscribed ──
+  if (localStorage.getItem(STORAGE_KEY)) return;
+
+  // ── Show popup after delay ──
+  function openPopup() {
+    overlay.hidden = false;
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        overlay.classList.add('ds-visible');
+        emailInput.focus();
+      });
+    });
+  }
+
+  setTimeout(function () {
+    // Slight extra wait if curtain animation is still playing
+    var curtains = document.getElementById('pageCurtains');
+    if (curtains && !curtains.classList.contains('curtains-done')) {
+      curtains.addEventListener('transitionend', function onCurtainEnd() {
+        curtains.removeEventListener('transitionend', onCurtainEnd);
+        setTimeout(openPopup, 600);
+      });
+    } else {
+      openPopup();
+    }
+  }, delay);
+
+  // ── Close helpers ──
+  function closePopup() {
+    overlay.classList.remove('ds-visible');
+    setTimeout(function () { overlay.hidden = true; }, 350);
+  }
+
+  closeBtn.addEventListener('click', closePopup);
+  step2Close.addEventListener('click', closePopup);
+
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closePopup();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !overlay.hidden) closePopup();
+  });
+
+  // ── Show error ──
+  function showError(msg) {
+    errorEl.textContent = msg;
+    errorEl.hidden = false;
+  }
+  function clearError() {
+    errorEl.textContent = '';
+    errorEl.hidden = true;
+  }
+
+  // ── Form submit ──
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearError();
+
+    var email = emailInput.value.trim();
+    if (!email) {
+      showError('Por favor, ingresa tu correo.');
+      emailInput.focus();
+      return;
+    }
+    // Basic email format check
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showError('Por favor, ingresa un correo válido.');
+      emailInput.focus();
+      return;
+    }
+
+    // Loading state
+    submitBtn.disabled = true;
+    btnLabel.hidden    = true;
+    spinner.hidden     = false;
+
+    // POST to Shopify /contact (newsletter subscription)
+    var formData = new FormData();
+    formData.append('form_type', 'customer');
+    formData.append('utf8', '✓');
+    formData.append('contact[email]', email);
+    formData.append('contact[tags]', 'newsletter,discount-popup');
+
+    fetch('/contact', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: formData
+    })
+    .then(function (res) {
+      // Shopify returns 200 for success and also for "already subscribed"
+      if (res.ok || res.status === 422) {
+        showStep2();
+      } else {
+        throw new Error('Error al enviar');
+      }
+    })
+    .catch(function () {
+      // Even on network error, show the code (don't block the user)
+      showStep2();
+    });
+  });
+
+  function showStep2() {
+    localStorage.setItem(STORAGE_KEY, '1');
+    step1.hidden = true;
+    step2.hidden = false;
+    submitBtn.disabled = false;
+    btnLabel.hidden    = false;
+    spinner.hidden     = true;
+  }
+
+  // ── Copy code ──
+  copyBtn.addEventListener('click', function () {
+    var code = codeEl.textContent.trim();
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(code).then(showCopied);
+    } else {
+      // Fallback for older browsers
+      var ta = document.createElement('textarea');
+      ta.value = code;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try { document.execCommand('copy'); showCopied(); } catch(err) {}
+      document.body.removeChild(ta);
+    }
+  });
+
+  function showCopied() {
+    copyIcon.hidden = true;
+    checkIcon.hidden = false;
+    copiedMsg.hidden = false;
+    setTimeout(function () {
+      copyIcon.hidden = false;
+      checkIcon.hidden = true;
+      copiedMsg.hidden = true;
+    }, 2500);
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Popup Descuento",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "range",
+      "id": "delay",
+      "label": "Retraso antes de mostrar (segundos)",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título del popup",
+      "default": "¿Quieres un descuento del 5%?"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Texto descriptivo",
+      "default": "Registra tu correo y obtén un código exclusivo para tu primera compra."
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Placeholder del campo de correo",
+      "default": "tu@correo.com"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texto del botón",
+      "default": "Quiero mi descuento"
+    },
+    {
+      "type": "text",
+      "id": "privacy_note",
+      "label": "Nota de privacidad",
+      "default": "Sin spam. Puedes darte de baja en cualquier momento."
+    },
+    {
+      "type": "text",
+      "id": "discount_code",
+      "label": "Código de descuento",
+      "default": "2026DREAM"
+    },
+    {
+      "type": "text",
+      "id": "success_heading",
+      "label": "Título tras suscripción",
+      "default": "¡Ya tienes tu código!"
+    },
+    {
+      "type": "textarea",
+      "id": "success_text",
+      "label": "Texto tras suscripción",
+      "default": "Copia el código y aplícalo en tu próxima compra para obtener el 5% de descuento."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Color de acento (botón / código)",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "accent_text",
+      "label": "Color del texto en el botón",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Color de fondo de la tarjeta",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_text",
+      "label": "Color del texto de la tarjeta",
+      "default": "#111111"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Popup Descuento"
+    }
+  ]
+}
+{% endschema %}
