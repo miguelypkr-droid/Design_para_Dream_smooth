@@ -135,13 +135,13 @@
     margin-left: -50vw;
     margin-right: -50vw;
     background: #000000;
-    padding: 16px 20px 10px;
+    padding: 32px 20px 20px;
     margin-bottom: 0;
   }
 
   .criticas__heading {
     text-align: center;
-    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    font-size: clamp(1.3rem, 3vw, 2rem);
     font-weight: 800;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -221,6 +221,8 @@
       min-width: 40px;
       font-size: 1rem;
       background: rgba(255,255,255,0.18);
+      /* Siempre visibles en móvil — el JS puede fallar por timing de layout */
+      display: flex !important;
     }
     .criticas__arrow--prev { margin-right: 6px; }
     .criticas__arrow--next { margin-left: 6px; }
