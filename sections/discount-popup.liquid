@@ -390,11 +390,12 @@
     btnLabel.hidden    = true;
     spinner.hidden     = false;
 
-    // POST to Shopify /contact (newsletter subscription)
+    // POST to Shopify /contact — suscripción de marketing (aparece en Admin → Clientes)
     var formData = new FormData();
     formData.append('form_type', 'customer');
     formData.append('utf8', '✓');
     formData.append('contact[email]', email);
+    formData.append('contact[accepts_marketing]', 'true');
     formData.append('contact[tags]', 'newsletter,discount-popup');
 
     fetch('/contact', {
