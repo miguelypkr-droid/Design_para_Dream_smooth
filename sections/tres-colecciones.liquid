@@ -40,11 +40,10 @@
           class="tres-colecciones__link"
           {% unless col == blank %}href="{{ col.url }}"{% endunless %}
         >
-          <div class="tres-colecciones__image-wrap{% if i == 2 or i == 3 or i == 4 %} tres-colecciones__image-wrap--slideshow{% endif %}">
+          <div class="tres-colecciones__image-wrap{% if i == 1 or i == 2 or i == 3 or i == 4 %} tres-colecciones__image-wrap--slideshow{% endif %}">
             {%- if i == 1 -%}
-              <div class="tres-colecciones__qmark-wrap">
-                <span class="tres-colecciones__qmark">?</span>
-              </div>
+              <img src="https://dreamsmoothh.com/cdn/shop/files/PoloScarfaceBigPonyRalphLauren.png?v=1780373655&width=600" alt="Polo Scarface Big Pony" class="tres-colecciones__slide tres-colecciones__slide--1" loading="lazy">
+              <img src="https://dreamsmoothh.com/cdn/shop/files/Polo_Monster_Energy_Ralph_Lauren_Big_Pony.jpg?v=1780372832&width=600" alt="Polo Monster Energy Big Pony" class="tres-colecciones__slide tres-colecciones__slide--2" loading="lazy">
             {%- elsif i == 2 -%}
               <img src="https://dreamsmoothh.com/cdn/shop/files/Adidas-Jeremy-Scott-Wings-de-lado.jpg?v=1780076103&width=800" alt="Slide 1" class="tres-colecciones__slide tres-colecciones__slide--1" loading="lazy">
               <img src="https://dreamsmoothh.com/cdn/shop/files/Francia_Polo_Small_Pony_Futbol_Azul.jpg?v=1780077561&width=800" alt="Slide 2" class="tres-colecciones__slide tres-colecciones__slide--2" loading="lazy">
