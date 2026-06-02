@@ -142,11 +142,6 @@
 
 </div>
 
-<!-- Barra de restock -->
-<div class="l3d-restock-bar">
-  <span class="l3d-restock-label">🔥 Polo Monster &amp; Scarface re stock: <span id="l3d-countdown" class="l3d-countdown-value">--d --h --m --s</span></span>
-</div>
-
 <!-- Menú mobile desplegable -->
 <div class="l3d-mobile-menu" aria-hidden="true">
   <a href="{{ section.settings.link_1_url }}" class="l3d-mob-link">{{ section.settings.link_1_label }}</a>
@@ -334,33 +329,6 @@
     }
   })();
 
-  /* ---- Temporizador re stock ---- */
-  (function () {
-    function pad(n) { return n < 10 ? '0' + n : String(n); }
-    function updateCountdown() {
-      var target = new Date('2026-06-03T00:00:00');
-      var now    = new Date();
-      var diff   = target - now;
-      var el     = document.getElementById('l3d-countdown');
-      if (!el) return;
-      if (diff <= 0) {
-        el.textContent = '¡Ya llegó!';
-        return;
-      }
-      var days  = Math.floor(diff / 86400000);
-      var hours = Math.floor((diff % 86400000) / 3600000);
-      var mins  = Math.floor((diff % 3600000)  / 60000);
-      var secs  = Math.floor((diff % 60000)    / 1000);
-      el.textContent = days + 'd ' + pad(hours) + 'h ' + pad(mins) + 'm ' + pad(secs) + 's';
-    }
-    function startCountdown() { updateCountdown(); setInterval(updateCountdown, 1000); }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', startCountdown);
-    } else {
-      startCountdown();
-    }
-  })();
-
   /* ---- Hamburger menu ---- */
   (function () {
     function initHamburger() {
@@ -438,17 +406,6 @@
 
 
 
-  .l3d-restock-bar {
-    width: 100%;
-    background: {{ section.settings.nav_bg }};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.45rem 1.5rem;
-    box-sizing: border-box;
-    border-top: 1px solid rgba(255,255,255,0.08);
-  }
-
   .l3d-shipping-bar {
     width: 100%;
     background: {{ section.settings.nav_bg }};
@@ -476,29 +433,6 @@
     font-weight: 400;
     letter-spacing: 0.08em;
   }
-
-  .l3d-restock-label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 100%;
-    color: rgb(255, 255, 255);
-    gap: 0.4rem;
-    font-size: 0.78rem !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.07em !important;
-    text-align: center;
-  }
-
-  .l3d-countdown-value {
-    font-variant-numeric: tabular-nums;
-    font-weight: 700 !important;
-    letter-spacing: 0.04em !important;
-    opacity: 0.92;
-  }
-
-
 
   .l3d-nav-bar {
     width: 100%;
