@@ -4,13 +4,6 @@
 >
   <canvas class="criticas__starfield" aria-hidden="true"></canvas>
 
-  {%- comment -%} Título encima de la barra {%- endcomment -%}
-  {%- if section.settings.heading_text != blank -%}
-    <div class="criticas__heading-wrap">
-      <h2 class="criticas__heading">{{ section.settings.heading_text }}</h2>
-    </div>
-  {%- endif -%}
-
   {%- comment -%} Barra superior {%- endcomment -%}
   <div class="criticas__bar">
     <span class="criticas__bar-text">{{ section.settings.bar_text }}</span>
@@ -128,33 +121,12 @@
     display: block;
   }
 
-  .criticas__heading-wrap {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    background: #000000;
-    padding: 32px 20px 20px;
-    margin-bottom: 0;
-  }
-
-  .criticas__heading {
-    text-align: center;
-    font-size: clamp(1.3rem, 3vw, 2rem);
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #ffffff;
-    margin: 0;
-  }
-
   .criticas__bar {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 7px 20px;
-    margin-bottom: 20px;
+    padding: 12px 20px;
+    margin-bottom: 36px;
     width: 100vw;
     position: relative;
     left: 50%;
@@ -166,11 +138,11 @@
   }
 
   .criticas__bar-text {
-    font-size: 0.88rem;
+    font-size: 1.4rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #9A9A9A;
+    color: inherit;
   }
 
   .criticas__carousel-wrapper {
@@ -178,9 +150,6 @@
     z-index: 1;
     display: flex;
     align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 4px 20px;
   }
 
   .criticas__arrow {
@@ -188,10 +157,9 @@
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.35);
     color: #ffffff;
-    font-size: 1.1rem;
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
+    font-size: 1.2rem;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     cursor: pointer;
     display: none;
@@ -200,7 +168,6 @@
     transition: background 0.2s;
     z-index: 2;
     line-height: 1;
-    touch-action: manipulation;
   }
 
   .criticas__arrow--visible {
@@ -211,26 +178,8 @@
     background: rgba(255,255,255,0.25);
   }
 
-  .criticas__arrow--prev { margin-right: 8px; }
-  .criticas__arrow--next { margin-left: 8px; }
-
-@media screen and (max-width: 599px) {
-
-  .criticas__bottom-image-wrap {
-    width: 100%;
-    height: 260px;
-    overflow: hidden;
-    border-radius: 10px;
-  }
-
-  .criticas__bottom-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-}
+  .criticas__arrow--prev { margin-right: 10px; }
+  .criticas__arrow--next { margin-left: 10px; }
 
   .criticas__grid {
     display: flex;
@@ -249,7 +198,7 @@
   }
 
   .criticas__item {
-    flex: 0 0 calc(33.333% - 11px);
+    flex: 0 0 calc(25% - 12px);
     scroll-snap-align: start;
     display: flex;
     flex-direction: column;
@@ -259,13 +208,13 @@
 
   @media screen and (max-width: 989px) {
     .criticas__item {
-      flex: 0 0 calc(50% - 8px);
+      flex: 0 0 calc(33.333% - 11px);
     }
   }
 
-  @media screen and (max-width: 599px) {
+  @media screen and (max-width: 749px) {
     .criticas__item {
-      flex: 0 0 100%;
+      flex: 0 0 72vw;
     }
   }
 
@@ -273,15 +222,15 @@
   .criticas__avatar-wrap {
     position: relative;
     z-index: 1;
-    margin-bottom: -32px;
-    width: 64px;
-    height: 64px;
+    margin-bottom: -34px;
+    width: 68px;
+    height: 68px;
     flex-shrink: 0;
   }
 
   .criticas__avatar {
-    width: 64px;
-    height: 64px;
+    width: 68px;
+    height: 68px;
     border-radius: 50%;
     object-fit: cover;
     object-position: center top;
@@ -291,8 +240,8 @@
   }
 
   .criticas__avatar-placeholder {
-    width: 64px;
-    height: 64px;
+    width: 68px;
+    height: 68px;
     border-radius: 50%;
     background: #222222;
     border: 3px solid #1a1a1a;
@@ -303,8 +252,8 @@
   }
 
   .criticas__avatar-placeholder svg {
-    width: 44px;
-    height: 44px;
+    width: 36px;
+    height: 36px;
   }
 
   /* Card */
@@ -312,17 +261,17 @@
     width: 100%;
     background: #1c1c1e;
     border: none;
-    border-radius: 12px;
-    padding: 40px 14px 14px;
+    border-radius: 16px;
+    padding: 44px 16px 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     text-align: center;
   }
 
   .criticas__name {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -331,7 +280,7 @@
   }
 
   .criticas__text {
-    font-size: 0.88rem;
+    font-size: 0.78rem;
     line-height: 1.6;
     color: #9a9a9a;
     margin: 0;
@@ -492,12 +441,6 @@
     {
       "type": "header",
       "content": "Barra superior"
-    },
-    {
-      "type": "text",
-      "id": "heading_text",
-      "label": "Título encima de la barra",
-      "default": "Nuestros drops"
     },
     {
       "type": "text",
