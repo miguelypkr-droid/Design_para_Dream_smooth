@@ -4,6 +4,7 @@
 
 <div id="ds-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="ds-popup-title" hidden>
   <div id="ds-popup-card">
+    <canvas id="ds-stars-canvas" aria-hidden="true"></canvas>
     <button id="ds-popup-close" aria-label="Cerrar">&times;</button>
 
     {%- comment %} ── PASO 1: formulario ── {%- endcomment %}
@@ -57,20 +58,17 @@
     position: fixed;
     inset: 0;
     z-index: 99999;
-    background: rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 16px;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.35s ease;
+    transition: opacity 0.4s ease;
   }
-  /* El atributo hidden no funciona si display:flex lo sobreescribe; forzamos con este selector */
-  #ds-popup-overlay[hidden] {
-    display: none !important;
-  }
+  #ds-popup-overlay[hidden] { display: none !important; }
   #ds-popup-overlay.ds-visible {
     opacity: 1;
     pointer-events: auto;
@@ -79,16 +77,18 @@
   /* ── card ── */
   #ds-popup-card {
     position: relative;
-    background: {{ section.settings.card_bg }};
-    color: {{ section.settings.card_text }};
-    border-radius: 20px;
-    padding: 40px 36px 32px;
-    max-width: 420px;
+    overflow: hidden;
+    background: #0a0a0f;
+    color: #e8e8f0;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 22px;
+    padding: 44px 38px 34px;
+    max-width: 430px;
     width: 100%;
     text-align: center;
-    box-shadow: 0 24px 64px rgba(0,0,0,0.35);
-    transform: translateY(24px) scale(0.97);
-    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.35s ease;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 32px 80px rgba(0,0,0,0.7);
+    transform: translateY(28px) scale(0.96);
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s ease;
     opacity: 0;
   }
   #ds-popup-overlay.ds-visible #ds-popup-card {
@@ -96,43 +96,62 @@
     opacity: 1;
   }
 
+  /* ── stars canvas ── */
+  #ds-stars-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── all content above stars ── */
+  #ds-popup-close,
+  #ds-popup-step1,
+  #ds-popup-step2 {
+    position: relative;
+    z-index: 1;
+  }
+
   /* ── close btn ── */
   #ds-popup-close {
     position: absolute;
-    top: 12px;
-    right: 16px;
+    top: 14px;
+    right: 18px;
     background: transparent;
     border: none;
-    font-size: 24px;
+    font-size: 26px;
     line-height: 1;
     cursor: pointer;
-    color: {{ section.settings.card_text }};
-    opacity: 0.5;
+    color: rgba(255,255,255,0.45);
     padding: 4px 8px;
-    transition: opacity 0.15s;
+    transition: color 0.15s;
+    z-index: 2;
   }
-  #ds-popup-close:hover { opacity: 1; }
+  #ds-popup-close:hover { color: #fff; }
 
   /* ── icon ── */
   .ds-popup-icon {
-    font-size: 40px;
-    margin-bottom: 12px;
+    font-size: 42px;
+    margin-bottom: 14px;
+    filter: drop-shadow(0 0 8px rgba(255,220,100,0.6));
   }
 
-  /* ── headings / text ── */
+  /* ── headings ── */
   #ds-popup-card h2 {
-    font-size: clamp(1.1rem, 4vw, 1.4rem);
+    font-size: clamp(1.1rem, 4vw, 1.45rem);
     font-weight: 700;
     margin: 0 0 10px;
     line-height: 1.3;
-    color: {{ section.settings.card_text }};
+    color: #ffffff;
+    text-shadow: 0 0 18px rgba(255,255,255,0.25);
   }
   #ds-popup-card p {
     font-size: 0.92rem;
-    opacity: 0.8;
-    margin: 0 0 18px;
-    line-height: 1.5;
-    color: {{ section.settings.card_text }};
+    color: rgba(220,220,235,0.75);
+    margin: 0 0 20px;
+    line-height: 1.6;
   }
 
   /* ── email input ── */
@@ -140,23 +159,25 @@
     display: block;
     width: 100%;
     padding: 13px 16px;
-    border: 1.5px solid rgba(0,0,0,0.18);
+    border: 1.5px solid rgba(255,255,255,0.15);
     border-radius: 10px;
     font-size: 0.95rem;
     margin-bottom: 10px;
     box-sizing: border-box;
     outline: none;
-    transition: border-color 0.2s;
-    background: #fff;
-    color: #111;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: rgba(255,255,255,0.07);
+    color: #fff;
   }
+  #ds-popup-email::placeholder { color: rgba(255,255,255,0.35); }
   #ds-popup-email:focus {
-    border-color: {{ section.settings.accent_color }};
+    border-color: rgba(255,255,255,0.5);
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.08);
   }
 
   /* ── error ── */
   #ds-popup-error {
-    color: #d93025;
+    color: #ff6b6b;
     font-size: 0.83rem;
     margin-bottom: 8px;
     text-align: left;
@@ -170,26 +191,25 @@
     gap: 8px;
     width: 100%;
     padding: 13px;
-    background: {{ section.settings.accent_color }};
-    color: {{ section.settings.accent_text }};
+    background: linear-gradient(135deg, #ffffff 0%, #d0d0e8 100%);
+    color: #0a0a0f;
     border: none;
     border-radius: 10px;
     font-size: 0.97rem;
     font-weight: 700;
     cursor: pointer;
-    transition: filter 0.2s, transform 0.15s;
-    letter-spacing: 0.03em;
+    transition: filter 0.2s, transform 0.15s, box-shadow 0.2s;
+    letter-spacing: 0.04em;
+    box-shadow: 0 0 18px rgba(255,255,255,0.15);
   }
   #ds-popup-submit:hover:not(:disabled) {
-    filter: brightness(1.1);
+    filter: brightness(1.08);
     transform: scale(1.02);
+    box-shadow: 0 0 28px rgba(255,255,255,0.3);
   }
-  #ds-popup-submit:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
+  #ds-popup-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
-  /* spinner rotation */
+  /* spinner */
   @keyframes ds-spin { to { transform: rotate(360deg); } }
   #ds-popup-spinner svg { animation: ds-spin 0.8s linear infinite; }
 
@@ -197,60 +217,64 @@
   .ds-popup-privacy {
     font-size: 0.76rem;
     margin: 12px 0 0;
-    opacity: 0.55;
+    color: rgba(255,255,255,0.35);
   }
 
   /* ── code wrapper ── */
   .ds-code-wrapper {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    background: #f4f4f4;
-    border: 2px dashed {{ section.settings.accent_color }};
-    border-radius: 10px;
-    padding: 12px 20px;
-    margin: 8px 0 18px;
+    gap: 12px;
+    background: rgba(255,255,255,0.06);
+    border: 2px dashed rgba(255,255,255,0.3);
+    border-radius: 12px;
+    padding: 14px 22px;
+    margin: 10px 0 20px;
   }
   #ds-discount-code {
     font-family: monospace;
-    font-size: 1.35rem;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    color: {{ section.settings.accent_color }};
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    color: #fff;
+    text-shadow: 0 0 14px rgba(255,255,255,0.6);
     user-select: all;
   }
   #ds-copy-btn {
     background: transparent;
     border: none;
     cursor: pointer;
-    color: {{ section.settings.accent_color }};
+    color: rgba(255,255,255,0.6);
     padding: 4px;
     display: flex;
     align-items: center;
-    transition: transform 0.15s;
+    transition: color 0.15s, transform 0.15s;
   }
-  #ds-copy-btn:hover { transform: scale(1.15); }
+  #ds-copy-btn:hover { color: #fff; transform: scale(1.15); }
 
   #ds-copied-msg {
-    color: #2e7d32;
+    color: #7fffb2;
     font-size: 0.85rem;
     font-weight: 600;
-    margin: -10px 0 12px;
+    margin: -12px 0 14px;
+    text-shadow: 0 0 8px rgba(127,255,178,0.5);
   }
 
   /* ── secondary close btn ── */
   .ds-btn-secondary {
     background: transparent;
-    border: 1.5px solid currentColor;
+    border: 1.5px solid rgba(255,255,255,0.2);
     border-radius: 8px;
-    padding: 9px 24px;
+    padding: 9px 26px;
     font-size: 0.88rem;
     cursor: pointer;
-    color: {{ section.settings.card_text }};
-    opacity: 0.7;
-    transition: opacity 0.15s;
+    color: rgba(255,255,255,0.55);
+    transition: color 0.15s, border-color 0.15s;
   }
-  .ds-btn-secondary:hover { opacity: 1; }
+  .ds-btn-secondary:hover {
+    color: #fff;
+    border-color: rgba(255,255,255,0.55);
+  }
 
   /* ── accessibility helper ── */
   .visually-hidden {
@@ -263,7 +287,7 @@
   }
 
   @media (max-width: 480px) {
-    #ds-popup-card { padding: 32px 22px 26px; }
+    #ds-popup-card { padding: 34px 20px 28px; }
   }
 </style>
 
@@ -430,6 +454,76 @@
       copiedMsg.hidden = true;
     }, 2500);
   }
+
+  // ── Twinkling stars ──
+  (function () {
+    var canvas = document.getElementById('ds-stars-canvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var stars = [];
+    var raf;
+
+    function resize() {
+      var card = canvas.parentElement;
+      canvas.width  = card.offsetWidth;
+      canvas.height = card.offsetHeight;
+    }
+
+    function makeStars(n) {
+      stars = [];
+      for (var i = 0; i < n; i++) {
+        stars.push({
+          x:       Math.random() * canvas.width,
+          y:       Math.random() * canvas.height,
+          r:       Math.random() * 1.4 + 0.3,
+          // each star has its own phase offset and speed
+          phase:   Math.random() * Math.PI * 2,
+          speed:   Math.random() * 0.6 + 0.3,
+          baseAlpha: Math.random() * 0.5 + 0.2
+        });
+      }
+    }
+
+    function draw(ts) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      var t = ts * 0.001;
+      for (var i = 0; i < stars.length; i++) {
+        var s = stars[i];
+        // sine wave between 0 and baseAlpha
+        var alpha = s.baseAlpha * (0.5 + 0.5 * Math.sin(t * s.speed + s.phase));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,' + alpha + ')';
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(draw);
+    }
+
+    function start() {
+      resize();
+      makeStars(80);
+      raf = requestAnimationFrame(draw);
+    }
+
+    function stop() {
+      if (raf) cancelAnimationFrame(raf);
+    }
+
+    // Start when popup opens, stop when hidden to save resources
+    var origOpen  = openPopup;
+    openPopup = function () { origOpen(); start(); };
+
+    var origClose = closePopup;
+    closePopup = function () {
+      origClose();
+      setTimeout(stop, 400);
+    };
+
+    window.addEventListener('resize', function () {
+      resize();
+      makeStars(80);
+    });
+  })();
 })();
 </script>
 
