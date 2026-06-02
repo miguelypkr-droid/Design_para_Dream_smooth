@@ -13,7 +13,9 @@
       <h2 id="ds-popup-title">{{ section.settings.heading }}</h2>
       <p>{{ section.settings.subtext }}</p>
 
-      <form id="ds-popup-form" novalidate>
+      {%- form 'customer', id: 'ds-popup-form', novalidate: '' -%}
+        <input type="hidden" name="contact[accepts_marketing]" value="true">
+        <input type="hidden" name="contact[tags]" value="newsletter,discount-popup">
         <label for="ds-popup-email" class="visually-hidden">Correo electrónico</label>
         <input
           id="ds-popup-email"
@@ -30,7 +32,7 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10" opacity=".25"/><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/></svg>
           </span>
         </button>
-      </form>
+      {%- endform -%}
       <p class="ds-popup-privacy">{{ section.settings.privacy_note }}</p>
     </div>
 
@@ -390,21 +392,15 @@
     btnLabel.hidden    = true;
     spinner.hidden     = false;
 
-    // POST to Shopify /contact — suscripción de marketing (aparece en Admin → Clientes)
-    var formData = new FormData();
-    formData.append('form_type', 'customer');
-    formData.append('utf8', '✓');
-    formData.append('contact[email]', email);
-    formData.append('contact[accepts_marketing]', 'true');
-    formData.append('contact[tags]', 'newsletter,discount-popup');
+    // Usar FormData nativo del form de Shopify (incluye authenticity_token)
+    var formData = new FormData(form);
 
-    fetch('/contact', {
+    fetch(form.action, {
       method: 'POST',
       headers: { 'Accept': 'application/json' },
       body: formData
     })
     .then(function (res) {
-      // Shopify returns 200 for success and also for "already subscribed"
       if (res.ok || res.status === 422) {
         showStep2();
       } else {
@@ -412,7 +408,6 @@
       }
     })
     .catch(function () {
-      // Even on network error, show the code (don't block the user)
       showStep2();
     });
   });
