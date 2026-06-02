@@ -214,19 +214,42 @@
   .criticas__arrow--prev { margin-right: 8px; }
   .criticas__arrow--next { margin-left: 8px; }
 
-  @media screen and (max-width: 599px) {
-    .criticas__arrow,
-    .criticas__arrow--prev,
-    .criticas__arrow--next,
-    .criticas__arrow--visible {
-      display: none !important;
-      width: 0 !important;
-      min-width: 0 !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      overflow: hidden !important;
-    }
+@media screen and (max-width: 599px) {
+
+  .criticas__item {
+    flex: 0 0 85%;
+    max-width: 85%;
   }
+
+  .criticas__card {
+    padding: 36px 12px 12px;
+  }
+
+  .criticas__name {
+    font-size: 0.82rem;
+  }
+
+  .criticas__text {
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
+  .criticas__avatar-wrap,
+  .criticas__avatar,
+  .criticas__avatar-placeholder {
+    width: 54px;
+    height: 54px;
+  }
+
+  .criticas__avatar-wrap {
+    margin-bottom: -27px;
+  }
+
+  .criticas__bottom-image {
+    max-height: 220px;
+    object-fit: cover;
+  }
+}
 
   .criticas__grid {
     display: flex;
