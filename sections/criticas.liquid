@@ -6,7 +6,7 @@
 
   <div class="criticas_text">
     <span class="criticas_text__title" style="color: {{ section.settings.text_color }};">
-      {{ section.settings.bar_text }} </span>
+      {{ section.settings.text_header }} </span>
     </div>
 
   {%- comment -%} Barra superior {%- endcomment -%}
@@ -459,6 +459,12 @@
     {
       "type": "header",
       "content": "Barra superior"
+    },
+    {
+      "type": "text",
+      "id": "text_header",
+      "label": "Texto de la cabecera",
+      "default": "Reseñas"
     },
     {
       "type": "text",
