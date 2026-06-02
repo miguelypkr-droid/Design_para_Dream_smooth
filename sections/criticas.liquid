@@ -229,8 +229,7 @@
   }
 
   .criticas__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
     flex: 1;
     min-width: 0;
     overflow-x: auto;
@@ -239,9 +238,6 @@
     gap: 16px;
     padding-bottom: 10px;
     scrollbar-width: none;
-    /* needed so grid items can be snapped */
-    grid-auto-flow: column;
-    grid-auto-columns: calc((100% - 32px) / 3);
   }
 
   .criticas__grid::-webkit-scrollbar {
@@ -249,23 +245,23 @@
   }
 
   .criticas__item {
+    flex: 0 0 calc(33.333% - 11px);
     scroll-snap-align: start;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-width: 0;
-    width: 100%;
   }
 
   @media screen and (max-width: 989px) {
-    .criticas__grid {
-      grid-auto-columns: calc((100% - 16px) / 2);
+    .criticas__item {
+      flex: 0 0 calc(50% - 8px);
     }
   }
 
   @media screen and (max-width: 599px) {
-    .criticas__grid {
-      grid-auto-columns: 100%;
+    .criticas__item {
+      flex: 0 0 100%;
     }
   }
 
@@ -310,8 +306,6 @@
   /* Card */
   .criticas__card {
     width: 100%;
-    height: 100%;
-    box-sizing: border-box;
     background: #1c1c1e;
     border: none;
     border-radius: 12px;
