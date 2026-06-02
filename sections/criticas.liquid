@@ -3,7 +3,10 @@
   style="background: {{ section.settings.bg_color }}; position: relative; overflow: hidden; {% render 'spacing-style', settings: section.settings %}"
 >
   <canvas class="criticas__starfield" aria-hidden="true"></canvas>
-
+  <div class="criticas_text">
+    <span class="criticas_text__title" style="color: {{ section.settings.text_color }};">
+      {{ section.settings.bar_text }} </span>
+    </div>
   {%- comment -%} Barra superior {%- endcomment -%}
   <div class="criticas__bar">
     <span class="criticas__bar-text">{{ section.settings.bar_text }}</span>
@@ -138,6 +141,14 @@
   }
 
   .criticas__bar-text {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: inherit;
+  }
+
+    .criticas_text {
     font-size: 1.4rem;
     font-weight: 700;
     letter-spacing: 0.12em;
