@@ -178,7 +178,7 @@
     z-index: 1;
     display: flex;
     align-items: center;
-    max-width: 1100px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 4px 20px;
   }
@@ -215,8 +215,16 @@
   .criticas__arrow--next { margin-left: 8px; }
 
   @media screen and (max-width: 599px) {
-    .criticas__arrow {
+    .criticas__arrow,
+    .criticas__arrow--prev,
+    .criticas__arrow--next,
+    .criticas__arrow--visible {
       display: none !important;
+      width: 0 !important;
+      min-width: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important;
     }
   }
 
