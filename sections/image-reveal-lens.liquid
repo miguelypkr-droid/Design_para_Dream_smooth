@@ -1,353 +1,137 @@
-{% comment %}
-  Section: Image Reveal Lens
-  Efecto de lente circular que revela una segunda imagen al pasar el mouse o tocar en mobile.
-  Configuración: imagen principal, imagen revelada, tamaño del lente, texto opcional.
-{% endcomment %}
-
-<style>
-  #ir-section-{{ section.id }} {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    background: #0a0a0a;
-    cursor: none;
-  }
-
-  #ir-section-{{ section.id }} .ir-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: {{ section.settings.max_width }}px;
-    margin: 0 auto;
-    aspect-ratio: {{ section.settings.aspect_ratio }};
-    overflow: hidden;
-  }
-
-  #ir-section-{{ section.id }} .ir-img-base,
-  #ir-section-{{ section.id }} .ir-img-reveal {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    pointer-events: none;
-    user-select: none;
-    -webkit-user-drag: none;
-  }
-
-  #ir-section-{{ section.id }} .ir-img-reveal {
-    z-index: 2;
-    opacity: 0;
-    clip-path: circle(0px at -200px -200px);
-    transition: clip-path 0.05s linear;
-    will-change: clip-path;
-  }
-
-  #ir-section-{{ section.id }} .ir-img-base {
-    z-index: 1;
-  }
-
-  #ir-section-{{ section.id }} .ir-cursor {
-    position: absolute;
-    z-index: 10;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: opacity 0.25s ease;
-    will-change: transform;
-  }
-
-  #ir-section-{{ section.id }} .ir-cursor-ring {
-    width: {{ section.settings.lens_size }}px;
-    height: {{ section.settings.lens_size }}px;
-    border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.7);
-    box-shadow:
-      0 0 0 1px rgba(0,0,0,0.3),
-      inset 0 0 0 1px rgba(0,0,0,0.2);
-    backdrop-filter: blur(0px);
-  }
-
-  #ir-section-{{ section.id }} .ir-cursor-dot {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.9);
-  }
-
-  #ir-section-{{ section.id }} .ir-label {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 20;
-    text-align: center;
-    pointer-events: none;
-  }
-
-  #ir-section-{{ section.id }} .ir-label-text {
-    display: inline-block;
-    font-family: {{ section.settings.font_family }};
-    font-size: clamp(0.75rem, 1.2vw, 0.875rem);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.55);
-    background: rgba(0,0,0,0.3);
-    padding: 0.4rem 1rem;
-    border-radius: 100px;
-    border: 1px solid rgba(255,255,255,0.12);
-    backdrop-filter: blur(8px);
-  }
-
-  #ir-section-{{ section.id }} .ir-hint {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 15;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
-  }
-
-  #ir-section-{{ section.id }} .ir-hint-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    color: rgba(255,255,255,0.7);
-    font-family: {{ section.settings.font_family }};
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  #ir-section-{{ section.id }} .ir-hint-circle {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(255,255,255,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: ir-pulse-{{ section.id }} 2s ease-in-out infinite;
-  }
-
-  @keyframes ir-pulse-{{ section.id }} {
-    0%, 100% { transform: scale(1); opacity: 0.7; }
-    50% { transform: scale(1.15); opacity: 1; }
-  }
-
-  @media (hover: none) {
-    #ir-section-{{ section.id }} {
-      cursor: default;
-    }
-    #ir-section-{{ section.id }} .ir-hint-text-desktop {
-      display: none;
-    }
-  }
-
-  @media (hover: hover) {
-    #ir-section-{{ section.id }} .ir-hint-text-mobile {
-      display: none;
-    }
-  }
-</style>
-
-<section
-  id="ir-section-{{ section.id }}"
+<div
   class="ir-section"
-  aria-label="{{ section.settings.aria_label | default: 'Galería con efecto de revelado' }}"
+  data-ir-section
+  style="position:relative;width:100%;overflow:hidden;background:#0a0a0a;"
 >
-  <div class="ir-wrapper" id="ir-wrapper-{{ section.id }}">
+  <div
+    class="ir-wrapper"
+    data-ir-wrapper
+    style="
+      position:relative;
+      width:100%;
+      max-width:{{ section.settings.max_width }}px;
+      margin:0 auto;
+      overflow:hidden;
+      aspect-ratio:{{ section.settings.aspect_ratio }};
+    "
+  >
 
-    {% if section.settings.image_base != blank %}
-      <img
-        class="ir-img-base"
-        src="{{ section.settings.image_base | image_url: width: 2000 }}"
-        srcset="
-          {{ section.settings.image_base | image_url: width: 600 }} 600w,
-          {{ section.settings.image_base | image_url: width: 1200 }} 1200w,
-          {{ section.settings.image_base | image_url: width: 2000 }} 2000w
-        "
-        sizes="100vw"
-        alt="{{ section.settings.image_base.alt | default: section.settings.image_base_alt }}"
-        loading="eager"
-        draggable="false"
-      >
-    {% else %}
-      <div class="ir-img-base" style="background: #1a1a2e; display:flex; align-items:center; justify-content:center;">
-        <span style="color:rgba(255,255,255,0.2); font-size:1rem; letter-spacing:0.1em;">IMAGEN PRINCIPAL</span>
-      </div>
-    {% endif %}
-
-    {% if section.settings.image_reveal != blank %}
-      <img
-        class="ir-img-reveal"
-        id="ir-reveal-{{ section.id }}"
-        src="{{ section.settings.image_reveal | image_url: width: 2000 }}"
-        srcset="
-          {{ section.settings.image_reveal | image_url: width: 600 }} 600w,
-          {{ section.settings.image_reveal | image_url: width: 1200 }} 1200w,
-          {{ section.settings.image_reveal | image_url: width: 2000 }} 2000w
-        "
-        sizes="100vw"
-        alt="{{ section.settings.image_reveal.alt | default: section.settings.image_reveal_alt }}"
-        loading="eager"
-        draggable="false"
-      >
-    {% else %}
-      <div
-        class="ir-img-reveal"
-        id="ir-reveal-{{ section.id }}"
-        style="background: linear-gradient(135deg, #e94560 0%, #f5a623 100%); display:flex; align-items:center; justify-content:center;"
-      >
-        <span style="color:rgba(255,255,255,0.4); font-size:1rem; letter-spacing:0.1em;">IMAGEN REVELADA</span>
-      </div>
-    {% endif %}
-
-    <div class="ir-cursor" id="ir-cursor-{{ section.id }}">
-      <div class="ir-cursor-ring"></div>
-      <div class="ir-cursor-dot"></div>
+    <div class="ir-layer" style="position:absolute;inset:0;width:100%;height:100%;z-index:1;">
+      {%- if section.settings.image_base != blank -%}
+        <img
+          src="{{ section.settings.image_base | image_url: width: 2000 }}"
+          srcset="{{ section.settings.image_base | image_url: width: 600 }} 600w, {{ section.settings.image_base | image_url: width: 1200 }} 1200w, {{ section.settings.image_base | image_url: width: 2000 }} 2000w"
+          sizes="100vw"
+          alt="{{ section.settings.image_base.alt | escape }}"
+          loading="eager"
+          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;"
+          draggable="false"
+        >
+      {%- else -%}
+        <div style="position:absolute;inset:0;background:#1a1a2e;display:flex;align-items:center;justify-content:center;">
+          <span style="color:rgba(255,255,255,0.2);font-size:0.9rem;letter-spacing:0.1em;font-family:sans-serif;">IMAGEN PRINCIPAL</span>
+        </div>
+      {%- endif -%}
     </div>
 
-    {% unless section.settings.hide_hint %}
-      <div class="ir-hint" id="ir-hint-{{ section.id }}">
-        <div class="ir-hint-inner">
-          <div class="ir-hint-circle">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M12 8v4M12 16h.01"/>
-            </svg>
-          </div>
-          <span class="ir-hint-text-desktop">
-            {{ section.settings.hint_text_desktop | default: 'Pasa el cursor para revelar' }}
-          </span>
-          <span class="ir-hint-text-mobile">
-            {{ section.settings.hint_text_mobile | default: 'Toca para revelar' }}
-          </span>
+    <div
+      data-ir-reveal
+      style="position:absolute;inset:0;width:100%;height:100%;z-index:2;opacity:0;clip-path:circle(0px at -9999px -9999px);will-change:clip-path;"
+    >
+      {%- if section.settings.image_reveal != blank -%}
+        <img
+          src="{{ section.settings.image_reveal | image_url: width: 2000 }}"
+          srcset="{{ section.settings.image_reveal | image_url: width: 600 }} 600w, {{ section.settings.image_reveal | image_url: width: 1200 }} 1200w, {{ section.settings.image_reveal | image_url: width: 2000 }} 2000w"
+          sizes="100vw"
+          alt="{{ section.settings.image_reveal.alt | escape }}"
+          loading="eager"
+          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;"
+          draggable="false"
+        >
+      {%- else -%}
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,#e94560,#f5a623);display:flex;align-items:center;justify-content:center;">
+          <span style="color:rgba(255,255,255,0.4);font-size:0.9rem;letter-spacing:0.1em;font-family:sans-serif;">IMAGEN REVELADA</span>
         </div>
-      </div>
-    {% endunless %}
+      {%- endif -%}
+    </div>
 
-    {% if section.settings.label_text != blank %}
-      <div class="ir-label">
-        <span class="ir-label-text">{{ section.settings.label_text }}</span>
+    <div
+      data-ir-cursor
+      style="position:absolute;top:0;left:0;z-index:10;pointer-events:none;opacity:0;will-change:transform;"
+    >
+      <div style="width:{{ section.settings.lens_size }}px;height:{{ section.settings.lens_size }}px;border-radius:50%;border:2px solid rgba(255,255,255,0.7);box-shadow:0 0 0 1px rgba(0,0,0,0.3);position:relative;transform:translate(-50%,-50%);">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.9);"></div>
       </div>
-    {% endif %}
+    </div>
+
+    {%- unless section.settings.hide_hint -%}
+    <div data-ir-hint style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:15;pointer-events:none;text-align:center;">
+      <div style="width:52px;height:52px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.5);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;animation:ir-pulse 2.2s ease-in-out infinite;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </div>
+      <span style="font-family:sans-serif;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.5);">{{ section.settings.hint_text | default: 'Pasa el cursor para revelar' }}</span>
+    </div>
+    {%- endunless -%}
+
+    {%- if section.settings.label_text != blank -%}
+    <div style="position:absolute;bottom:1.25rem;left:50%;transform:translateX(-50%);z-index:20;pointer-events:none;font-family:sans-serif;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.5);background:rgba(0,0,0,0.35);padding:0.35rem 1rem;border-radius:100px;border:1px solid rgba(255,255,255,0.12);white-space:nowrap;">{{ section.settings.label_text }}</div>
+    {%- endif -%}
 
   </div>
-</section>
+</div>
+
+<style>
+  @keyframes ir-pulse{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.2);opacity:1}}
+  [data-ir-section]{-webkit-tap-highlight-color:transparent;}
+  @media(hover:none){[data-ir-section]{cursor:default;}}
+  @media(hover:hover){[data-ir-section]{cursor:none;}}
+</style>
 
 <script>
-(function() {
-  var sectionId = {{ section.id | json }};
-  var lensSize  = {{ section.settings.lens_size | default: 200 }};
-  var smoothing = {{ section.settings.smoothing | default: 6 }};
-
-  var wrapper  = document.getElementById('ir-wrapper-' + sectionId);
-  var reveal   = document.getElementById('ir-reveal-' + sectionId);
-  var cursor   = document.getElementById('ir-cursor-' + sectionId);
-  var hint     = document.getElementById('ir-hint-' + sectionId);
-
-  if (!wrapper || !reveal) return;
-
-  var targetX = -lensSize * 2;
-  var targetY = -lensSize * 2;
-  var currentX = targetX;
-  var currentY = targetY;
-  var isActive = false;
-  var rafId   = null;
-  var halfLens = lensSize / 2;
-
-  function setReveal(x, y) {
-    reveal.style.clipPath = 'circle(' + halfLens + 'px at ' + Math.round(x) + 'px ' + Math.round(y) + 'px)';
-    cursor.style.transform = 'translate(' + Math.round(x) + 'px,' + Math.round(y) + 'px) translate(-50%,-50%)';
+(function(){
+  var section=document.currentScript.closest('[data-ir-section]');
+  if(!section||section.dataset.irInit)return;
+  section.dataset.irInit='1';
+  var wrapper=section.querySelector('[data-ir-wrapper]');
+  var reveal=section.querySelector('[data-ir-reveal]');
+  var cursor=section.querySelector('[data-ir-cursor]');
+  var hint=section.querySelector('[data-ir-hint]');
+  if(!wrapper||!reveal)return;
+  var lensSize={{ section.settings.lens_size | default: 200 }};
+  var smoothing={{ section.settings.smoothing | default: 6 }};
+  var half=lensSize/2;
+  var tx=-9999,ty=-9999,cx=-9999,cy=-9999,active=false,raf=null;
+  function draw(x,y){
+    reveal.style.clipPath='circle('+half+'px at '+Math.round(x)+'px '+Math.round(y)+'px)';
+    if(cursor)cursor.style.transform='translate('+Math.round(x)+'px,'+Math.round(y)+'px)';
   }
-
-  function animate() {
-    if (!isActive) { rafId = null; return; }
-    var dx = targetX - currentX;
-    var dy = targetY - currentY;
-    currentX += dx / smoothing;
-    currentY += dy / smoothing;
-    setReveal(currentX, currentY);
-    rafId = requestAnimationFrame(animate);
+  function loop(){
+    if(!active){raf=null;return;}
+    cx+=(tx-cx)/smoothing;cy+=(ty-cy)/smoothing;
+    draw(cx,cy);raf=requestAnimationFrame(loop);
   }
-
-  function getRelativePos(clientX, clientY) {
-    var rect = wrapper.getBoundingClientRect();
-    return {
-      x: clientX - rect.left,
-      y: clientY - rect.top
-    };
+  function pos(clientX,clientY){var r=wrapper.getBoundingClientRect();return{x:clientX-r.left,y:clientY-r.top};}
+  function show(clientX,clientY){
+    active=true;reveal.style.opacity='1';
+    if(cursor)cursor.style.opacity='1';if(hint)hint.style.opacity='0';
+    var p=pos(clientX,clientY);tx=p.x;ty=p.y;
+    if(!raf)raf=requestAnimationFrame(loop);
   }
-
-  function enter() {
-    isActive = true;
-    reveal.style.opacity = '1';
-    cursor.style.opacity = '1';
-    if (hint) hint.style.opacity = '0';
-    if (!rafId) rafId = requestAnimationFrame(animate);
+  function hide(){
+    active=false;reveal.style.opacity='0';
+    if(cursor)cursor.style.opacity='0';if(hint)hint.style.opacity='1';
+    reveal.style.clipPath='circle(0px at '+Math.round(cx)+'px '+Math.round(cy)+'px)';
+    tx=-9999;ty=-9999;cx=-9999;cy=-9999;
+    if(raf){cancelAnimationFrame(raf);raf=null;}
   }
-
-  function leave() {
-    isActive = false;
-    reveal.style.opacity = '0';
-    cursor.style.opacity = '0';
-    if (hint) hint.style.opacity = '1';
-    reveal.style.clipPath = 'circle(0px at ' + Math.round(currentX) + 'px ' + Math.round(currentY) + 'px)';
-    targetX = -lensSize * 2;
-    targetY = -lensSize * 2;
-    currentX = targetX;
-    currentY = targetY;
-    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-  }
-
-  function move(clientX, clientY) {
-    var pos = getRelativePos(clientX, clientY);
-    targetX = pos.x;
-    targetY = pos.y;
-  }
-
-  wrapper.addEventListener('mouseenter', function(e) {
-    enter();
-    move(e.clientX, e.clientY);
-  });
-
-  wrapper.addEventListener('mousemove', function(e) {
-    move(e.clientX, e.clientY);
-  });
-
-  wrapper.addEventListener('mouseleave', function() {
-    leave();
-  });
-
-  wrapper.addEventListener('touchstart', function(e) {
-    if (e.touches.length > 0) {
-      enter();
-      move(e.touches[0].clientX, e.touches[0].clientY);
-    }
-  }, { passive: true });
-
-  wrapper.addEventListener('touchmove', function(e) {
-    e.preventDefault();
-    if (e.touches.length > 0) {
-      move(e.touches[0].clientX, e.touches[0].clientY);
-    }
-  }, { passive: false });
-
-  wrapper.addEventListener('touchend', function() {
-    leave();
-  });
-
-  wrapper.addEventListener('touchcancel', function() {
-    leave();
-  });
+  wrapper.addEventListener('mouseenter',function(e){show(e.clientX,e.clientY);});
+  wrapper.addEventListener('mousemove',function(e){var p=pos(e.clientX,e.clientY);tx=p.x;ty=p.y;});
+  wrapper.addEventListener('mouseleave',hide);
+  wrapper.addEventListener('touchstart',function(e){if(e.touches.length)show(e.touches[0].clientX,e.touches[0].clientY);},{passive:true});
+  wrapper.addEventListener('touchmove',function(e){e.preventDefault();if(e.touches.length){var p=pos(e.touches[0].clientX,e.touches[0].clientY);tx=p.x;ty=p.y;}},{passive:false});
+  wrapper.addEventListener('touchend',hide);wrapper.addEventListener('touchcancel',hide);
 })();
 </script>
 
@@ -355,7 +139,6 @@
 {
   "name": "Image Reveal Lens",
   "tag": "section",
-  "class": "ir-section-wrapper",
   "settings": [
     {
       "type": "header",
@@ -364,28 +147,16 @@
     {
       "type": "image_picker",
       "id": "image_base",
-      "label": "Imagen principal (visible por defecto)"
-    },
-    {
-      "type": "text",
-      "id": "image_base_alt",
-      "label": "Texto alternativo — imagen principal",
-      "default": "Imagen principal"
+      "label": "Imagen principal"
     },
     {
       "type": "image_picker",
       "id": "image_reveal",
-      "label": "Imagen revelada (aparece bajo el lente)"
-    },
-    {
-      "type": "text",
-      "id": "image_reveal_alt",
-      "label": "Texto alternativo — imagen revelada",
-      "default": "Imagen revelada"
+      "label": "Imagen revelada (bajo el lente)"
     },
     {
       "type": "header",
-      "content": "Lente y animación"
+      "content": "Lente"
     },
     {
       "type": "range",
@@ -399,7 +170,7 @@
     {
       "type": "range",
       "id": "smoothing",
-      "label": "Suavizado del movimiento (1 = directo, 12 = lento)",
+      "label": "Suavizado (1 directo · 12 fluido)",
       "min": 1,
       "max": 12,
       "step": 1,
@@ -412,20 +183,19 @@
     {
       "type": "select",
       "id": "aspect_ratio",
-      "label": "Proporción de la imagen",
+      "label": "Proporción",
       "options": [
-        { "value": "16/9",  "label": "Panorámica 16:9" },
-        { "value": "4/3",   "label": "Clásica 4:3" },
-        { "value": "1/1",   "label": "Cuadrada 1:1" },
-        { "value": "3/2",   "label": "Fotografía 3:2" },
-        { "value": "21/9",  "label": "Ultra-wide 21:9" }
+        { "value": "16/9", "label": "16:9 Panorámica" },
+        { "value": "4/3",  "label": "4:3 Clásica" },
+        { "value": "1/1",  "label": "1:1 Cuadrada" },
+        { "value": "3/2",  "label": "3:2 Fotografía" }
       ],
       "default": "16/9"
     },
     {
       "type": "range",
       "id": "max_width",
-      "label": "Ancho máximo del contenedor (px)",
+      "label": "Ancho máximo (px)",
       "min": 600,
       "max": 1920,
       "step": 20,
@@ -433,12 +203,12 @@
     },
     {
       "type": "header",
-      "content": "Texto y accesibilidad"
+      "content": "Texto"
     },
     {
       "type": "text",
       "id": "label_text",
-      "label": "Etiqueta inferior (opcional)",
+      "label": "Etiqueta inferior",
       "placeholder": "Ej: Antes / Después"
     },
     {
@@ -449,33 +219,9 @@
     },
     {
       "type": "text",
-      "id": "hint_text_desktop",
-      "label": "Texto del indicador — desktop",
+      "id": "hint_text",
+      "label": "Texto del indicador",
       "default": "Pasa el cursor para revelar"
-    },
-    {
-      "type": "text",
-      "id": "hint_text_mobile",
-      "label": "Texto del indicador — mobile",
-      "default": "Toca para revelar"
-    },
-    {
-      "type": "text",
-      "id": "aria_label",
-      "label": "Etiqueta de accesibilidad (aria-label)",
-      "default": "Galería con efecto de revelado"
-    },
-    {
-      "type": "select",
-      "id": "font_family",
-      "label": "Tipografía del texto",
-      "options": [
-        { "value": "var(--font-body-family, sans-serif)", "label": "Fuente del tema" },
-        { "value": "sans-serif",  "label": "Sans-serif genérica" },
-        { "value": "serif",       "label": "Serif genérica" },
-        { "value": "monospace",   "label": "Monospace" }
-      ],
-      "default": "var(--font-body-family, sans-serif)"
     }
   ],
   "presets": [
