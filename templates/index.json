@@ -35,37 +35,6 @@
         "video_radius": 8
       }
     },
-    "hero_HCVg4a": {
-      "type": "hero",
-      "name": "t:names.hero",
-      "settings": {
-        "media_type_1": "image",
-        "image_1": "shopify://shop_images/ChatGPT_Image_9_jun_2026_05_58_42_p.m..png",
-        "media_type_2": "image",
-        "link": "",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 16,
-        "section_width": "full-width",
-        "section_height": "auto",
-        "section_height_custom": 50,
-        "color_scheme": "scheme-5",
-        "toggle_overlay": true,
-        "overlay_color": "#00000026",
-        "overlay_style": "gradient",
-        "gradient_direction": "to top",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
     "colecciones_tabs_4f3nFR": {
       "type": "colecciones-tabs",
       "name": "Colecciones con Tabs",
@@ -190,16 +159,31 @@
         "padding-block-start": 36,
         "padding-block-end": 47
       }
+    },
+    "image_reveal_lens_Jimfbr": {
+      "type": "image-reveal-lens",
+      "name": "Image Reveal Lens",
+      "settings": {
+        "image_base": "shopify://shop_images/ChatGPT_Image_9_jun_2026_06_37_38_p.m..png",
+        "image_reveal": "shopify://shop_images/ChatGPT_Image_9_jun_2026_05_58_42_p.m..png",
+        "lens_size": 200,
+        "smoothing": 6,
+        "aspect_ratio": "16/9",
+        "max_width": 700,
+        "label_text": "",
+        "hide_hint": false,
+        "hint_text": "Pasa el cursor para revelar"
+      }
     }
   },
   "order": [
     "texto_y_video_xceEpM",
-    "hero_HCVg4a",
     "colecciones_tabs_4f3nFR",
     "tres_colecciones_nmwxR8",
     "criticas_kh7nDi",
     "imagen_texto_dnyNwL",
     "bento_features_dpPNyD",
-    "divider_cw6Pr6"
+    "divider_cw6Pr6",
+    "image_reveal_lens_Jimfbr"
   ]
 }
