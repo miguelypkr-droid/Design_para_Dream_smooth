@@ -112,21 +112,6 @@
         "padding-block-end": 0
       }
     },
-    "imagen_texto_QzeXdV": {
-      "type": "imagen-texto",
-      "name": "Imagen con Texto",
-      "settings": {
-        "card_color": "#1c1c1e",
-        "image": "shopify://shop_images/WhatsApp_Image_2026-06-09_at_13.56.27.jpg",
-        "label": "Destacado",
-        "title": "MEDIDAS",
-        "description": "<p>Recibimos con mucha frecuencia preguntas relacionadas con las medidas de nuestros productos. Por esta razón, toda la información sobre las medidas se proporciona a través de nuestro Instagram o medios de comunicacion, donde podrás consultarla antes de realizar tu compra.</p><p>  </p><p>Es muy importante que revises las medidas con anticipación, ya que cada persona tiene preferencias y necesidades diferentes. Verificarlas te permitirá asegurarte de que el producto sea el adecuado para ti y ayudará a evitar inconvenientes, confusiones o solicitudes de cambio por una elección incorrecta.</p><p>Si después de revisar las medidas aún tienes alguna duda, puedes escribirnos por Instagram y con gusto te orientaremos para que tomes la mejor decisión antes de comprar.</p>",
-        "button_label": "",
-        "button_url": "",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
     "imagen_texto_dnyNwL": {
       "type": "imagen-texto",
       "name": "Imagen con Texto",
@@ -169,6 +154,21 @@
         "card4_image": "shopify://shop_images/Bancolombia.png"
       }
     },
+    "imagen_texto_QzeXdV": {
+      "type": "imagen-texto",
+      "name": "Imagen con Texto",
+      "settings": {
+        "card_color": "#1c1c1e",
+        "image": "shopify://shop_images/WhatsApp_Image_2026-06-09_at_13.56.27.jpg",
+        "label": "Destacado",
+        "title": "MEDIDAS",
+        "description": "<p>Recibimos con mucha frecuencia preguntas relacionadas con las medidas de nuestros productos. Por esta razón, toda la información sobre las medidas se proporciona a través de nuestro Instagram o medios de comunicacion, donde podrás consultarla antes de realizar tu compra.</p><p>  </p><p>Es muy importante que revises las medidas con anticipación, ya que cada persona tiene preferencias y necesidades diferentes. Verificarlas te permitirá asegurarte de que el producto sea el adecuado para ti y ayudará a evitar inconvenientes, confusiones o solicitudes de cambio por una elección incorrecta.</p><p>Si después de revisar las medidas aún tienes alguna duda, puedes escribirnos por Instagram y con gusto te orientaremos para que tomes la mejor decisión antes de comprar.</p>",
+        "button_label": "",
+        "button_url": "",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "divider_cw6Pr6": {
       "type": "divider",
       "name": "t:names.divider_section",
@@ -189,9 +189,9 @@
     "colecciones_tabs_4f3nFR",
     "tres_colecciones_nmwxR8",
     "criticas_kh7nDi",
-    "imagen_texto_QzeXdV",
     "imagen_texto_dnyNwL",
     "bento_features_dpPNyD",
+    "imagen_texto_QzeXdV",
     "divider_cw6Pr6"
   ]
 }
