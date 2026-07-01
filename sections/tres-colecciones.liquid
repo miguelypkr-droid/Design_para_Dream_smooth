@@ -17,11 +17,11 @@
     <span class="tres-colecciones__bar-text">{{ section.settings.bar_text }}</span>
   </div>
 
-  {%- comment -%} Carrusel de 4 colecciones {%- endcomment -%}
+  {%- comment -%} Carrusel de 5 colecciones {%- endcomment -%}
   <div class="tres-colecciones__carousel-wrapper">
     <button class="tres-colecciones__arrow tres-colecciones__arrow--prev" aria-label="Anterior">&#8592;</button>
     <div class="tres-colecciones__grid">
-    {%- for i in (1..4) -%}
+    {%- for i in (1..5) -%}
       {%- liquid
         case i
           when 1
@@ -32,6 +32,8 @@
             assign col = section.settings.collection_2
           when 4
             assign col = section.settings.collection_3
+          when 5
+            assign col = section.settings.collection_4
         endcase
       -%}
 
@@ -578,6 +580,16 @@
       "type": "collection",
       "id": "collection_3",
       "label": "Colección 3"
+    },
+    {
+      "type": "collection",
+      "id": "collection_4",
+      "label": "Colección 4"
+    },
+        {
+      "type": "collection",
+      "id": "collection_5",
+      "label": "Colección 5"
     },
     {
       "type": "header",
