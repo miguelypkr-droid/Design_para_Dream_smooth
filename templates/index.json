@@ -9,9 +9,9 @@
  */
 {
   "sections": {
-    "texto_y_video_xceEpM": {
-      "type": "texto-y-video",
-      "name": "Texto y Video",
+    "texto_y_reveal_4pFfJw": {
+      "type": "texto-y-reveal",
+      "name": "Texto y Reveal Lens",
       "settings": {
         "bg_color": "#000000",
         "section_padding": 80,
@@ -19,20 +19,27 @@
         "gap": 64,
         "text_align": "left",
         "eyebrow": "Sobre nosotros",
-        "eyebrow_color": "#cccccc",
+        "eyebrow_color": "#ffffff",
         "heading": "Quiénes somos",
         "heading_color": "#ffffff",
         "heading_size": 48,
-        "body": "<p>Somos una marca enfocada en ofrecer ropa de calidad para diferentes presupuestos y estilos. Creemos que vestir bien no debería ser algo exclusivo, por eso trabajamos para brindar opciones accesibles sin dejar de lado el diseño, la comodidad y los buenos acabados.</p><p>Ofrecemos desde ropa customizada hecha por nosotros, creada con dedicación y atención a los detalles, hasta ropa original y réplicas de alta calidad (Con su respectiva asignacion de calidad en el sitio web). Nuestro objetivo es que cada persona encuentre prendas que se adapten a su estilo y economía, manteniendo siempre una excelente relación entre calidad y precio.</p><p>Más que vender ropa, buscamos crear una comunidad donde todos puedan acceder a moda con estilo, autenticidad y variedad.</p>",
-        "text_color": "#9a9a9a",
+        "body": "<p>Somos una marca enfocada en ofrecer ropa de calidad para diferentes presupuestos y estilos. Creemos que vestir bien no debería ser algo exclusivo, por eso trabajamos para brindar opciones accesibles sin dejar de lado el diseño, la comodidad y los buenos acabados.<br/><br/>Ofrecemos desde ropa customizada hecha por nosotros, creada con dedicación y atención a los detalles, hasta ropa original y réplicas de alta calidad (Con su respectiva asignacion de calidad en el sitio web). Nuestro objetivo es que cada persona encuentre prendas que se adapten a su estilo y economía, manteniendo siempre una excelente relación entre calidad y precio.<br/><br/>Más que vender ropa, buscamos crear una comunidad donde todos puedan acceder a moda con estilo, autenticidad y variedad.<br/></p>",
+        "text_color": "#888888",
         "body_size": 16,
         "btn_label": "",
         "btn_url": "",
-        "btn_bg": "#ffffff",
+        "btn_bg": "#111111",
         "btn_color": "#ffffff",
-        "video_url": "https://cdn.shopify.com/videos/c/o/v/29155edd42e348abbe06627484740bfe.mp4",
+        "image_base": "shopify://shop_images/ChatGPT_Image_9_jun_2026_05_58_42_p.m..png",
+        "image_reveal": "shopify://shop_images/ChatGPT_Image_9_jun_2026_06_37_38_p.m..png",
+        "lens_size": 200,
+        "smoothing": 6,
+        "aspect_ratio": "4/3",
         "video_max_width": 560,
-        "video_radius": 8
+        "video_radius": 8,
+        "hide_hint": false,
+        "hint_text": "Pasa el cursor para revelar",
+        "label_text": ""
       }
     },
     "colecciones_tabs_4f3nFR": {
@@ -159,31 +166,15 @@
         "padding-block-start": 36,
         "padding-block-end": 47
       }
-    },
-    "image_reveal_lens_YcBAgM": {
-      "type": "image-reveal-lens",
-      "name": "Image Reveal Lens",
-      "settings": {
-        "image_base": "shopify://shop_images/ChatGPT_Image_9_jun_2026_05_58_42_p.m..png",
-        "image_reveal": "shopify://shop_images/ChatGPT_Image_9_jun_2026_06_37_38_p.m..png",
-        "lens_size": 200,
-        "smoothing": 6,
-        "aspect_ratio": "16/9",
-        "max_width": 1400,
-        "label_text": "",
-        "hide_hint": false,
-        "hint_text": "Pasa el cursor para revelar"
-      }
     }
   },
   "order": [
-    "texto_y_video_xceEpM",
+    "texto_y_reveal_4pFfJw",
     "colecciones_tabs_4f3nFR",
     "tres_colecciones_nmwxR8",
     "criticas_kh7nDi",
     "imagen_texto_dnyNwL",
     "bento_features_dpPNyD",
-    "divider_cw6Pr6",
-    "image_reveal_lens_YcBAgM"
+    "divider_cw6Pr6"
   ]
 }
