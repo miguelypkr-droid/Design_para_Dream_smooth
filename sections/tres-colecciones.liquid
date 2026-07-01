@@ -1,4 +1,3 @@
-
 <div
   class="section section--{{ section.settings.section_width }} spacing-style"
   style="background: {{ section.settings.bg_color }}; position: relative; overflow: hidden; {% render 'spacing-style', settings: section.settings %}"
@@ -25,15 +24,15 @@
       {%- liquid
         case i
           when 1
-            assign col = section.settings.collection_0
-          when 2
-            assign col = section.settings.collection_1
-          when 3
-            assign col = section.settings.collection_2
-          when 4
-            assign col = section.settings.collection_3
-          when 5
             assign col = section.settings.collection_4
+          when 2
+            assign col = section.settings.collection_0
+          when 3
+            assign col = section.settings.collection_1
+          when 4
+            assign col = section.settings.collection_2
+          when 5
+            assign col = section.settings.collection_3
         endcase
       -%}
 
@@ -44,17 +43,21 @@
         >
           <div class="tres-colecciones__image-wrap tres-colecciones__image-wrap--slideshow tres-colecciones__image-wrap--slideshow-2">
             {%- if i == 1 -%}
+              <img src="https://dreamsmoothh.com/cdn/shop/files/5005DB95-41D5-4131-AF20-E0F45DDEA507.jpg?v=1782931150&width=600" alt="Slide 1" class="tres-colecciones__slide tres-colecciones__slide--1" loading="lazy">
+              <img src="https://dreamsmoothh.com/cdn/shop/files/7EE1AB36-EA5D-4B2E-B608-80602B37EE5F.jpg?v=1782930622&width=600" alt="Slide 2" class="tres-colecciones__slide tres-colecciones__slide--2" loading="lazy">
+              <img src="https://dreamsmoothh.com/cdn/shop/files/7405F85A-472D-40B1-AFB5-0B5B6EF24562.jpg?v=1782930215&width=600" alt="Slide 3" class="tres-colecciones__slide tres-colecciones__slide--3" loading="lazy">
+            {%- elsif i == 2 -%}
               <img src="https://dreamsmoothh.com/cdn/shop/files/PoloScarfaceBigPonyRalphLauren.png?v=1780373655&width=600" alt="Polo Scarface Big Pony" class="tres-colecciones__slide tres-colecciones__slide--1" loading="lazy">
               <img src="https://dreamsmoothh.com/cdn/shop/files/Polo_Monster_Energy_Ralph_Lauren_Big_Pony.jpg?v=1780372832&width=600" alt="Polo Monster Energy Big Pony" class="tres-colecciones__slide tres-colecciones__slide--2" loading="lazy">
-            {%- elsif i == 2 -%}
+            {%- elsif i == 3 -%}
               <img src="https://dreamsmoothh.com/cdn/shop/files/Adidas-Jeremy-Scott-Wings-de-lado.jpg?v=1780076103&width=800" alt="Slide 1" class="tres-colecciones__slide tres-colecciones__slide--1" loading="lazy">
               <img src="https://dreamsmoothh.com/cdn/shop/files/Francia_Polo_Small_Pony_Futbol_Azul.jpg?v=1780077561&width=800" alt="Slide 2" class="tres-colecciones__slide tres-colecciones__slide--2" loading="lazy">
               <img src="https://dreamsmoothh.com/cdn/shop/files/Adidas_Jeremy_Scott_Negros_de_lado_reflectivos.jpg?v=1780076629&width=400" alt="Slide 3" class="tres-colecciones__slide tres-colecciones__slide--3" loading="lazy">
-            {%- elsif i == 3 -%}
+            {%- elsif i == 4 -%}
               <img src="https://dreamsmoothh.com/cdn/shop/files/Polo_Ralph_Lauren_Big_Pony_Tokyo_Delantera.jpg?v=1780080129&width=400" alt="Slide 1" class="tres-colecciones__slide tres-colecciones__slide--1" loading="lazy">
               <img src="https://dreamsmoothh.com/cdn/shop/files/3E1DFD93-27DA-450D-A007-B9840B42C60E.jpg?v=1757499606&width=800" alt="Slide 2" class="tres-colecciones__slide tres-colecciones__slide--2" loading="lazy">
               <img src="https://dreamsmoothh.com/cdn/shop/files/Polo_Ralph_Lauren_Japon_Big_pony.jpg?v=1780079024&width=800" alt="Slide 3" class="tres-colecciones__slide tres-colecciones__slide--3" loading="lazy">
-            {%- elsif i == 4 -%}
+            {%- elsif i == 5 -%}
               <img src="https://dreamsmoothh.com/cdn/shop/files/Polo_Ralph_Lauren_Custom_Sakura_delantera.jpg?v=1780079927&width=800" alt="Slide 1" class="tres-colecciones__slide tres-colecciones__slide--1" loading="lazy">
               <img src="https://dreamsmoothh.com/cdn/shop/files/Polo_Ralph_Lauren_Big_Pony_Custom_Nostalgic_Delantera.jpg?v=1780080760&width=800" alt="Slide 2" class="tres-colecciones__slide tres-colecciones__slide--2" loading="lazy">
               <img src="https://dreamsmoothh.com/cdn/shop/files/Polo_Ralph_Lauren_Custom_Aphex_twin_delantera.jpg?v=1780079033&width=800" alt="Slide 3" class="tres-colecciones__slide tres-colecciones__slide--3" loading="lazy">
@@ -563,33 +566,28 @@
     },
     {
       "type": "collection",
+      "id": "collection_4",
+      "label": "Colección 4 (primera, imágenes nuevas)"
+    },
+    {
+      "type": "collection",
       "id": "collection_0",
-      "label": "Colección 0 (primera)"
+      "label": "Colección 0 (segunda)"
     },
     {
       "type": "collection",
       "id": "collection_1",
-      "label": "Colección 1"
+      "label": "Colección 1 (tercera)"
     },
     {
       "type": "collection",
       "id": "collection_2",
-      "label": "Colección 2"
+      "label": "Colección 2 (cuarta)"
     },
     {
       "type": "collection",
       "id": "collection_3",
-      "label": "Colección 3"
-    },
-    {
-      "type": "collection",
-      "id": "collection_4",
-      "label": "Colección 4"
-    },
-        {
-      "type": "collection",
-      "id": "collection_5",
-      "label": "Colección 5"
+      "label": "Colección 3 (quinta)"
     },
     {
       "type": "header",
