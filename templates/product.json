@@ -283,6 +283,178 @@
         "padding-block-end": 0
       }
     },
+    "recomendaciones_marquee_HkCHnA": {
+      "type": "recomendaciones-marquee",
+      "blocks": {
+        "testimonial_HThbHP": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        },
+        "testimonial_BWY4kN": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        },
+        "testimonial_C8G9g6": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        },
+        "testimonial_bqKrXR": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        },
+        "testimonial_pwdkte": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        },
+        "testimonial_RFLQV7": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        },
+        "testimonial_brfXHf": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        },
+        "testimonial_mrp7Rg": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        },
+        "testimonial_jR9c47": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        },
+        "testimonial_t99hBY": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        },
+        "testimonial_EUEqbT": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        },
+        "testimonial_gEnwn4": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        },
+        "testimonial_bHFqrc": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        },
+        "testimonial_HKbHE3": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        },
+        "testimonial_yyaVXD": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        },
+        "testimonial_cq6MkJ": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        },
+        "testimonial_TaKTBQ": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        },
+        "testimonial_MC46bM": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        },
+        "testimonial_Lc8jDR": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        },
+        "testimonial_xeLnKJ": {
+          "type": "testimonial",
+          "settings": {
+            "customer_name": "Nombre de usuario",
+            "recommendation": "Excelente producto, súper recomendado."
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_HThbHP",
+        "testimonial_BWY4kN",
+        "testimonial_C8G9g6",
+        "testimonial_bqKrXR",
+        "testimonial_pwdkte",
+        "testimonial_RFLQV7",
+        "testimonial_brfXHf",
+        "testimonial_mrp7Rg",
+        "testimonial_jR9c47",
+        "testimonial_t99hBY",
+        "testimonial_EUEqbT",
+        "testimonial_gEnwn4",
+        "testimonial_bHFqrc",
+        "testimonial_HKbHE3",
+        "testimonial_yyaVXD",
+        "testimonial_cq6MkJ",
+        "testimonial_TaKTBQ",
+        "testimonial_MC46bM",
+        "testimonial_Lc8jDR",
+        "testimonial_xeLnKJ"
+      ],
+      "name": "Recomendaciones marquee",
+      "settings": {
+        "heading": "Lo que dicen nuestros clientes",
+        "card_label": "Recomendaciones"
+      }
+    },
     "product_recommendations_qggXJq": {
       "type": "product-recommendations",
       "blocks": {
@@ -427,6 +599,7 @@
   },
   "order": [
     "main",
+    "recomendaciones_marquee_HkCHnA",
     "product_recommendations_qggXJq"
   ]
 }
