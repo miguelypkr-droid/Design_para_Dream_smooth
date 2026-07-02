@@ -87,7 +87,7 @@
   </div>
 
   <div class="product-highlights" id="ProductHighlights-{{ section.id }}">
-    <div class="product-highlight-box">
+    <div class="product-highlight-box product-highlight-box--shipping">
       <svg class="product-highlight-box__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M3 7h11v9H3V7zm11 3h4l3 3v3h-7v-6zM6.5 20a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm11 0a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -97,7 +97,7 @@
       </div>
     </div>
 
-    <div class="product-highlight-box">
+    <div class="product-highlight-box product-highlight-box--cod">
       <svg class="product-highlight-box__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M12 2v20m0-20l4 4m-4-4L8 6M4 14h16v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -107,7 +107,7 @@
       </div>
     </div>
 
-    <div class="product-highlight-box">
+    <div class="product-highlight-box product-highlight-box--guarantee">
       <svg class="product-highlight-box__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -443,38 +443,44 @@
     line-height: 1.6;
   }
 
-  /* ---- Recuadros informativos (más pequeños) ---- */
+  /* ---- Recuadros informativos (compactos, en fila en pc) ---- */
   .product-highlights {
     grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: 10px;
     margin-top: 20px;
   }
 
-  @media screen and (max-width: 749px) {
+  @media screen and (min-width: 600px) {
     .product-highlights {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    .product-highlights {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 
   .product-highlight-box {
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
-    padding: 12px 14px;
+    gap: 8px;
+    padding: 14px;
     border-radius: 10px;
     background: #0a0a0a;
     border: 1px solid rgba(255, 255, 255, 0.12);
     color: #fff;
+    height: 100%;
   }
 
   .product-highlight-box__icon {
     flex-shrink: 0;
-    width: 18px;
-    height: 18px;
-    color: #ffffff;
-    margin-top: 1px;
+    width: 20px;
+    height: 20px;
   }
 
   .product-highlight-box__title {
@@ -482,7 +488,6 @@
     font-size: 12.5px;
     font-weight: 600;
     letter-spacing: 0.01em;
-    color: #ffffff;
   }
 
   .product-highlight-box__text {
@@ -492,15 +497,32 @@
     color: rgba(255, 255, 255, 0.6);
   }
 
-  .product-highlight-box--transfer {
-    grid-column: 1 / -1;
+  /* Colores por recuadro (ícono + título) */
+  .product-highlight-box--shipping .product-highlight-box__icon,
+  .product-highlight-box--shipping .product-highlight-box__title {
+    color: #60a5fa;
+  }
+
+  .product-highlight-box--cod .product-highlight-box__icon,
+  .product-highlight-box--cod .product-highlight-box__title {
+    color: #4ade80;
+  }
+
+  .product-highlight-box--guarantee .product-highlight-box__icon,
+  .product-highlight-box--guarantee .product-highlight-box__title {
+    color: #facc15;
+  }
+
+  .product-highlight-box--transfer .product-highlight-box__icon,
+  .product-highlight-box--transfer .product-highlight-box__title {
+    color: #c084fc;
   }
 
   .product-highlight-box__ig-btn {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    margin-top: 8px;
+    margin-top: 4px;
     padding: 6px 12px;
     border-radius: 7px;
     background: #fff;
