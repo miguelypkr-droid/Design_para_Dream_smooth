@@ -84,8 +84,74 @@
     {% endfor %}
   </div>
 
+  <div class="product-highlights" id="ProductHighlights-{{ section.id }}">
+    <div class="product-highlight-box">
+      <svg class="product-highlight-box__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M3 7h11v9H3V7zm11 3h4l3 3v3h-7v-6zM6.5 20a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm11 0a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="product-highlight-box__body">
+        <p class="product-highlight-box__title">Envíos nacionales e internacionales</p>
+        <p class="product-highlight-box__text">Realizamos envíos a todo Colombia y también a nivel internacional.</p>
+      </div>
+    </div>
+
+    <div class="product-highlight-box">
+      <svg class="product-highlight-box__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 2v20m0-20l4 4m-4-4L8 6M4 14h16v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="product-highlight-box__body">
+        <p class="product-highlight-box__title">Pago contra entrega</p>
+        <p class="product-highlight-box__text">Disponible en todo el territorio colombiano.</p>
+      </div>
+    </div>
+
+    <div class="product-highlight-box">
+      <svg class="product-highlight-box__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="product-highlight-box__body">
+        <p class="product-highlight-box__title">Producto idéntico a la imagen</p>
+        <p class="product-highlight-box__text">Garantizamos que el producto es igual a como se muestra en las fotos.</p>
+      </div>
+    </div>
+
+    <div class="product-highlight-box product-highlight-box--transfer">
+      <svg class="product-highlight-box__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M3 10l9-6 9 6M4 10v9h16v-9M9 19v-6h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="product-highlight-box__body">
+        <p class="product-highlight-box__title">Más económico por transferencia</p>
+        <p class="product-highlight-box__text">Pagando por transferencia bancaria el valor puede ser menor. Copia nuestros datos para pagar por ese medio:</p>
+        <div class="product-highlight-box__copy">
+          <code id="BankAccount-{{ section.id }}">Banco: [NOMBRE DEL BANCO] · Cuenta de ahorros: [000-00000-00] · A nombre de: [TITULAR]</code>
+          <button type="button" class="product-highlight-box__copy-btn" data-copy-target="BankAccount-{{ section.id }}">Copiar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   {% content_for 'blocks' %}
 </div>
+
+<script>
+  (() => {
+    const wrapper = document.getElementById('ProductHighlights-{{ section.id }}');
+    if (!wrapper) return;
+    wrapper.querySelectorAll('[data-copy-target]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const target = document.getElementById(btn.getAttribute('data-copy-target'));
+        if (!target) return;
+        navigator.clipboard.writeText(target.textContent.trim()).then(() => {
+          const original = btn.textContent;
+          btn.textContent = 'Copiado ✓';
+          setTimeout(() => {
+            btn.textContent = original;
+          }, 2000);
+        });
+      });
+    });
+  })();
+</script>
 
 {% stylesheet %}
   .product-information {
@@ -280,15 +346,17 @@
     --sticky-header-offset: var(--header-height);
   }
 
-  /* ---- ĆNICO cambio: paleta de color del tĆ­tulo y precio (negros/grises/blancos) ---- */
+  /* ---- Título y descripción en recuadros ---- */
   .product-details h1,
   .product-details h2,
   .product-details .product-title,
   .product-details [class*='title'] {
-    background: linear-gradient(120deg, #ffffff 0%, #d4d4d8 50%, #ffffff 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    display: inline-block;
+    padding: 16px 20px;
+    border-radius: 12px;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #ffffff;
     letter-spacing: 0.02em;
   }
 
@@ -299,7 +367,103 @@
 
   .product-details .rte,
   .product-details [class*='description'] {
+    display: block;
+    padding: 18px 20px;
+    border-radius: 12px;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.12);
     color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+  }
+
+  /* ---- Recuadros informativos ---- */
+  .product-highlights {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-top: 24px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .product-highlights {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .product-highlight-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 20px;
+    border-radius: 14px;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #fff;
+  }
+
+  .product-highlight-box__icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    color: #ffffff;
+    margin-top: 2px;
+  }
+
+  .product-highlight-box__title {
+    margin: 0 0 4px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: #ffffff;
+  }
+
+  .product-highlight-box__text {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  .product-highlight-box--transfer {
+    grid-column: 1 / -1;
+  }
+
+  .product-highlight-box__copy {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .product-highlight-box__copy code {
+    flex: 1;
+    min-width: 200px;
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: inherit;
+  }
+
+  .product-highlight-box__copy-btn {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 6px;
+    background: #fff;
+    color: #000;
+    font-size: 12.5px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .product-highlight-box__copy-btn:hover {
+    background: #d4d4d8;
   }
 {% endstylesheet %}
 
