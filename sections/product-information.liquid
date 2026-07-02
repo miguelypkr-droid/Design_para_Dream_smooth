@@ -86,6 +86,22 @@
     {% endfor %}
   </div>
 
+  <div class="product-shipping-notice">
+    <div class="product-shipping-notice__icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M3 7h11v9H3V7zm11 3h4l3 3v3h-7v-6zM6.5 20a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm11 0a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="product-shipping-notice__content">
+      <p class="product-shipping-notice__title">Información de envío</p>
+      <ul>
+        <li>Pago contra entrega disponible en toda Colombia</li>
+        <li>Envíos a todo el territorio nacional: 1 a 2 días hábiles</li>
+        <li>Envíos internacionales: el tiempo de entrega varía según el plan de envío seleccionado</li>
+      </ul>
+    </div>
+  </div>
+
   <div class="product-information__badges">
     <div class="product-badge product-badge--guarantee">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -208,6 +224,25 @@
     min-width: 100%;
   }
 
+  /* La imagen se ve completa (sin recortes) tanto en escritorio como en celular */
+  .product-information__media,
+  .product-information__media [class*='media-gallery'] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product-information__media img,
+  .product-information__media video,
+  .product-information__media picture,
+  .product-information__media [class*='media'] img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    aspect-ratio: auto !important;
+  }
+
   /* Mobile styles */
   @media screen and (max-width: 749px) {
     .product-information__media {
@@ -238,7 +273,7 @@
     .product-information__grid:not(:has(.product-information__media:empty)) {
       /* Media on the left side */
       &.product-information--media-left {
-        grid-template-columns: 1fr min(50vw, var(--sidebar-width));
+        grid-template-columns: 1fr 1fr;
 
         .product-information__media {
           padding-right: calc(var(--gap, 0) / 2);
@@ -255,7 +290,7 @@
 
       /* Media on the right side */
       &.product-information--media-right {
-        grid-template-columns: min(50vw, var(--sidebar-width)) 1fr;
+        grid-template-columns: 1fr 1fr;
 
         .product-information__media {
           padding-left: calc(var(--gap, 0) / 2);
@@ -407,7 +442,7 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.8), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
     opacity: 0.6;
   }
 
@@ -419,21 +454,21 @@
     right: 8px;
     width: 14px;
     height: 14px;
-    border-right: 1px solid rgba(96, 165, 250, 0.5);
-    border-bottom: 1px solid rgba(96, 165, 250, 0.5);
+    border-right: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     opacity: 0.5;
     pointer-events: none;
   }
 
   .product-information--stars-bg .product-details > *:hover {
-    border-color: rgba(96, 165, 250, 0.4);
+    border-color: rgba(255, 255, 255, 0.35);
     box-shadow:
-      0 0 0 1px rgba(96, 165, 250, 0.15) inset,
-      0 10px 40px rgba(96, 165, 250, 0.15);
+      0 0 0 1px rgba(255, 255, 255, 0.12) inset,
+      0 10px 40px rgba(255, 255, 255, 0.08);
     transform: translateY(-2px);
   }
 
-  /* Título del producto con acento degradado */
+  /* Título del producto con acento degradado plateado */
   .product-information--stars-bg .product-details h1,
   .product-information--stars-bg .product-details h2,
   .product-information--stars-bg .product-details .product-title,
@@ -441,18 +476,18 @@
     font-size: clamp(24px, 3vw, 34px);
     letter-spacing: 0.02em;
     font-weight: 600;
-    background: linear-gradient(120deg, #ffffff 0%, #a5b4fc 60%, #60a5fa 100%);
+    background: linear-gradient(120deg, #ffffff 0%, #d4d4d8 50%, #ffffff 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     margin: 0;
   }
 
-  /* Precio con acento futurista */
+  /* Precio */
   .product-information--stars-bg .product-details [class*='price'] {
     font-size: 20px;
     font-weight: 500;
-    color: #7dd3fc;
+    color: #e5e5e5;
     letter-spacing: 0.03em;
   }
 
@@ -504,15 +539,93 @@
   }
 
   .product-badge--guarantee svg {
-    color: #4ade80;
+    color: #ffffff;
   }
 
   .product-badge--transfer svg {
-    color: #facc15;
+    color: #d4d4d8;
   }
 
   .product-badge--shipping svg {
-    color: #60a5fa;
+    color: #a3a3a3;
+  }
+
+  /* Recuadro de información de envío */
+  .product-shipping-notice {
+    position: relative;
+    z-index: 1;
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 20px;
+    padding: 22px 24px;
+    border-radius: 14px;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(10px);
+    color: #fff;
+  }
+
+  .product-shipping-notice__icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .product-shipping-notice__icon svg {
+    width: 20px;
+    height: 20px;
+    color: #fff;
+  }
+
+  .product-shipping-notice__title {
+    margin: 0 0 8px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #fff;
+  }
+
+  .product-shipping-notice ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .product-shipping-notice li {
+    position: relative;
+    padding-left: 14px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .product-shipping-notice li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+  }
+
+  @media screen and (max-width: 749px) {
+    .product-shipping-notice {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 
   @media screen and (max-width: 749px) {
