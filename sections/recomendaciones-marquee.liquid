@@ -12,9 +12,7 @@
   </div>
 
   {% if section.settings.heading != blank %}
-    <div class="reco-heading-bar">
-      <h2 class="reco-heading">{{ section.settings.heading }}</h2>
-    </div>
+    <h2 class="reco-heading">{{ section.settings.heading }}</h2>
   {% endif %}
 
   <div class="reco-rows">
@@ -48,16 +46,6 @@
                       <p class="reco-card-text">
                         {{ block.settings.recommendation | default: 'Excelente experiencia de compra, totalmente recomendado.' }}
                       </p>
-                      <div class="reco-card-stars">
-                        {% assign rating = block.settings.rating | default: 5 %}
-                        {% for star in (1..5) %}
-                          {% if star <= rating %}
-                            <svg class="reco-star reco-star-filled" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26 6.91 1.01-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
-                          {% else %}
-                            <svg class="reco-star reco-star-empty" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26 6.91 1.01-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
-                          {% endif %}
-                        {% endfor %}
-                      </div>
                     </div>
                   </div>
                 {% endif %}
@@ -107,31 +95,15 @@
     100% { opacity: 0.05; transform: scale(1); }
   }
 
-  /* ---- Título como barra ---- */
-  .reco-heading-bar {
+  /* ---- Título ---- */
+  .reco-heading {
     position: relative;
     z-index: 2;
-    max-width: 640px;
-    margin: 0 auto 40px;
-    background-color: #0a0a0a;
-    border: 1px solid #6b6b6b;
-    border-radius: 8px;
-    padding: 14px 24px;
-    animation: reco-border-glow 2.4s ease-in-out infinite;
-  }
-
-  .reco-heading {
     text-align: center;
     color: #ffffff;
-    font-size: 26px;
-    margin: 0;
+    font-size: 32px;
+    margin: 0 0 40px;
     letter-spacing: 0.5px;
-  }
-
-  @keyframes reco-border-glow {
-    0%   { border-color: #4a4a4a; box-shadow: 0 0 0px rgba(255,255,255,0); }
-    50%  { border-color: #ffffff; box-shadow: 0 0 12px rgba(255,255,255,0.5); }
-    100% { border-color: #4a4a4a; box-shadow: 0 0 0px rgba(255,255,255,0); }
   }
 
   /* ---- Filas ---- */
@@ -224,30 +196,9 @@
     margin: 0;
   }
 
-  /* ---- Estrellas ---- */
-  .reco-card-stars {
-    display: flex;
-    gap: 3px;
-    margin-top: 10px;
-  }
-
-  .reco-star {
-    width: 16px;
-    height: 16px;
-  }
-
-  .reco-star-filled {
-    fill: #f5c518;
-  }
-
-  .reco-star-empty {
-    fill: #4a4a4a;
-  }
-
   @media screen and (max-width: 749px) {
     .reco-card { width: 240px; }
-    .reco-heading { font-size: 20px; }
-    .reco-heading-bar { padding: 12px 18px; max-width: 90%; }
+    .reco-heading { font-size: 24px; }
   }
 {% endstylesheet %}
 
@@ -284,16 +235,6 @@
           "id": "recommendation",
           "label": "Recomendación",
           "default": "Excelente producto, súper recomendado."
-        },
-        {
-          "type": "select",
-          "id": "rating",
-          "label": "Calificación",
-          "options": [
-            { "value": "4", "label": "4 estrellas" },
-            { "value": "5", "label": "5 estrellas" }
-          ],
-          "default": "5"
         }
       ]
     }
@@ -328,3 +269,4 @@
   ]
 }
 {% endschema %}
+
