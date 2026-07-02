@@ -378,6 +378,92 @@
     --sticky-header-offset: var(--header-height);
   }
 
+  /* ---- Encabezado, precio y descripción: tarjetas elegantes/futuristas ---- */
+  .product-information--stars-bg .product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .product-information--stars-bg .product-details > * {
+    position: relative;
+    padding: 22px 24px;
+    border-radius: 14px;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+      0 8px 30px rgba(0, 0, 0, 0.35);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    overflow: hidden;
+  }
+
+  /* Línea de luz superior */
+  .product-information--stars-bg .product-details > *::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.8), transparent);
+    opacity: 0.6;
+  }
+
+  /* Esquina estilo HUD */
+  .product-information--stars-bg .product-details > *::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 14px;
+    height: 14px;
+    border-right: 1px solid rgba(96, 165, 250, 0.5);
+    border-bottom: 1px solid rgba(96, 165, 250, 0.5);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .product-information--stars-bg .product-details > *:hover {
+    border-color: rgba(96, 165, 250, 0.4);
+    box-shadow:
+      0 0 0 1px rgba(96, 165, 250, 0.15) inset,
+      0 10px 40px rgba(96, 165, 250, 0.15);
+    transform: translateY(-2px);
+  }
+
+  /* Título del producto con acento degradado */
+  .product-information--stars-bg .product-details h1,
+  .product-information--stars-bg .product-details h2,
+  .product-information--stars-bg .product-details .product-title,
+  .product-information--stars-bg .product-details [class*='title'] {
+    font-size: clamp(24px, 3vw, 34px);
+    letter-spacing: 0.02em;
+    font-weight: 600;
+    background: linear-gradient(120deg, #ffffff 0%, #a5b4fc 60%, #60a5fa 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin: 0;
+  }
+
+  /* Precio con acento futurista */
+  .product-information--stars-bg .product-details [class*='price'] {
+    font-size: 20px;
+    font-weight: 500;
+    color: #7dd3fc;
+    letter-spacing: 0.03em;
+  }
+
+  /* Descripción */
+  .product-information--stars-bg .product-details .rte,
+  .product-information--stars-bg .product-details [class*='description'] {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
   /* Avisos: garantía / transferencia / envío */
   .product-information__badges {
     position: relative;
