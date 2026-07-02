@@ -42,11 +42,9 @@
 
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 <div
-  class="product-information product-information--stars-bg section section--{{ content_width }} spacing-style color-{{ section.settings.color_scheme }} relative"
+  class="product-information section section--{{ content_width }} spacing-style color-{{ section.settings.color_scheme }} relative"
   style="{% render 'spacing-style', settings: section.settings %} --gap: {{ section.settings.gap }}px;"
 >
-  <canvas class="product-information__stars-canvas" id="Stars-{{ section.id }}" aria-hidden="true"></canvas>
-
   {% if section.settings.desktop_media_position == 'left' and product_has_media %}
     {% assign product_href = '#ProductInformation-' | append: section.id %}
     {% render 'skip-to-content-link', href: product_href, text: 'accessibility.skip_to_product_info' %}
@@ -86,124 +84,12 @@
     {% endfor %}
   </div>
 
-  <div class="product-shipping-notice">
-    <div class="product-shipping-notice__icon">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M3 7h11v9H3V7zm11 3h4l3 3v3h-7v-6zM6.5 20a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm11 0a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    <div class="product-shipping-notice__content">
-      <p class="product-shipping-notice__title">Información de envío</p>
-      <ul>
-        <li>Pago contra entrega disponible en toda Colombia</li>
-        <li>Envíos a todo el territorio nacional: 1 a 2 días hábiles</li>
-        <li>Envíos internacionales: el tiempo de entrega varía según el plan de envío seleccionado</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="product-information__badges">
-    <div class="product-badge product-badge--guarantee">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span>Garantizamos que el producto es idéntico a la imagen mostrada</span>
-    </div>
-    <div class="product-badge product-badge--transfer">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span>Pagando por transferencia bancaria, el valor puede ser menor</span>
-    </div>
-    <div class="product-badge product-badge--shipping">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M3 7h13v9H3V7zm13 3h4l3 3v3h-7v-6zM6.5 20a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm12 0a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span>Envío seguro y verificado en cada pedido</span>
-    </div>
-  </div>
-
   {% content_for 'blocks' %}
 </div>
-
-<script>
-  (() => {
-    const canvas = document.getElementById('Stars-{{ section.id }}');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let stars = [];
-    let width, height;
-    let rafId;
-
-    function resize() {
-      const rect = canvas.parentElement.getBoundingClientRect();
-      width = canvas.width = rect.width;
-      height = canvas.height = rect.height;
-      const count = Math.min(220, Math.floor((width * height) / 6000));
-      stars = Array.from({ length: count }, () => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        r: Math.random() * 1.4 + 0.4,
-        speed: Math.random() * 0.02 + 0.006,
-        phase: Math.random() * Math.PI * 2
-      }));
-    }
-
-    function draw(time) {
-      ctx.clearRect(0, 0, width, height);
-      stars.forEach((s) => {
-        const opacity = (Math.sin(time * s.speed + s.phase) + 1) / 2;
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${(opacity * 0.8 + 0.1).toFixed(2)})`;
-        ctx.fill();
-      });
-      rafId = requestAnimationFrame(draw);
-    }
-
-    resize();
-    window.addEventListener('resize', resize);
-    rafId = requestAnimationFrame(draw);
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        cancelAnimationFrame(rafId);
-      } else {
-        rafId = requestAnimationFrame(draw);
-      }
-    });
-  })();
-</script>
 
 {% stylesheet %}
   .product-information {
     gap: var(--gap) 0;
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* Fondo negro con estrellas/puntos animados */
-  .product-information--stars-bg {
-    background: #000 !important;
-  }
-
-  .product-information--stars-bg .product-details,
-  .product-information--stars-bg .product-information__grid {
-    color: #fff;
-  }
-
-  .product-information__stars-canvas {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .product-information__grid {
-    position: relative;
-    z-index: 1;
   }
 
   /* Base grid layout */
@@ -222,25 +108,6 @@
     order: 0;
     width: 0;
     min-width: 100%;
-  }
-
-  /* La imagen se ve completa (sin recortes) tanto en escritorio como en celular */
-  .product-information__media,
-  .product-information__media [class*='media-gallery'] {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .product-information__media img,
-  .product-information__media video,
-  .product-information__media picture,
-  .product-information__media [class*='media'] img {
-    width: 100% !important;
-    height: auto !important;
-    max-height: none !important;
-    object-fit: contain !important;
-    aspect-ratio: auto !important;
   }
 
   /* Mobile styles */
@@ -273,7 +140,7 @@
     .product-information__grid:not(:has(.product-information__media:empty)) {
       /* Media on the left side */
       &.product-information--media-left {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr min(50vw, var(--sidebar-width));
 
         .product-information__media {
           padding-right: calc(var(--gap, 0) / 2);
@@ -290,7 +157,7 @@
 
       /* Media on the right side */
       &.product-information--media-right {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: min(50vw, var(--sidebar-width)) 1fr;
 
         .product-information__media {
           padding-left: calc(var(--gap, 0) / 2);
@@ -413,246 +280,26 @@
     --sticky-header-offset: var(--header-height);
   }
 
-  /* ---- Encabezado, precio y descripción: tarjetas elegantes/futuristas ---- */
-  .product-information--stars-bg .product-details {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  .product-information--stars-bg .product-details > * {
-    position: relative;
-    padding: 22px 24px;
-    border-radius: 14px;
-    background: linear-gradient(160deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(10px);
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.03) inset,
-      0 8px 30px rgba(0, 0, 0, 0.35);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-    overflow: hidden;
-  }
-
-  /* Línea de luz superior */
-  .product-information--stars-bg .product-details > *::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-    opacity: 0.6;
-  }
-
-  /* Esquina estilo HUD */
-  .product-information--stars-bg .product-details > *::after {
-    content: '';
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    width: 14px;
-    height: 14px;
-    border-right: 1px solid rgba(255, 255, 255, 0.5);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-    opacity: 0.5;
-    pointer-events: none;
-  }
-
-  .product-information--stars-bg .product-details > *:hover {
-    border-color: rgba(255, 255, 255, 0.35);
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.12) inset,
-      0 10px 40px rgba(255, 255, 255, 0.08);
-    transform: translateY(-2px);
-  }
-
-  /* Título del producto con acento degradado plateado */
-  .product-information--stars-bg .product-details h1,
-  .product-information--stars-bg .product-details h2,
-  .product-information--stars-bg .product-details .product-title,
-  .product-information--stars-bg .product-details [class*='title'] {
-    font-size: clamp(24px, 3vw, 34px);
-    letter-spacing: 0.02em;
-    font-weight: 600;
+  /* ---- ĆNICO cambio: paleta de color del tĆ­tulo y precio (negros/grises/blancos) ---- */
+  .product-details h1,
+  .product-details h2,
+  .product-details .product-title,
+  .product-details [class*='title'] {
     background: linear-gradient(120deg, #ffffff 0%, #d4d4d8 50%, #ffffff 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    margin: 0;
-  }
-
-  /* Precio */
-  .product-information--stars-bg .product-details [class*='price'] {
-    font-size: 20px;
-    font-weight: 500;
-    color: #e5e5e5;
-    letter-spacing: 0.03em;
-  }
-
-  /* Descripción */
-  .product-information--stars-bg .product-details .rte,
-  .product-information--stars-bg .product-details [class*='description'] {
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 15px;
-    line-height: 1.7;
-  }
-
-  /* Avisos: garantía / transferencia / envío */
-  .product-information__badges {
-    position: relative;
-    z-index: 1;
-    grid-column: 1 / -1;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 28px;
-    justify-content: center;
-  }
-
-  .product-badge {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 18px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(6px);
-    color: #fff;
-    font-size: 14px;
-    line-height: 1.4;
-    max-width: 320px;
-    transition: transform 0.25s ease, background 0.25s ease;
-  }
-
-  .product-badge:hover {
-    transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  .product-badge svg {
-    flex-shrink: 0;
-    width: 22px;
-    height: 22px;
-  }
-
-  .product-badge--guarantee svg {
-    color: #ffffff;
-  }
-
-  .product-badge--transfer svg {
-    color: #d4d4d8;
-  }
-
-  .product-badge--shipping svg {
-    color: #a3a3a3;
-  }
-
-  /* Recuadro de información de envío */
-  .product-shipping-notice {
-    position: relative;
-    z-index: 1;
-    grid-column: 1 / -1;
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    margin-top: 20px;
-    padding: 22px 24px;
-    border-radius: 14px;
-    background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    backdrop-filter: blur(10px);
-    color: #fff;
-  }
-
-  .product-shipping-notice__icon {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-  }
-
-  .product-shipping-notice__icon svg {
-    width: 20px;
-    height: 20px;
-    color: #fff;
-  }
-
-  .product-shipping-notice__title {
-    margin: 0 0 8px;
-    font-size: 15px;
-    font-weight: 600;
     letter-spacing: 0.02em;
-    color: #fff;
   }
 
-  .product-shipping-notice ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  .product-details [class*='price'] {
+    color: #e5e5e5;
+    letter-spacing: 0.02em;
   }
 
-  .product-shipping-notice li {
-    position: relative;
-    padding-left: 14px;
-    font-size: 14px;
-    line-height: 1.5;
-    color: rgba(255, 255, 255, 0.7);
-  }
-
-  .product-shipping-notice li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 8px;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.6);
-  }
-
-  @media screen and (max-width: 749px) {
-    .product-shipping-notice {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  }
-
-  @media screen and (max-width: 749px) {
-    .product-badge {
-      max-width: 100%;
-      width: 100%;
-    }
-  }
-
-  /* Flechas del carrusel en negro con fondo blanco para contraste */
-  .product-information [class*='slider-button'],
-  .product-information .slideshow__control,
-  .product-information [class*='slideshow-control'] {
-    background: #fff;
-    border-radius: 50%;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-  }
-
-  .product-information [class*='slider-button'] svg,
-  .product-information .slideshow__control svg,
-  .product-information [class*='slideshow-control'] svg,
-  .product-information [class*='slider-button'] path,
-  .product-information .slideshow__control path,
-  .product-information [class*='slideshow-control'] path {
-    fill: #000 !important;
-    stroke: #000 !important;
-    color: #000 !important;
+  .product-details .rte,
+  .product-details [class*='description'] {
+    color: rgba(255, 255, 255, 0.75);
   }
 {% endstylesheet %}
 
