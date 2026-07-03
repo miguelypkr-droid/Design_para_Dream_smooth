@@ -25,10 +25,10 @@
             "slideshow_mobile_controls_style": "hint",
             "thumbnail_position": "right",
             "thumbnail_width": 44,
-            "aspect_ratio": "adapt",
-            "constrain_to_viewport": true,
+            "aspect_ratio": "1",
+            "constrain_to_viewport": false,
             "media_fit": "cover",
-            "media_radius": 18,
+            "media_radius": 11,
             "extend_media": false,
             "zoom": false,
             "video_loop": false,
@@ -289,141 +289,141 @@
         "testimonial_HThbHP": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
-            "recommendation": "Excelente producto, súper recomendado."
+            "customer_name": "Mr Decent Che",
+            "recommendation": "Envio rapido, muchas gracias por el apoyo en el ig."
           }
         },
         "testimonial_BWY4kN": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
-            "recommendation": "Excelente producto, súper recomendado."
+            "customer_name": "junivsita_zzz",
+            "recommendation": "Alta calidad amigo. Siempre los recomendare"
           }
         },
         "testimonial_C8G9g6": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
-            "recommendation": "Excelente producto, súper recomendado."
+            "customer_name": "Juan Lopez",
+            "recommendation": "Tengo una coleccion bastante grandes gracias a ustedes."
           }
         },
         "testimonial_bqKrXR": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
+            "customer_name": "David zapata",
             "recommendation": "Excelente producto, súper recomendado."
           }
         },
         "testimonial_pwdkte": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
-            "recommendation": "Excelente producto, súper recomendado."
+            "customer_name": "migbrb",
+            "recommendation": "Uso sus prendas todos los dias!"
           }
         },
         "testimonial_RFLQV7": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
-            "recommendation": "Excelente producto, súper recomendado."
+            "customer_name": "Emmanuel",
+            "recommendation": "Amo usar mis polos, ngl. los mejores"
           }
         },
         "testimonial_brfXHf": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
-            "recommendation": "Excelente producto, súper recomendado."
+            "customer_name": "Kevin zapata",
+            "recommendation": "Siempre compro cada drop! obvio que recomendados al full!"
           }
         },
         "testimonial_mrp7Rg": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
-            "recommendation": "Excelente producto, súper recomendado."
+            "customer_name": "Jeronimo",
+            "recommendation": "Mano, me encanto, por eso me ven mas mujeres desde que lo use XD"
           }
         },
         "testimonial_jR9c47": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
-            "recommendation": "Excelente producto, súper recomendado."
+            "customer_name": "matiasj__3",
+            "recommendation": "Acomodaron la talla que yo buscaba, sinceramente 100% recomendado."
           }
         },
         "testimonial_t99hBY": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
-            "recommendation": "Excelente producto, súper recomendado."
+            "customer_name": "daniel__ramirez_13",
+            "recommendation": "Desde hace dias las llevo usando, espero cada drop y lo vale."
           }
         },
         "testimonial_EUEqbT": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
-            "recommendation": "Excelente producto, súper recomendado."
+            "customer_name": "neo_jeanzx",
+            "recommendation": "estoy usando esos jeremy scott y me quedaron bofff. recomendado 100%"
           }
         },
         "testimonial_gEnwn4": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
-            "recommendation": "Excelente producto, súper recomendado."
+            "customer_name": "emmanuelx_13",
+            "recommendation": "Total recomendado, full para el estren"
           }
         },
         "testimonial_bHFqrc": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
-            "recommendation": "Excelente producto, súper recomendado."
+            "customer_name": "blomor_sk",
+            "recommendation": "Me encanta su ropa. 100% recomendado"
           }
         },
         "testimonial_HKbHE3": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
-            "recommendation": "Excelente producto, súper recomendado."
+            "customer_name": "marcccc.999",
+            "recommendation": "Me llego en perfecto estado. Muchas gracias!"
           }
         },
         "testimonial_yyaVXD": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
-            "recommendation": "Excelente producto, súper recomendado."
+            "customer_name": "th0.mss",
+            "recommendation": "bastante creativo la polo monster, se los recomiendo para empezar."
           }
         },
         "testimonial_cq6MkJ": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
-            "recommendation": "Excelente producto, súper recomendado."
+            "customer_name": "joaquinsitobasadito",
+            "recommendation": "Me encanto la calidad, la verdad no me voy a perder mas drops."
           }
         },
         "testimonial_TaKTBQ": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
-            "recommendation": "Excelente producto, súper recomendado."
+            "customer_name": "shrektoncoolandswag",
+            "recommendation": "Pense que al ser usada estaria dañada, pero llego 10/10."
           }
         },
         "testimonial_MC46bM": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
-            "recommendation": "Excelente producto, súper recomendado."
+            "customer_name": "Jonathan Novoa",
+            "recommendation": "Increible! llego bastante rapido"
           }
         },
         "testimonial_Lc8jDR": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
-            "recommendation": "Excelente producto, súper recomendado."
+            "customer_name": "Garrix",
+            "recommendation": "Me llego bastante rapido en internacional, ¡seguire comprando!"
           }
         },
         "testimonial_xeLnKJ": {
           "type": "testimonial",
           "settings": {
-            "customer_name": "Nombre de usuario",
-            "recommendation": "Excelente producto, súper recomendado."
+            "customer_name": "JJ_sk",
+            "recommendation": "Excelente, llego bastante rapido a mexico."
           }
         }
       },
