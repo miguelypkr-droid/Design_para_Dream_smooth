@@ -58,6 +58,25 @@
         "padding-block-end": 0
       }
     },
+    "tres_colecciones_inE6Mb": {
+      "type": "tres-colecciones",
+      "name": "Tres colecciones",
+      "settings": {
+        "heading_text": "Nuestros drops",
+        "bar_text": "Colecciones",
+        "collection_5": "",
+        "collection_4": "drop-30-de-junio-2026",
+        "collection_0": "drop-1-de-junio-2026",
+        "collection_1": "drop-19-de-marzo-2026",
+        "collection_2": "drop-29-de-abril-2026",
+        "collection_3": "",
+        "section_width": "page-width",
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "galeria_curva_TQMckn": {
       "type": "galeria-curva",
       "name": "Galería curva",
@@ -176,6 +195,7 @@
   "order": [
     "texto_y_reveal_4pFfJw",
     "colecciones_tabs_4f3nFR",
+    "tres_colecciones_inE6Mb",
     "galeria_curva_TQMckn",
     "criticas_kh7nDi",
     "imagen_texto_dnyNwL",
