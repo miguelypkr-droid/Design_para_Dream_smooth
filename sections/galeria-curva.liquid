@@ -8,6 +8,12 @@
     <div class="curved-gallery__heading">{{ section.settings.heading }}</div>
   {%- endif -%}
 
+  {%- if section.settings.description != blank -%}
+    <div class="curved-gallery__bar">
+      <span class="curved-gallery__bar-text">{{ section.settings.description }}</span>
+    </div>
+  {%- endif -%}
+
   <div class="curved-gallery__stage" tabindex="0" role="region" aria-roledescription="carousel" aria-label="{{ section.settings.heading | default: 'Galería de imágenes' }}">
     <button type="button" class="curved-gallery__arrow curved-gallery__arrow--prev" aria-label="Imagen anterior">&#8592;</button>
 
@@ -95,7 +101,30 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: #ffffff;
-    margin: 0 0 36px;
+    margin: 0 0 28px;
+  }
+
+  .curved-gallery__bar {
+    position: relative;
+    left: 50%;
+    z-index: 1;
+    width: 100vw;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-bottom: 36px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1c1c1e;
+    text-align: center;
+  }
+
+  .curved-gallery__bar-text {
+    color: #ffffff;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    max-width: 720px;
   }
 
   .curved-gallery__stage {
@@ -473,6 +502,12 @@
       "id": "heading",
       "label": "Título",
       "default": "Nuestra colección"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descripción",
+      "default": "Descubre cada detalle de nuestra colección."
     },
     {
       "type": "header",
