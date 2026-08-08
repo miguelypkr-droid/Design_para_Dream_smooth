@@ -80,24 +80,6 @@
         "padding-block-end": 60
       }
     },
-    "tres_colecciones_nmwxR8": {
-      "type": "tres-colecciones",
-      "name": "Tres colecciones",
-      "settings": {
-        "heading_text": "Nuestros drops",
-        "bar_text": "Mira los drops que hemos sacado durante este tiempo",
-        "collection_4": "drop-29-de-abril-2026",
-        "collection_0": "drop-1-de-junio-2026",
-        "collection_1": "drop-29-de-abril-2026",
-        "collection_2": "drop-20-de-abril-2026",
-        "collection_3": "drop-29-de-abril-2026",
-        "section_width": "page-width",
-        "bg_color": "#000000",
-        "text_color": "#ffffff",
-        "padding_top": 72,
-        "padding_bottom": 84
-      }
-    },
     "criticas_kh7nDi": {
       "type": "criticas",
       "name": "Críticas",
@@ -195,7 +177,6 @@
     "texto_y_reveal_4pFfJw",
     "colecciones_tabs_4f3nFR",
     "galeria_curva_TQMckn",
-    "tres_colecciones_nmwxR8",
     "criticas_kh7nDi",
     "imagen_texto_dnyNwL",
     "bento_features_dpPNyD",
