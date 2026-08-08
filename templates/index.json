@@ -42,27 +42,6 @@
         "label_text": ""
       }
     },
-    "galeria_curva_TQMckn": {
-      "type": "galeria-curva",
-      "name": "Galería curva",
-      "settings": {
-        "heading": "¡ENCARGA TU PEDIDO CON NOSOTROS!",
-        "image_1": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.35.jpg",
-        "image_2": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.14.jpg",
-        "image_3": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.13.jpg",
-        "image_4": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.15.jpg",
-        "image_5": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.14_1.jpg",
-        "image_6": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.36.jpg",
-        "image_7": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.12.jpg",
-        "image_8": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.23.25.jpg",
-        "button_text": "Diligencia tu pedido",
-        "button_link": "",
-        "section_width": "full-width",
-        "bg_color": "#000000",
-        "padding-block-start": 60,
-        "padding-block-end": 60
-      }
-    },
     "colecciones_tabs_4f3nFR": {
       "type": "colecciones-tabs",
       "name": "Colecciones con Tabs",
@@ -77,6 +56,28 @@
         "section_width": "page-width",
         "padding-block-start": 0,
         "padding-block-end": 0
+      }
+    },
+    "galeria_curva_TQMckn": {
+      "type": "galeria-curva",
+      "name": "Galería curva",
+      "settings": {
+        "heading": "¡ENCARGA TU PEDIDO!",
+        "description": "En Dream Smooth hacemos realidad lo que buscas. Ahora puedes encargar cualquier prenda que desees, en la talla exacta y hasta donde quieras recibirla. Con nuestro nuevo sistema de encargos, podrás descubrir lo que está disponible, encontrar esa pieza que tanto buscas y dejar que nosotros nos encarguemos del resto. Tú lo sueñas, nosotros lo buscamos; tú lo eliges, nosotros lo llevamos.",
+        "image_1": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.35.jpg",
+        "image_2": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.14.jpg",
+        "image_3": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.13.jpg",
+        "image_4": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.15.jpg",
+        "image_5": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.14_1.jpg",
+        "image_6": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.36.jpg",
+        "image_7": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.12.jpg",
+        "image_8": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.23.25.jpg",
+        "button_text": "Diligencia tu pedido",
+        "button_link": "",
+        "section_width": "full-width",
+        "bg_color": "#000000",
+        "padding-block-start": 60,
+        "padding-block-end": 60
       }
     },
     "tres_colecciones_nmwxR8": {
@@ -192,8 +193,8 @@
   },
   "order": [
     "texto_y_reveal_4pFfJw",
-    "galeria_curva_TQMckn",
     "colecciones_tabs_4f3nFR",
+    "galeria_curva_TQMckn",
     "tres_colecciones_nmwxR8",
     "criticas_kh7nDi",
     "imagen_texto_dnyNwL",
