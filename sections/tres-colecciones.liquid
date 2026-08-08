@@ -51,7 +51,7 @@
           <div class="tres-colecciones__image-wrap{% if product_count > 1 %} tres-colecciones__image-wrap--slideshow tres-colecciones__image-wrap--slideshow-{{ product_count }}{% endif %}">
             {%- if product_count > 1 -%}
               {%- for product in col.products limit: 3 -%}
-                {%- capture slide_class -%}tres-colecciones__slide tres-colecciones__slide--{{ forloop.index }}{%- endcapture -%}
+                {%- capture slide_class -%}tres-colecciones__slide{% if forloop.first %} tres-colecciones__slide--active{% endif %}{%- endcapture -%}
                 {%- if product.featured_image != blank -%}
                   {{
                     product.featured_image
@@ -307,6 +307,8 @@
     position: relative;
   }
 
+  /* El desvanecimiento se controla por JS alternando la clase --active,
+     no por keyframes con delays (evita que se quede una imagen fija encima de otra). */
   .tres-colecciones__slide {
     position: absolute;
     inset: 0;
@@ -314,36 +316,12 @@
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    animation: tcFade3 9s infinite;
+    transition: opacity 0.7s ease;
+    pointer-events: none;
   }
 
-  .tres-colecciones__slide--1 { animation-delay: 0s; }
-  .tres-colecciones__slide--2 { animation-delay: 3s; }
-  .tres-colecciones__slide--3 { animation-delay: 6s; }
-
-  /* 2 productos: ciclo de 6s */
-  .tres-colecciones__image-wrap--slideshow-2 .tres-colecciones__slide {
-    animation-name: tcFade2;
-    animation-duration: 6s;
-  }
-  .tres-colecciones__image-wrap--slideshow-2 .tres-colecciones__slide--1 { animation-delay: 0s; }
-  .tres-colecciones__image-wrap--slideshow-2 .tres-colecciones__slide--2 { animation-delay: 3s; }
-
-  /* Cada imagen se desvanece por completo antes de que aparezca la siguiente (sin cruce/mezcla) */
-  @keyframes tcFade2 {
-    0%   { opacity: 0; }
-    6%   { opacity: 1; }
-    44%  { opacity: 1; }
-    50%  { opacity: 0; }
-    100% { opacity: 0; }
-  }
-
-  @keyframes tcFade3 {
-    0%   { opacity: 0; }
-    4%   { opacity: 1; }
-    27%  { opacity: 1; }
-    31%  { opacity: 0; }
-    100% { opacity: 0; }
+  .tres-colecciones__slide--active {
+    opacity: 1;
   }
 
   .tres-colecciones__info {
@@ -483,6 +461,32 @@
 
   var sections = document.querySelectorAll('.tres-colecciones__starfield');
   sections.forEach(function (canvas) { initStarfield(canvas.closest('.section')); });
+
+  // Slideshow de imágenes de producto: apaga la imagen actual y, cuando termina
+  // de desvanecerse, enciende la siguiente (sin cruce/mezcla entre ambas).
+  function initImageSlideshow(wrap) {
+    var slides = Array.prototype.slice.call(wrap.querySelectorAll('.tres-colecciones__slide'));
+    if (slides.length < 2) return;
+
+    var current = slides.findIndex(function (s) {
+      return s.classList.contains('tres-colecciones__slide--active');
+    });
+    if (current < 0) {
+      current = 0;
+      slides[0].classList.add('tres-colecciones__slide--active');
+    }
+
+    setInterval(function () {
+      var next = (current + 1) % slides.length;
+      slides[current].classList.remove('tres-colecciones__slide--active');
+      setTimeout(function () {
+        slides[next].classList.add('tres-colecciones__slide--active');
+      }, 700);
+      current = next;
+    }, 3200);
+  }
+
+  document.querySelectorAll('.tres-colecciones__image-wrap--slideshow').forEach(initImageSlideshow);
 
   // Arrow navigation
   document.querySelectorAll('.tres-colecciones__carousel-wrapper').forEach(function (wrapper) {
