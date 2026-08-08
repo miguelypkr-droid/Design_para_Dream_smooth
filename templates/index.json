@@ -42,6 +42,22 @@
         "label_text": ""
       }
     },
+    "colecciones_tabs_4f3nFR": {
+      "type": "colecciones-tabs",
+      "name": "Colecciones con Tabs",
+      "settings": {
+        "tabbar_text": "Colecciones",
+        "title": "Nuestros Productos",
+        "bg_color": "#000000",
+        "collection_1": "disponibles",
+        "collection_2": "polo-ralph-lauren-2",
+        "collection_3": "otros",
+        "products_per_collection": 8,
+        "section_width": "page-width",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "galeria_curva_TQMckn": {
       "type": "galeria-curva",
       "name": "Galería curva",
@@ -62,22 +78,6 @@
         "bg_color": "#000000",
         "padding-block-start": 60,
         "padding-block-end": 60
-      }
-    },
-    "colecciones_tabs_4f3nFR": {
-      "type": "colecciones-tabs",
-      "name": "Colecciones con Tabs",
-      "settings": {
-        "tabbar_text": "Colecciones",
-        "title": "Nuestros Productos",
-        "bg_color": "#000000",
-        "collection_1": "disponibles",
-        "collection_2": "polo-ralph-lauren-2",
-        "collection_3": "otros",
-        "products_per_collection": 8,
-        "section_width": "page-width",
-        "padding-block-start": 0,
-        "padding-block-end": 0
       }
     },
     "tres_colecciones_nmwxR8": {
@@ -193,8 +193,8 @@
   },
   "order": [
     "texto_y_reveal_4pFfJw",
-    "galeria_curva_TQMckn",
     "colecciones_tabs_4f3nFR",
+    "galeria_curva_TQMckn",
     "tres_colecciones_nmwxR8",
     "criticas_kh7nDi",
     "imagen_texto_dnyNwL",
