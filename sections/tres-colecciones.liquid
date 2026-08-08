@@ -36,6 +36,11 @@
           when 6
             assign col = section.settings.collection_3
         endcase
+
+        assign product_count = 0
+        if col != blank
+          assign product_count = col.products.size | at_most: 3
+        endif
       -%}
 
       <div class="tres-colecciones__item">
@@ -43,8 +48,35 @@
           class="tres-colecciones__link"
           {% unless col == blank %}href="{{ col.url }}"{% endunless %}
         >
-          <div class="tres-colecciones__image-wrap">
-            {%- if col != blank and col.image != blank -%}
+          <div class="tres-colecciones__image-wrap{% if product_count > 1 %} tres-colecciones__image-wrap--slideshow tres-colecciones__image-wrap--slideshow-{{ product_count }}{% endif %}">
+            {%- if product_count > 1 -%}
+              {%- for product in col.products limit: 3 -%}
+                {%- capture slide_class -%}tres-colecciones__slide tres-colecciones__slide--{{ forloop.index }}{%- endcapture -%}
+                {%- if product.featured_image != blank -%}
+                  {{
+                    product.featured_image
+                    | image_url: width: 800
+                    | image_tag:
+                      alt: product.featured_image.alt | default: product.title,
+                      class: slide_class,
+                      loading: 'lazy',
+                      widths: '400, 600, 800',
+                      sizes: '(min-width: 750px) 33vw, 100vw'
+                  }}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- elsif product_count == 1 and col.products.first.featured_image != blank -%}
+              {{
+                col.products.first.featured_image
+                | image_url: width: 800
+                | image_tag:
+                  alt: col.products.first.featured_image.alt | default: col.products.first.title,
+                  class: 'tres-colecciones__img',
+                  loading: 'lazy',
+                  widths: '400, 600, 800',
+                  sizes: '(min-width: 750px) 33vw, 100vw'
+              }}
+            {%- elsif col != blank and col.image != blank -%}
               {{
                 col.image
                 | image_url: width: 800
@@ -269,6 +301,48 @@
   .tres-colecciones__link:hover .tres-colecciones__img,
   .tres-colecciones__link:hover .tres-colecciones__placeholder {
     transform: scale(1.04);
+  }
+
+  .tres-colecciones__image-wrap--slideshow {
+    position: relative;
+  }
+
+  .tres-colecciones__slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: tcSlide 9s infinite;
+  }
+
+  .tres-colecciones__slide--1 { animation-delay: 0s; }
+  .tres-colecciones__slide--2 { animation-delay: 3s; }
+  .tres-colecciones__slide--3 { animation-delay: 6s; }
+
+  /* 2 productos: ciclo de 6s para que no quede espacio en blanco */
+  .tres-colecciones__image-wrap--slideshow-2 .tres-colecciones__slide {
+    animation-name: tcSlide2;
+    animation-duration: 6s;
+  }
+  .tres-colecciones__image-wrap--slideshow-2 .tres-colecciones__slide--1 { animation-delay: 0s; }
+  .tres-colecciones__image-wrap--slideshow-2 .tres-colecciones__slide--2 { animation-delay: 3s; }
+
+  @keyframes tcSlide2 {
+    0%        { opacity: 0; }
+    5%        { opacity: 1; }
+    45%       { opacity: 1; }
+    50%       { opacity: 0; }
+    100%      { opacity: 0; }
+  }
+
+  @keyframes tcSlide {
+    0%        { opacity: 0; }
+    5%        { opacity: 1; }
+    30%       { opacity: 1; }
+    35%       { opacity: 0; }
+    100%      { opacity: 0; }
   }
 
   .tres-colecciones__info {
