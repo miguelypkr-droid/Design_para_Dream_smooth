@@ -60,13 +60,17 @@
         justify-content: flex-start;
       }
       .curtain-logo {
-        width: 160px;
-        height: auto;
         display: block;
         opacity: 1;
         transition: opacity 0.3s ease;
         user-select: none;
         pointer-events: none;
+        color: #ffffff;
+        font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        white-space: nowrap;
       }
       .curtain-panel--right .curtain-logo {
         opacity: 0;
@@ -120,10 +124,10 @@
 
     <div class="page-curtains" id="pageCurtains" aria-hidden="true">
       <div class="curtain-panel curtain-panel--left">
-        <img class="curtain-logo" src="https://dreamsmoothh.com/cdn/shop/files/LOGO_DREAM_SMOOTH.png?v=1780287234&width=320" alt="Dream Smooth" width="160" height="auto" fetchpriority="high">
+        <span class="curtain-logo">DREAM SMOOTH</span>
       </div>
       <div class="curtain-panel curtain-panel--right">
-        <img class="curtain-logo" src="https://dreamsmoothh.com/cdn/shop/files/LOGO_DREAM_SMOOTH.png?v=1780287234&width=320" alt="Dream Smooth" width="160" height="auto">
+        <span class="curtain-logo">DREAM SMOOTH</span>
       </div>
     </div>
 
