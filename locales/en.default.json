@@ -449,7 +449,9 @@
         },
         "unbranded_description_with_fulfillment_weeks": {
           "many": "It ships in %{count} weeks"
-        }
+        },
+        "split_shipping_merchandise_quantity_label_inline_primary": "Amount: %{quantity}",
+        "split_shipping_merchandise_quantity_label_inline": "%{merchandise_title} x %{quantity}"
       },
       "payment": {
         "order_covered_by_gift_cards_notice": {
@@ -900,6 +902,11 @@
         "contracts_updated": {
           "many": "{{count}} subscription contracts have been successfully updated"
         }
+      }
+    },
+    "navigation_and_structure": {
+      "store_credit_multi_currency_accessibility_label": {
+        "many": "{{formattedBalance}} in store credit and in {{count}} more currencies"
       }
     }
   }
