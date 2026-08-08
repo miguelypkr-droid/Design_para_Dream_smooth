@@ -48,12 +48,12 @@
           {%- if img != blank -%}
             {{
               img
-              | image_url: width: 800
+              | image_url: width: 1100
               | image_tag:
                 class: 'curved-gallery__img',
                 loading: 'lazy',
-                widths: '300, 450, 600, 800',
-                sizes: '260px'
+                widths: '400, 600, 800, 1100',
+                sizes: '360px'
             }}
           {%- else -%}
             <div class="curved-gallery__placeholder"></div>
@@ -130,8 +130,8 @@
   .curved-gallery__stage {
     position: relative;
     z-index: 1;
-    height: 380px;
-    perspective: 1400px;
+    height: 500px;
+    perspective: 1600px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -156,8 +156,8 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 260px;
-    height: 340px;
+    width: 360px;
+    height: 460px;
     margin: 0;
     border: none;
     padding: 0;
@@ -273,12 +273,12 @@
 
   @media screen and (max-width: 749px) {
     .curved-gallery__stage {
-      height: 260px;
+      height: 340px;
     }
 
     .curved-gallery__slide {
-      width: 170px;
-      height: 230px;
+      width: 230px;
+      height: 300px;
       border-radius: 14px;
     }
 
@@ -357,8 +357,8 @@
 
     function cfg() {
       return window.innerWidth < 750
-        ? { x: 120, rot: 30, z: 90 }
-        : { x: 220, rot: 34, z: 160 };
+        ? { x: 160, rot: 30, z: 120 }
+        : { x: 300, rot: 34, z: 220 };
     }
 
     function render() {
