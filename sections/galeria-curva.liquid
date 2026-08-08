@@ -118,6 +118,15 @@
     justify-content: center;
     background-color: #1c1c1e;
     text-align: center;
+    opacity: 0;
+    transform: translateY(-18px);
+    transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .curved-gallery__bar.tc-anim--visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .curved-gallery__bar-text {
@@ -476,9 +485,28 @@
     startAuto();
   }
 
+  function initBarReveal(section) {
+    var bar = section.querySelector('.curved-gallery__bar');
+    if (!bar) return;
+    if (!('IntersectionObserver' in window)) {
+      bar.classList.add('tc-anim--visible');
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('tc-anim--visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    observer.observe(bar);
+  }
+
   document.querySelectorAll('.curved-gallery').forEach(function (section) {
     initStarfield(section);
     initCurvedGallery(section);
+    initBarReveal(section);
   });
 
   document.addEventListener('shopify:section:load', function (e) {
@@ -486,6 +514,7 @@
     if (section) {
       initStarfield(section);
       initCurvedGallery(section);
+      initBarReveal(section);
     }
   });
 })();
