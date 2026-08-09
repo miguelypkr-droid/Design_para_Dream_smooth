@@ -60,6 +60,7 @@
     },
     "galeria_curva_TQMckn": {
       "type": "galeria-curva",
+      "disabled": true,
       "name": "Galería curva",
       "settings": {
         "heading": "¡ENCARGA TU PEDIDO!",
