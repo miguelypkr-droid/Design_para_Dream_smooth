@@ -58,47 +58,6 @@
         "padding-block-end": 0
       }
     },
-    "galeria_curva_TQMckn": {
-      "type": "galeria-curva",
-      "name": "Galería curva",
-      "settings": {
-        "heading": "¡ENCARGA TU PEDIDO!",
-        "description": "AHORA PUEDES ENCARGAR CUALQUIER PRENDA QUE DESEES, EN LA TALLA EXACTA Y HASTA DONDE QUIERAS RECIBIRLA. CON NUESTRO NUEVO SISTEMA DE ENCARGOS, PODRÁS DESCUBRIR LO QUE ESTÁ DISPONIBLE, ENCONTRAR ESA PIEZA QUE TANTO BUSCAS Y DEJAR QUE NOSOTROS NOS ENCARGUEMOS DEL RESTO. TÚ LO SUEÑAS, NOSOTROS LO BUSCAMOS; TÚ LO ELIGES, NOSOTROS LO LLEVAMOS.",
-        "image_1": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.35.jpg",
-        "image_2": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.14.jpg",
-        "image_3": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.13.jpg",
-        "image_4": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.15.jpg",
-        "image_5": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.14_1.jpg",
-        "image_6": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.36.jpg",
-        "image_7": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_16.21.12.jpg",
-        "image_8": "shopify://shop_images/WhatsApp_Image_2026-08-08_at_17.20.26.jpg",
-        "button_text": "Diligencia tu pedido",
-        "button_link": "https://wa.me/573053356460?text=Quiero%20encargar%20un%20pedido%20con%20Dream%20Smooth",
-        "section_width": "full-width",
-        "bg_color": "#000000",
-        "padding-block-start": 60,
-        "padding-block-end": 60
-      }
-    },
-    "tres_colecciones_inE6Mb": {
-      "type": "tres-colecciones",
-      "name": "Tres colecciones",
-      "settings": {
-        "heading_text": "Nuestros drops",
-        "bar_text": "Estas son las colecciones que hemos creado a lo largo del tiempo en Dream Smooth. Explora cada una, descubre nuestros diseños y revisa la disponibilidad de las prendas que aún tenemos disponibles. ¡Quizás encuentres esa pieza que estabas buscando!",
-        "collection_5": "julio-31-2026-drop",
-        "collection_4": "drop-30-de-junio-2026",
-        "collection_0": "drop-1-de-junio-2026",
-        "collection_1": "drop-19-de-marzo-2026",
-        "collection_2": "drop-29-de-abril-2026",
-        "collection_3": "usado-y2",
-        "section_width": "page-width",
-        "bg_color": "#000000",
-        "text_color": "#ffffff",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "criticas_kh7nDi": {
       "type": "criticas",
       "name": "Críticas",
@@ -187,18 +146,16 @@
         "corner_radius": "square",
         "width_percent": 100,
         "alignment_horizontal": "center",
-        "padding-block-start": 36,
-        "padding-block-end": 47
+        "padding-block-start": 16,
+        "padding-block-end": 23
       }
     }
   },
   "order": [
     "texto_y_reveal_4pFfJw",
     "colecciones_tabs_4f3nFR",
-    "galeria_curva_TQMckn",
-    "tres_colecciones_inE6Mb",
-    "criticas_kh7nDi",
     "imagen_texto_dnyNwL",
+    "criticas_kh7nDi",
     "bento_features_dpPNyD",
     "divider_cw6Pr6"
   ]
