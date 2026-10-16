@@ -449,6 +449,7 @@
         "testimonial_Lc8jDR",
         "testimonial_xeLnKJ"
       ],
+      "disabled": true,
       "name": "Recomendaciones marquee",
       "settings": {
         "heading": "Lo que dicen nuestros clientes",
