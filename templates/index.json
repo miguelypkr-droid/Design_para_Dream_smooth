@@ -90,7 +90,7 @@
         "section_width": "page-width",
         "bg_color": "#000000",
         "text_color": "#ffffff",
-        "padding-block-start": 20,
+        "padding-block-start": 0,
         "padding-block-end": 56
       }
     },
